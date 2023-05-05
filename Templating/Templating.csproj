@@ -8,8 +8,34 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <None Remove="data\RequestHandler.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Include="data\RequestHandler.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="templates\RequestHandlerTemplate.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>RequestHandlerTemplate.tpl</DependentUpon>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="Scriban" Version="5.7.0" />
-	  <PackageReference Include="Scriban.Signed" Version="5.7.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="templates\RequestHandlerTemplate.tpl">
+	    <Generator></Generator>
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
 	</ItemGroup>
 
 </Project>
