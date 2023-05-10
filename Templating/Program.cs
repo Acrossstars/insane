@@ -11,23 +11,44 @@ var fileName = "D:\\templates\\Templating\\Templating\\templates\\RequestHandler
 var data = File.ReadAllText(fileName);
 
 var tpl = Template.Parse(data);
-var res = tpl.Render(new
+try
 {
-    model = new
-    {
-        Usings = new[] { "LiveDataService.BuildingBlocks.Application.Commands" },
-        Namespace = "Behavior.API.UseCases.SessionActions.AddActionToSession",
-        ClassName = "BobSmith",
-        RequestClassName = "BobSmithRequest",
-        BaseConstructor = new[]
+    //var model = new
+    //{
+    //    Usings = new string[] { "LiveDataService.BuildingBlocks.Application.Commands" },
+    //    Namespace = "Behavior.API.UseCases.SessionActions.AddActionToSession",
+    //    ClassName = "BobSmith",
+    //    RequestClassName = "BobSmithRequest",
+    //    BaseConstructor = new string[]
+    //    {
+    //        "inMemoryBus",
+    //        "messageBus",
+    //    }
+    //};
+
+    var model = new Dictionary<string, object>();
+    model.Add("Usings", new string[] { "LiveDataService.BuildingBlocks.Application.Commands" });
+    model.Add("Namespace", "Behavior.API.UseCases.SessionActions.AddActionToSession");
+    model.Add("ClassName", "BobSmith");
+    model.Add("RequestClassName", "BobSmithRequest");
+    model.Add("BaseConstructor", new string[]
         {
             "inMemoryBus",
             "messageBus",
-        },
-    }
-});
+        });
 
-Console.WriteLine(res);
+    //only with new { model }
+    var res = tpl.Render(new { model });
+
+    var file = "GeneratedClass.cs";
+
+    File.WriteAllText(file, res);               
+
+    Console.WriteLine(res);
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex);
+}
 
 record User(string Name, string Occupation);
-
