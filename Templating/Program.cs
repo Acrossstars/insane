@@ -4,6 +4,15 @@ using Newtonsoft.Json;
 using Scriban;
 using System.Reflection;
 
+
+
+var configurationBuilder = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", false, true);
+
+var configuration = configurationBuilder.Build();
+
+
+
 var configFilePath = "D:\\templates\\Templating\\Models\\\\RequestHandler\\RequestHandlerConfig.json";
 
 var fileName = "D:\\templates\\Templating\\Templating\\templates\\RequestHandlerTemplate.tpl";
@@ -49,6 +58,9 @@ try
     File.WriteAllText(file, res);
 
     Console.WriteLine(res);
+
+    var fileLoader = new FileLoader();
+    fileLoader.AddFileToProject($"{configuration["SolutionRootPath"]}\\src\\ConsoleApp\\SomeFolder", "SampleFile.cs", res);
 }
 catch (Exception ex)
 {
