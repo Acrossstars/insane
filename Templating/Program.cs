@@ -1,10 +1,10 @@
-﻿using Models;
+﻿using Microsoft.Extensions.Configuration;
+using Models;
 using Models.RequestHandler;
 using Newtonsoft.Json;
 using Scriban;
 using System.Reflection;
-
-
+using Templating;
 
 var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false, true);
@@ -14,8 +14,6 @@ var configuration = configurationBuilder.Build();
 
 
 var configFilePath = "D:\\templates\\Templating\\Models\\\\RequestHandler\\RequestHandlerConfig.json";
-
-var fileName = "D:\\templates\\Templating\\Templating\\templates\\RequestHandlerTemplate.tpl";
 
 var textTemplatePath = "D:\\templates\\Templating\\Models\\\\RequestHandler\\RequestHandlerTextTemplate.txt";
 
@@ -41,7 +39,7 @@ try
 {
     var model = new Dictionary<string, object>();
 
-    foreach (PropertyInfo prop in requestHandlerMetadata.GetType().GetProperties())
+    foreach (PropertyInfo prop in requestHandlerMetadata!.GetType().GetProperties())
     {
         Console.WriteLine($"{prop.Name}: {prop.GetValue(requestHandlerMetadata, null)}");
 
