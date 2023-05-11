@@ -1,4 +1,5 @@
 ﻿using Scriban;
+using Templating;
 
 var users = new List<User>
 {
@@ -7,7 +8,8 @@ var users = new List<User>
     new ( "Lucy Smith", "teacher")
 };
 
-var fileName = "D:\\templates\\Templating\\Templating\\templates\\RequestHandlerTemplate.tpl";
+//var fileName = "D:\\templates\\Templating\\Templating\\templates\\RequestHandlerTemplate.tpl";
+var fileName = $"{Directory.GetCurrentDirectory()}\\templates\\RequestHandlerTemplate.tpl";
 var data = File.ReadAllText(fileName);
 
 var tpl = Template.Parse(data);
@@ -42,9 +44,12 @@ try
 
     var file = "GeneratedClass.cs";
 
-    File.WriteAllText(file, res);               
+    //File.WriteAllText(file, res);               
 
     Console.WriteLine(res);
+
+    var fileLoader = new FileLoader();
+    fileLoader.AddFileToProject(@"D:\Projects\CS\ConsoleAppForSomeTesting\src\ConsoleApp\SomeFolder", "SampleFile.cs", res);
 }
 catch (Exception ex)
 {
