@@ -12,10 +12,10 @@ var configurationBuilder = new ConfigurationBuilder()
 var configuration = configurationBuilder.Build();
 
 
+var requestHandlerDir = $"{Directory.GetCurrentDirectory()}\\RequestHandler";
 
-var configFilePath = "D:\\templates\\Templating\\Models\\\\RequestHandler\\RequestHandlerConfig.json";
-
-var textTemplatePath = "D:\\templates\\Templating\\Models\\\\RequestHandler\\RequestHandlerTextTemplate.txt";
+var configFilePath = $"{requestHandlerDir}\\RequestHandlerConfig.json";
+var textTemplatePath = $"{requestHandlerDir}\\RequestHandlerTextTemplate.txt";
 
 
 var outputFilePath = "";

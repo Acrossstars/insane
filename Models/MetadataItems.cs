@@ -5,14 +5,14 @@
 
 public class TypeName
 {
-    string Type { get; set; } = default!;
-    string Name { get; set; } = default!;
+    public string Type { get; set; } = default!;
+    public string Name { get; set; } = default!;
 }
 
 public class Property
 {
-    string Modificator { get; set; } = default!;
-    string Type { get; set; } = default!;
-    string Name { get; set; } = default!;
-    string[] Accessors { get; set; } = default!;
+    public string Modificator { get; set; } = default!;
+    public string Type { get; set; } = default!;
+    public string Name { get; set; } = default!;
+    public string[] Accessors { get; set; } = default!;
 }
