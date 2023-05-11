@@ -1,48 +1,52 @@
-﻿using Scriban;
+﻿using Models;
+using Models.RequestHandler;
+using Newtonsoft.Json;
+using Scriban;
+using System.Reflection;
 
-var users = new List<User>
-{
-    new ( "John Doe", "gardener"),
-    new ( "Roger Roe", "driver"),
-    new ( "Lucy Smith", "teacher")
-};
+var configFilePath = "D:\\templates\\Templating\\Models\\\\RequestHandler\\RequestHandlerConfig.json";
 
 var fileName = "D:\\templates\\Templating\\Templating\\templates\\RequestHandlerTemplate.tpl";
-var data = File.ReadAllText(fileName);
 
-var tpl = Template.Parse(data);
+var textTemplatePath = "D:\\templates\\Templating\\Models\\\\RequestHandler\\RequestHandlerTextTemplate.txt";
+
+
+var outputFilePath = "";
+
+var builder = new ObjectBuilderMetadata()
+{
+    ObjectDataFilePath = configFilePath,
+    TextTemplateFilePath = textTemplatePath,
+    OutputFilePath = outputFilePath
+};
+
+var textTemplate = File.ReadAllText(builder.TextTemplateFilePath);
+
+var tpl = Template.Parse(textTemplate);
+
+var stringMetadata = File.ReadAllText(builder.ObjectDataFilePath);
+
+var requestHandlerMetadata = JsonConvert.DeserializeObject<RequestHandlerMetadata>(stringMetadata);
+
 try
 {
-    //var model = new
-    //{
-    //    Usings = new string[] { "LiveDataService.BuildingBlocks.Application.Commands" },
-    //    Namespace = "Behavior.API.UseCases.SessionActions.AddActionToSession",
-    //    ClassName = "BobSmith",
-    //    RequestClassName = "BobSmithRequest",
-    //    BaseConstructor = new string[]
-    //    {
-    //        "inMemoryBus",
-    //        "messageBus",
-    //    }
-    //};
-
     var model = new Dictionary<string, object>();
-    model.Add("Usings", new string[] { "LiveDataService.BuildingBlocks.Application.Commands" });
-    model.Add("Namespace", "Behavior.API.UseCases.SessionActions.AddActionToSession");
-    model.Add("ClassName", "BobSmith");
-    model.Add("RequestClassName", "BobSmithRequest");
-    model.Add("BaseConstructor", new string[]
-        {
-            "inMemoryBus",
-            "messageBus",
-        });
+
+    foreach (PropertyInfo prop in requestHandlerMetadata.GetType().GetProperties())
+    {
+        Console.WriteLine($"{prop.Name}: {prop.GetValue(requestHandlerMetadata, null)}");
+
+        model.Add(prop.Name, prop.GetValue(requestHandlerMetadata, null));
+    }
 
     //only with new { model }
     var res = tpl.Render(new { model });
 
-    var file = "GeneratedClass.cs";
+    model.TryGetValue("ClassName", out var name);
 
-    File.WriteAllText(file, res);               
+    var file = /*builder.OutputFilePath + */$"{name}.cs";
+
+    File.WriteAllText(file, res);
 
     Console.WriteLine(res);
 }
@@ -51,4 +55,4 @@ catch (Exception ex)
     Console.WriteLine(ex);
 }
 
-record User(string Name, string Occupation);
+record User(string Namespace, string ClassName);
