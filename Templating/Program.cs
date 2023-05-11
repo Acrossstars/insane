@@ -1,5 +1,15 @@
-﻿using Scriban;
+﻿using Microsoft.Extensions.Configuration;
+using Scriban;
 using Templating;
+
+
+
+var configurationBuilder = new ConfigurationBuilder()
+    .AddJsonFile("appsettings.json", false, true);
+
+var configuration = configurationBuilder.Build();
+
+
 
 var users = new List<User>
 {
@@ -49,7 +59,7 @@ try
     Console.WriteLine(res);
 
     var fileLoader = new FileLoader();
-    fileLoader.AddFileToProject(@"D:\Projects\CS\ConsoleAppForSomeTesting\src\ConsoleApp\SomeFolder", "SampleFile.cs", res);
+    fileLoader.AddFileToProject($"{configuration["SolutionRootPath"]}\\src\\ConsoleApp\\SomeFolder", "SampleFile.cs", res);
 }
 catch (Exception ex)
 {
