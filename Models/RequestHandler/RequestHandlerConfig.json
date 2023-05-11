@@ -1,0 +1,73 @@
+{
+  "Usings": [
+    "LiveDataService.BuildingBlocks.Application.Commands"
+  ],
+  "Namespace": "Behavior.API.UseCases.SessionActions.AddActionToSession;",
+  "ClassName": "BobSmith",
+  "BaseConstructor": [
+    "inMemoryBus",
+    "messageBus"
+  ],
+  "Constructor": [
+    {
+      "Type": "string",
+      "Name": "actionId"
+    },
+    {
+      "Type": "string",
+      "Name": "sessionId"
+    },
+    {
+      "Type": "string",
+      "Name": "decisionId"
+    }
+  ],
+  "InjectedRequestClass": [
+    {
+      "Type": "BobSmithRequest",
+      "Name": "bobSmithRequest"
+    }
+  ],
+  "InjectedInfrastructure": [
+    {
+      "Type": "IInMemoryBus",
+      "Name": "inMemoryBus"
+    },
+    {
+      "Type": "IMessageBus",
+      "Name": "messageBus"
+    }
+  ],
+  "InjectedProperties": [
+
+  ],
+  "Properties": [
+    {
+      "Modificator": "public",
+      "Type": "string",
+      "Name": "ActionId",
+      "Accessors": [
+        "get",
+        "set"
+      ]
+    },
+    {
+      "Modificator": "public",
+      "Type": "string",
+      "Name": "SessionId",
+      "Accessors": [
+        "get",
+        "set"
+      ]
+    },
+    {
+      "Modificator": "public",
+      "Type": "string",
+      "Name": "DecisionId",
+      "Accessors": [
+        "get",
+        "set"
+      ]
+    }
+  ]
+}

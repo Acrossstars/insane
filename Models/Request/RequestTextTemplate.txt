@@ -1,0 +1,23 @@
+﻿{{- for item in model.Usings }}
+using {{ item }};
+{{- end }}
+
+namespace {{ model.Namespace }};
+
+public class {{ model.ClassName}}Request : BaseCommand
+{
+    public {{model.ClassName}}Request({{ for par in model.Constructor }}
+        {{par.Type}} {{par.Name}}{{ if !for.last}},{{ end -}}{{- end }}{{ for par in model.InjectedInfrastructure }}
+        {{par.Type}} {{par.Name}}{{ if !for.last}},{{ end -}}{{- end }}
+        )
+     :base({{ for par in model.BaseConstructor }}{{par}}{{ if !for.last}},{{ end -}}{{- end }})
+    {
+        {{ for prop in model.InjectedProperties ~}}
+        {{ prop.Destination }} = {{ prop.Source }};
+    {{ end ~}}
+    }
+
+    {{ for prop in model.Properties }} 
+    {{prop.Modificator}} {{prop.Type}} {{prop.Name}} { {{ for state in prop.Accessors }} {{ state }}; {{- end }} }
+    {{- end }}
+}
