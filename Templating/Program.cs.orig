@@ -3,6 +3,7 @@ using Models;
 using Models.RequestHandler;
 using Newtonsoft.Json;
 using Scriban;
+using System.Reflection;
 using Templating;
 
 var configurationBuilder = new ConfigurationBuilder()
@@ -14,7 +15,7 @@ var configuration = configurationBuilder.Build();
 var requestHandlerDir = $"{Directory.GetCurrentDirectory()}\\CommandRequestHandler";
 
 var configFilePath = $"{requestHandlerDir}\\CommandRequestHandlerConfig.json";
-var textTemplatePath = $"{requestHandlerDir}\\CommandRequestHandlerTextTemplate.txt";
+var textTemplatePath = $"{requestHandlerDir}\\CommandRequestHandlerTextTemplate1.txt";
 
 
 var outputFilePath = "";

@@ -1,6 +1,6 @@
-﻿namespace Models.RequestHandler;
+﻿namespace Models.CommandRequest;
 
-public class RequestHandlerMetadata
+public class CommandRequestMetadata : BaseMetadata
 {
     public string[]? Usings { get; set; }
     public string? Namespace { get; set; }

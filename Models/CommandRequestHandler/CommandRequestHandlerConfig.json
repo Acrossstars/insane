@@ -2,7 +2,7 @@
   "Usings": [
     "LiveDataService.BuildingBlocks.Application.Commands"
   ],
-  "Namespace": "Behavior.API.UseCases.SessionActions.AddActionToSession;",
+  "Namespace": "Behavior.API.UseCases.SessionActions.AddActionToSession",
   "ClassName": "BobSmith",
   "BaseConstructor": [
     "inMemoryBus",

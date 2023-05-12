@@ -7,10 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Update="RequestHandler\RequestHandlerConfig.json">
+    <None Update="CommandRequestHandler\CommandRequestHandlerConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="RequestHandler\RequestHandlerTextTemplate.txt">
+    <None Update="CommandRequestHandler\CommandRequestHandlerTextTemplate.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
