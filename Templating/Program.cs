@@ -15,7 +15,7 @@ var configuration = configurationBuilder.Build();
 var requestHandlerDir = $"{Directory.GetCurrentDirectory()}\\RequestHandler";
 
 var configFilePath = $"{requestHandlerDir}\\RequestHandlerConfig.json";
-var textTemplatePath = $"{requestHandlerDir}\\RequestHandlerTextTemplate.txt";
+var textTemplatePath = $"{requestHandlerDir}\\RequestHandlerTextTemplate1.txt";
 
 
 var outputFilePath = "";
@@ -33,23 +33,24 @@ var tpl = Template.Parse(textTemplate);
 
 var stringMetadata = File.ReadAllText(builder.ObjectDataFilePath);
 
-var requestHandlerMetadata = JsonConvert.DeserializeObject<RequestHandlerMetadata>(stringMetadata);
+var model = JsonConvert.DeserializeObject<RequestHandlerMetadata>(stringMetadata);
 
 try
 {
-    var model = new Dictionary<string, object>();
+    //var model = new Dictionary<string, object>();
 
-    foreach (PropertyInfo prop in requestHandlerMetadata!.GetType().GetProperties())
-    {
-        Console.WriteLine($"{prop.Name}: {prop.GetValue(requestHandlerMetadata, null)}");
+    //foreach (PropertyInfo prop in requestHandlerMetadata!.GetType().GetProperties())
+    //{
+    //    Console.WriteLine($"{prop.Name}: {prop.GetValue(requestHandlerMetadata, null)}");
 
-        model.Add(prop.Name, prop.GetValue(requestHandlerMetadata, null));
-    }
+    //    model.Add(prop.Name, prop.GetValue(requestHandlerMetadata, null));
+    //}
 
     //only with new { model }
-    var res = tpl.Render(new { model });
+    var res = tpl.Render(model);
 
-    model.TryGetValue("ClassName", out var name);
+    //model.TryGetValue("ClassName", out var name);
+    var name = model.ClassName;
 
     var file = /*builder.OutputFilePath + */$"{name}.cs";
 

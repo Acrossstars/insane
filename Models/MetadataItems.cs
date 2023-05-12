@@ -16,3 +16,9 @@ public class Property
     public string Name { get; set; } = default!;
     public string[] Accessors { get; set; } = default!;
 }
+
+public class InjectedProperty
+{
+    public string Destination { get; set; } = default!;
+    public string Source { get; set; } = default!;
+}

@@ -10,6 +10,9 @@
     <None Update="RequestHandler\RequestHandlerConfig.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="RequestHandler\RequestHandlerTextTemplate1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="RequestHandler\RequestHandlerTextTemplate.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
