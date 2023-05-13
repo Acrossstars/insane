@@ -1,1 +1,20 @@
-﻿
+﻿{{- for item in usings }}using {{ item }};
+{{- end }}
+
+namespace {{ namespace }};
+
+public class {{ class_name }}Request : BaseQuery<{{ query_return_type }}>
+{
+    public {{ class_name }}Request({{ for par in injected_infrastructure }}
+        {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
+        )
+    {
+        {{ for prop in injected_properties }}
+        {{ prop.destination }} = {{ prop.source }};
+        {{ end }}
+    }
+
+    {{ for prop in properties }} 
+    {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
+    {{- end }}
+}

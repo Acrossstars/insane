@@ -8,22 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="data\RequestHandler.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Include="data\RequestHandler.json" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Include="templates\RequestHandlerTemplate.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>RequestHandlerTemplate.tpl</DependentUpon>
-	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <PackageReference Include="Microsoft.Extensions.Configuration" Version="7.0.0" />
 	  <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
 	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -39,10 +23,6 @@
 	<ItemGroup>
 	  <None Update="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </None>
-	  <None Update="templates\RequestHandlerTemplate.tpl">
-	    <Generator></Generator>
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	</ItemGroup>
 

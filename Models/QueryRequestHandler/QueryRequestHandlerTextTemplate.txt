@@ -1,1 +1,30 @@
-﻿
+﻿{{- for item in usings }}using {{ item }};
+{{- end }}
+
+namespace {{ namespace }};
+
+public class {{ class_name }}RequestHandler : BaseQueryHandler,
+    IRequestHandler<{{ request_class_name }}, {{ query_return_type }}>
+{
+    public {{ class_name }}RequestRequestHandler({{ for par in injected_infrastructure }}
+        {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
+        )
+    :base({{ for par in base_constructor }}{{ par }}{{ if !for.last}},{{ end -}}{{- end }})
+    {
+        {{ for prop in injected_properties }}
+        {{ prop.destination }} = {{ prop.source }};
+        {{ end }}
+    }
+
+    {{ for prop in properties }} 
+    {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
+    {{- end }}
+
+    public async Task<CommandResult> Handle({{ for par in injected_request_class }}
+        {{ par.type }} {{ par.name }}{{ if !for.last }},{{ end -}}{{- end }}, CancellationToken cancellationToken)
+    {
+        var entityId = "";
+
+        return CommandResult.Create(ContractsMessages.Operation_Success, entityId);
+    }
+}

@@ -1,66 +1,36 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Models;
-using Models.RequestHandler;
-using Newtonsoft.Json;
-using Scriban;
-using Templating;
+using Templating.Infra;
 
 var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false, true);
 
 var configuration = configurationBuilder.Build();
 
-
-var requestHandlerDir = $"{Directory.GetCurrentDirectory()}\\CommandRequestHandler";
-
-var configFilePath = $"{requestHandlerDir}\\CommandRequestHandlerConfig.json";
-var textTemplatePath = $"{requestHandlerDir}\\CommandRequestHandlerTextTemplate.txt";
+var filesToGenerate = new List<string>() { "CommandRequest", "CommandRequestHandler", "QueryRequest", "QueryRequestHandler", };
 
 
-var outputFilePath = "";
+var builders = new List<ObjectBuilderMetadata>();
 
-var builder = new ObjectBuilderMetadata()
+foreach (var item in filesToGenerate)
 {
-    ObjectDataFilePath = configFilePath,
-    TextTemplateFilePath = textTemplatePath,
-    OutputFilePath = outputFilePath
-};
+    var requestHandlerDir = $"{Directory.GetCurrentDirectory()}\\{item}";
 
-var textTemplate = File.ReadAllText(builder.TextTemplateFilePath);
+    var configFilePath = $"{requestHandlerDir}\\{item}Config.json";
+    var textTemplatePath = $"{requestHandlerDir}\\{item}TextTemplate.txt";
 
-var tpl = Template.Parse(textTemplate);
+    var outputFilePath = "";
 
-var stringMetadata = File.ReadAllText(builder.ObjectDataFilePath);
-
-var model = JsonConvert.DeserializeObject<CommandRequestHandlerMetadata>(stringMetadata);
-
-try
-{
-    //var model = new Dictionary<string, object>();
-
-    //foreach (PropertyInfo prop in requestHandlerMetadata!.GetType().GetProperties())
-    //{
-    //    Console.WriteLine($"{prop.Name}: {prop.GetValue(requestHandlerMetadata, null)}");
-
-    //    model.Add(prop.Name, prop.GetValue(requestHandlerMetadata, null));
-    //}
-
-    //only with new { model }
-    var res = tpl.Render(model);
-
-    //model.TryGetValue("ClassName", out var name);
-    var name = model.ClassName;
-
-    var file = /*builder.OutputFilePath + */$"{name}.cs";
-
-    File.WriteAllText(file, res);
-
-    Console.WriteLine(res);
-
-    var fileLoader = new FileLoader();
-    fileLoader.AddFileToProject($"{configuration["SolutionRootPath"]}\\src\\ConsoleApp\\SomeFolder", "SampleFile.cs", res);
+    builders.Add(new ObjectBuilderMetadata()
+    {
+        ObjectDataFilePath = configFilePath,
+        TextTemplateFilePath = textTemplatePath,
+        OutputFilePath = outputFilePath
+    });
 }
-catch (Exception ex)
+
+foreach (var builderMetadata in builders)
 {
-    Console.WriteLine(ex);
+    var builder = new FileBuilder(configuration);
+    builder.Build(builderMetadata);
 }

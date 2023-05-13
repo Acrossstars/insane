@@ -3,7 +3,7 @@
 
 namespace {{ namespace }};
 
-public class {{ class_name }}RequestHandler : BaseCommand,
+public class {{ class_name }}RequestHandler : BaseCommandHandler,
     IRequestHandler<BobSmithRequest, CommandResult>
 {
     public {{ class_name }}RequestRequestHandler({{ for par in injected_infrastructure }}
