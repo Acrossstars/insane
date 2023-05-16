@@ -1,8 +1,8 @@
-﻿using Models.RequestHandler;
-using Models;
+﻿using Core;
 using Newtonsoft.Json;
 using Scriban;
 using Microsoft.Extensions.Configuration;
+using Core.Models;
 
 namespace Templating.Infra;
 

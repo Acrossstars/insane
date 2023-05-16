@@ -1,0 +1,47 @@
+{
+  "Usings": [
+  ],
+  "Namespace": "API.UseCases.DomainEntities.CreateDomainEntity",
+  "RequestClassName": "CreateDomainEntity",
+  "ClassName": "CreateDomainEntity",
+  "BaseConstructor": [
+    "messageBus",
+    "inMemoryBus"
+  ],
+  "Constructor": [
+    {
+      "Type": "string",
+      "Name": "actionId"
+    },
+    {
+      "Type": "string",
+      "Name": "sessionId"
+    },
+    {
+      "Type": "string",
+      "Name": "decisionId"
+    }
+  ],
+  "InjectedRequestClass": [
+    {
+      "Type": "CreateDomainEntityRequest",
+      "Name": "createDomainEntityRequest"
+    }
+  ],
+  "InjectedInfrastructure": [
+    {
+      "Type": "IMessageBus",
+      "Name": "messageBus"
+    },
+    {
+      "Type": "IInMemoryBus",
+      "Name": "inMemoryBus"
+    }
+  ],
+  "InjectedProperties": [
+
+  ],
+  "Properties": [
+
+  ]
+}

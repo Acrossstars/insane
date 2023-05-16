@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using Models;
+using Core;
 using Templating.Infra;
 
 var configurationBuilder = new ConfigurationBuilder()
@@ -14,10 +14,11 @@ var builders = new List<ObjectBuilderMetadata>();
 
 foreach (var item in filesToGenerate)
 {
-    var requestHandlerDir = $"{Directory.GetCurrentDirectory()}\\{item}";
+    var metadataDir = $"{Directory.GetCurrentDirectory()}";
+    //var metadataDir = $"D:\\templates\\Templating\\Core\\Configs";
 
-    var configFilePath = $"{requestHandlerDir}\\{item}Config.json";
-    var textTemplatePath = $"{requestHandlerDir}\\{item}TextTemplate.txt";
+    var configFilePath = $"{metadataDir}\\Configs\\{item}Config.json";
+    var textTemplatePath = $"{metadataDir}\\TextTemplates\\{item}TextTemplate.txt";
 
     var outputFilePath = "";
 

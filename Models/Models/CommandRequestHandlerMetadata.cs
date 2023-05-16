@@ -1,6 +1,6 @@
-﻿namespace Models.QueryRequestHandler;
+﻿namespace Core.Models;
 
-public class QueryRequestHandlerMetadata : BaseMetadata
+public class CommandRequestHandlerMetadata : BaseMetadata
 {
     public List<TypeName>? InjectedRequestClass { get; set; }
     public string[]? BaseConstructor { get; set; }

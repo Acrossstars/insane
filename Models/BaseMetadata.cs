@@ -1,7 +1,8 @@
-﻿namespace Models;
+﻿namespace Core;
 
 public class BaseMetadata
 {
+    public string? FilePath { get; set; }
     public string[]? Usings { get; set; }
     public string? Namespace { get; set; }
     public string? ClassName { get; set; }

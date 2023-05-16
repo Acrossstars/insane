@@ -4,9 +4,9 @@
 namespace {{ namespace }};
 
 public class {{ class_name }}RequestHandler : BaseCommandHandler,
-    IRequestHandler<BobSmithRequest, CommandResult>
+    IRequestHandler<{{ command_request_type }}, CommandResult>
 {
-    public {{ class_name }}RequestRequestHandler({{ for par in injected_infrastructure }}
+    public {{ class_name }}RequestHandler({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
         )
     :base({{ for par in base_constructor }}{{ par }}{{ if !for.last}},{{ end -}}{{- end }})

@@ -1,13 +1,8 @@
 {
   "Usings": [
-    "LiveDataService.BuildingBlocks.Application.Commands"
   ],
-  "Namespace": "Behavior.API.UseCases.SessionActions.AddActionToSession",
-  "ClassName": "BobSmith",
-  "BaseConstructor": [
-    "inMemoryBus",
-    "messageBus"
-  ],
+  "Namespace": "API.UseCases.DomainEntities.CreateDomainEntity",
+  "ClassName": "CreateDomainEntity",
   "Constructor": [
     {
       "Type": "string",
@@ -21,25 +16,6 @@
       "Type": "string",
       "Name": "decisionId"
     }
-  ],
-  "InjectedRequestClass": [
-    {
-      "Type": "BobSmithRequest",
-      "Name": "bobSmithRequest"
-    }
-  ],
-  "InjectedInfrastructure": [
-    {
-      "Type": "IInMemoryBus",
-      "Name": "inMemoryBus"
-    },
-    {
-      "Type": "IMessageBus",
-      "Name": "messageBus"
-    }
-  ],
-  "InjectedProperties": [
-
   ],
   "Properties": [
     {

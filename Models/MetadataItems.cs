@@ -1,4 +1,4 @@
-﻿namespace Models;
+﻿namespace Core;
 
 //public record TypeName(string Type, string Name);
 //public record Property(string Modificator, string Type, string Name, string[] Accessors);

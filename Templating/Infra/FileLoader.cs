@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace Templating;
+namespace Templating.Infra;
 
 internal class FileLoader
 {
