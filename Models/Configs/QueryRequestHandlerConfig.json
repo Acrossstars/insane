@@ -2,9 +2,9 @@
   "Usings": [
   ],
   "Namespace": "Web.API.UseCases.DomainEntities.GetDomainEntity",
-  "RequestClassName": "GetDomainEntity",
+  "RequestType": "GetDomainEntityRequest",
   "QueryReturnType": "GetDomainEntityDto",
-  "ClassName": "GetDomainEntity",
+  "ClassName": "GetDomainEntityRequestHandler",
   "BaseConstructor": [
     "mapper"
   ],
@@ -24,7 +24,7 @@
   ],
   "InjectedRequestClass": [
     {
-      "Type": "GetDomainEntity",
+      "Type": "GetDomainEntityRequest",
       "Name": "request"
     }
   ],

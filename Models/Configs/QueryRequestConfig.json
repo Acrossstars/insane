@@ -2,7 +2,7 @@
   "Usings": [
   ],
   "Namespace": "API.UseCases.DomainEntities.GetDomainEntity",
-  "ClassName": "GetDomainEntity",
+  "ClassName": "GetDomainEntityRequest",
   "QueryReturnType": "GetDomainEntityDto",
   "Constructor": [
     {

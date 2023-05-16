@@ -3,9 +3,9 @@
 
 namespace {{ namespace }};
 
-public class {{ class_name }}Request : BaseQuery<{{ query_return_type }}>
+public class {{ class_name }} : BaseQuery<{{ query_return_type }}>
 {
-    public {{ class_name }}Request({{ for par in injected_infrastructure }}
+    public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
         )
     {

@@ -2,8 +2,8 @@
   "Usings": [
   ],
   "Namespace": "API.UseCases.DomainEntities.CreateDomainEntity",
-  "RequestClassName": "CreateDomainEntity",
-  "ClassName": "CreateDomainEntity",
+  "RequestType": "CreateDomainEntityRequest",
+  "ClassName": "CreateDomainEntityRequestHandler",
   "BaseConstructor": [
     "messageBus",
     "inMemoryBus"

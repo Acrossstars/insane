@@ -2,7 +2,7 @@
   "Usings": [
   ],
   "Namespace": "API.UseCases.DomainEntities.CreateDomainEntity",
-  "ClassName": "CreateDomainEntity",
+  "ClassName": "CreateDomainEntityRequest",
   "Constructor": [
     {
       "Type": "string",
