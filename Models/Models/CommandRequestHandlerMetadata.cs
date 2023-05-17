@@ -1,8 +1,9 @@
-﻿using Core.Models.Common;
+﻿namespace Core.Models;
 
-namespace Core.Models;
-
-public class CommandRequestHandlerMetadata : RequestHandlerBaseMetadata
+public class CommandRequestHandlerMetadata : YetAnotherBaseMetadata
 {
-
+    public CommandRequestHandlerMetadata()
+    {
+        Type = MetadataType.CommandRequestHandler;
+    }
 }

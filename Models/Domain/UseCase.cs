@@ -1,0 +1,38 @@
+﻿using Core.Domain.Enums;
+
+namespace Core.Domain;
+
+public class UseCase
+{
+    public UseCase(string name, RequestType requestType, bool hasRestEndpoint = true, bool hasGrpcEndpoint = false)
+    {
+        Name = name;
+        RequestType = requestType;
+
+        Request = Name + "Request";
+        RequestHandler = Name + "RequestHandler";
+
+        HasRestEndpoint = hasRestEndpoint;
+
+        if (HasRestEndpoint)
+        {
+            RestEndpoint = Name + "RestEndpoint";
+        }
+
+        HasGrpcEndpoint = hasGrpcEndpoint;
+
+        if (HasGrpcEndpoint)
+        {
+            GrpcEndpoint = Name + "GrpcEndpoint";
+        }
+    }
+
+    public string Name { get; set; } = default!;
+    public RequestType RequestType { get; }
+    public string Request { get; set; } = default!;
+    public string RequestHandler { get; set; } = default!;
+    public bool HasRestEndpoint { get; set; }
+    public string RestEndpoint { get; set; } = default!;
+    public bool HasGrpcEndpoint { get; set; }
+    public string GrpcEndpoint { get; set; } = default!;
+}

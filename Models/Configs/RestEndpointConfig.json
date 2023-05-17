@@ -1,0 +1,36 @@
+{
+  "Usings": [
+  ],
+  "Namespace": "API.UseCases.DomainEntities.CreateDomainEntity",
+  "RequestType": "CreateDomainEntityRequest",
+  "ClassName": "CreateDomainEntityEndpoint",
+  "InputType": "CreateDomainEntityDto",
+  "Tags": "DomainEntities",
+  "Route": "create",
+  "BaseConstructor": [
+    "authenticatedUserService",
+    "inMemoryBus"
+  ],
+  "RequestClass": [
+    {
+      "Type": "CreateDomainEntityRequest",
+      "Name": "createDomainEntityRequest"
+    }
+  ],
+  "InjectedInfrastructure": [
+    {
+      "Type": "IAuthenticatedUserService",
+      "Name": "authenticatedUserService"
+    },
+    {
+      "Type": "IInMemoryBus",
+      "Name": "inMemoryBus"
+    }
+  ],
+  "InjectedProperties": [
+
+  ],
+  "Properties": [
+
+  ]
+}

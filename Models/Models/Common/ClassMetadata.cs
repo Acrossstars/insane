@@ -1,4 +1,4 @@
-﻿namespace Core;
+﻿namespace Core.Models.Common;
 
 public class ClassMetadata
 {
