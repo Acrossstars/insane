@@ -1,6 +1,6 @@
 ﻿namespace Core.Models.Common;
 
-public class RequestHandlerBaseMetadata : BaseMetadata
+public class YetAnotherBaseMetadata : BaseMetadata
 {
     public List<TypeName>? InjectedRequestClass { get; set; }
     public string? RequestType { get; set; }

@@ -16,6 +16,9 @@
     <None Update="Configs\QueryRequestConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="Configs\RestEndpointConfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Configs\QueryRequestHandlerConfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -25,7 +28,10 @@
     <None Update="TextTemplates\CommandRequestTextTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="TextTemplates\DomainEntityTextTemplate.txt">
+    <None Update="TextTemplates\EntityTextTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="TextTemplates\DomainEventTextTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="TextTemplates\EntityCreatedEventTextTemplate.txt">

@@ -3,8 +3,18 @@
 /// <summary>
 /// 
 /// </summary>
-public class ObjectBuilderMetadata
+public class ObjectBuilderContext
 {
+    /// <summary>
+    /// 
+    /// </summary>
+    public object Model { get; set; }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public string FileName { get; set; } = default!;
+
     /// <summary>
     /// 
     /// </summary>

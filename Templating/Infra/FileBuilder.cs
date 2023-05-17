@@ -1,8 +1,6 @@
 ﻿using Core;
-using Newtonsoft.Json;
-using Scriban;
 using Microsoft.Extensions.Configuration;
-using Core.Models;
+using Scriban;
 
 namespace Templating.Infra;
 
@@ -19,22 +17,19 @@ public class FileBuilder
         _configuration = configuration;
     }
 
-    public void Build(ObjectBuilderMetadata builderMetadata)
+    public void Build(ObjectBuilderContext builderMetadata)
     {
         var textTemplate = File.ReadAllText(builderMetadata.TextTemplateFilePath);
 
         var tpl = Template.Parse(textTemplate);
 
-        var stringMetadata = File.ReadAllText(builderMetadata.ObjectDataFilePath);
-
-        var model = JsonConvert.DeserializeObject<CommandRequestHandlerMetadata>(stringMetadata);
+        var model = builderMetadata.Model;
 
         try
         {
             var res = tpl.Render(model);
-            var name = model.ClassName;
-            var fileName = /*builderMetadata.OutputFilePath + */$"{name}.cs";
-            var fileDirectory = $"{_configuration["SolutionRootPath"]}\\Draft";
+            var fileName = $"{builderMetadata.FileName}.cs";
+            var fileDirectory = builderMetadata.OutputFilePath;
 
             var fileLoader = new FileLoader();
             fileLoader.AddFileToProject(fileDirectory, fileName, res);

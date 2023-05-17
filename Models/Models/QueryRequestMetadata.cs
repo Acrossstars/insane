@@ -2,6 +2,10 @@
 
 public class QueryRequestMetadata : BaseMetadata
 {
+    public QueryRequestMetadata()
+    {
+        Type = MetadataType.QueryRequest;
+    }
+
     public string? QueryReturnType { get; set; }
-    public List<InjectedProperty>? InjectedProperties { get; set; }
 }
