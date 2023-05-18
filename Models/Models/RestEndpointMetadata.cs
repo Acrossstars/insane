@@ -10,4 +10,7 @@ public class RestEndpointMetadata : YetAnotherBaseMetadata
     public string? InputType { get; set; }
     public string? Tags { get; set; }
     public string? Route { get; set; }
+    public string? HttpMethod { get; set; }
+    public string? MethodReturnType { get; set; }
+    public string? InMemoryBusMethod { get; set; }
 }

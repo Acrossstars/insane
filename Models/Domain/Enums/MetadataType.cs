@@ -12,5 +12,5 @@ public enum MetadataType
     QueryRequestHandler = 8,
     RestEndpoint = 9,
     GrpcEndpoint = 10,
-    Dto = 10,
+    Dto = 11,
 }

@@ -2,11 +2,16 @@
 
 public class UseCase
 {
-    public UseCase(string name, RequestType requestType, bool hasRestEndpoint = true, bool hasGrpcEndpoint = false)
+    public UseCase(
+        string name,
+        RequestType requestType,
+        HttpMethodType httpMethodType,
+        bool hasRestEndpoint = true,
+        bool hasGrpcEndpoint = false)
     {
         Name = name;
         RequestType = requestType;
-
+        HttpMethodType = httpMethodType;
         Request = Name + "Request";
         RequestHandler = Name + "RequestHandler";
 
@@ -30,6 +35,7 @@ public class UseCase
     }
 
     public string Name { get; set; } = default!;
+    public HttpMethodType HttpMethodType { get; }
     public RequestType RequestType { get; }
     public string Request { get; set; } = default!;
     public string RequestHandler { get; set; } = default!;
