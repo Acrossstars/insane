@@ -1,0 +1,23 @@
+﻿namespace {{ namespace }};
+
+/// <summary>
+/// 
+/// </summary>
+public class {{ class_name }} 
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public {{ class_name }}({{ for par in constructor }}
+            {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
+            )
+        {
+            {{ for prop in injected_properties }}
+            {{ prop.destination }} = {{ prop.source }};
+            {{ end }}
+        }
+
+        {{ for prop in properties }}
+        {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
+        {{- end }}
+}

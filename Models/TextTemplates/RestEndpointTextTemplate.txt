@@ -3,10 +3,16 @@
 
 namespace {{ namespace }};
 
+/// <summary>
+/// 
+/// </summary>
 //[Authorize("user-write-access")]
 [Tags({{ tags }})]
 public class {{ class_name }} : BaseApiController
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
         )
@@ -20,12 +26,12 @@ public class {{ class_name }} : BaseApiController
     /// <summary>
     /// 
     /// </summary>
-    [HttpPost]
+    [Http{{ http_method }}]
     [Route({{ route }})]
-    public async Task<Result<CommandResult>> Post([FromBody] {{ input_type }} input)
+    public async Task<Result<{{ method_return_type }}>> {{ http_method }}([FromBody] {{ input_type }} input)
     {
-        return await _inMemoryBus.SendCommand<{{ request_type }}>(
-            new({{ for prop in input_data }}{{ prop.destination }}: input.{{ prop.source }}{{ if ! for.last }},{{ end }}{{ end }})
+        return await _inMemoryBus.Send{{ in_memory_bus_method }}(
+            new {{ request_type }}({{ for prop in input_data }}{{ prop.destination }}: input.{{ prop.source }}{{ if ! for.last }},{{ end }}{{ end }})
             );
     }
 }

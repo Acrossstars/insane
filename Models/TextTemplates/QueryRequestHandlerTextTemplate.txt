@@ -3,9 +3,15 @@
 
 namespace {{ namespace }};
 
+/// <summary>
+/// 
+/// </summary>
 public class {{ class_name }} : BaseQueryHandler,
     IRequestHandler<{{ request_type }}, {{ query_return_type }}>
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
         )
@@ -20,11 +26,12 @@ public class {{ class_name }} : BaseQueryHandler,
     {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
     {{- end }}
 
-    public async Task<CommandResult> Handle({{ for par in injected_request_class }}
+    public async Task<{{ query_return_type }}> Handle({{ for par in injected_request_class }}
         {{ par.type }} {{ par.name }}{{ if !for.last }},{{ end -}}{{- end }}, CancellationToken cancellationToken)
     {
-        var entityId = "";
+        
 
-        return CommandResult.Create(ContractsMessages.Operation_Success, entityId);
+
+        return new {{ query_return_type }}();
     }
 }

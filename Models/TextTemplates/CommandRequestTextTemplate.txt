@@ -3,8 +3,14 @@
 
 namespace {{ namespace }};
 
+/// <summary>
+/// 
+/// </summary>
 public class {{ class_name }} : BaseCommand
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
         )
