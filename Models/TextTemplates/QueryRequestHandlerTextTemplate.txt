@@ -3,9 +3,15 @@
 
 namespace {{ namespace }};
 
+/// <summary>
+/// 
+/// </summary>
 public class {{ class_name }} : BaseQueryHandler,
     IRequestHandler<{{ request_type }}, {{ query_return_type }}>
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
         )

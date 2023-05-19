@@ -3,8 +3,14 @@
 
 namespace {{ namespace }};
 
+/// <summary>
+/// 
+/// </summary>
 public class {{ class_name }} : BaseEntity
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public {{ class_name }}()
     {
         {{ for prop in injected_properties }}

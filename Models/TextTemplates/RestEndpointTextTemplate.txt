@@ -3,10 +3,16 @@
 
 namespace {{ namespace }};
 
+/// <summary>
+/// 
+/// </summary>
 //[Authorize("user-write-access")]
 [Tags({{ tags }})]
 public class {{ class_name }} : BaseApiController
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
         )

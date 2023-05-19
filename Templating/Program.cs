@@ -12,7 +12,7 @@ var configurationBuilder = new ConfigurationBuilder()
 
 var configuration = configurationBuilder.Build();
 
-var domainEntity = "UnitProperty";
+var domainEntity = "ОлегГдеМакет";
 
 //var featuresToGenerate = new List<string>() { "AddUnit", "UpdateUnit", "DeleteUnit", "GetUnits" };
 
@@ -26,10 +26,10 @@ var useCasesToGenerate = new List<UseCase>()
     //new UseCase("UpdateUnit", RequestType.Command, HttpMethodType.Put),
     //new UseCase("DeleteUnit", RequestType.Command, HttpMethodType.Delete),
     //new UseCase("GetUnits", RequestType.Query, HttpMethodType.Get)
-    new UseCase("AddUnitProperty", RequestType.Command, HttpMethodType.Post),
-    new UseCase("UpdateUnitProperty", RequestType.Command, HttpMethodType.Put),
-    new UseCase("DeleteUnitProperty", RequestType.Command, HttpMethodType.Delete),
-    new UseCase("GetUnitProperties", RequestType.Query, HttpMethodType.Get)
+    new UseCase($"Add{domainEntity}", RequestType.Command, HttpMethodType.Post),
+    new UseCase($"Update{domainEntity}", RequestType.Command, HttpMethodType.Put),
+    new UseCase($"Delete{domainEntity}", RequestType.Command, HttpMethodType.Delete),
+    new UseCase($"Get{domainEntity}", RequestType.Query, HttpMethodType.Get)
 };
 
 var metadataDir = $"{Directory.GetCurrentDirectory()}";
