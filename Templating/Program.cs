@@ -1,10 +1,6 @@
-﻿using Core;
-using Core.Domain;
+﻿using Core.Domain;
 using Core.Domain.Enums;
-using Core.Models;
-using Core.Models.Common;
 using Microsoft.Extensions.Configuration;
-using Templating.Infra;
 using Templating.Services;
 
 var configurationBuilder = new ConfigurationBuilder()
@@ -12,13 +8,18 @@ var configurationBuilder = new ConfigurationBuilder()
 
 var configuration = configurationBuilder.Build();
 
-var domainEntity = "ОлегГдеМакет";
+var domainDefinition = new DomainDefinition()
+{
+    DomainEvents = new List<string>()
+    {
+        "UserRegistered",
+        "UserUpdated"
+    }
+};
 
-//var featuresToGenerate = new List<string>() { "AddUnit", "UpdateUnit", "DeleteUnit", "GetUnits" };
+var domainEntity = "User";
 
-var dtosPath = "D:\\appfox\\desert-brawl-sharp\\src\\BuildingBlocks\\Contracts\\Dtos";
-
-//var dtosPath = "D:\\templates\\subject\\BuildingBlocks\\Contracts\\Dtos";
+var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
 
 var useCasesToGenerate = new List<UseCase>()
 {
@@ -26,12 +27,19 @@ var useCasesToGenerate = new List<UseCase>()
     //new UseCase("UpdateUnit", RequestType.Command, HttpMethodType.Put),
     //new UseCase("DeleteUnit", RequestType.Command, HttpMethodType.Delete),
     //new UseCase("GetUnits", RequestType.Query, HttpMethodType.Get)
-    new UseCase($"Add{domainEntity}", RequestType.Command, HttpMethodType.Post),
+    //new UseCase($"Add{_domainEntity}", RequestType.Command, HttpMethodType.Post),
+    //new UseCase($"Update{_domainEntity}", RequestType.Command, HttpMethodType.Put),
+    //new UseCase($"Delete{_domainEntity}", RequestType.Command, HttpMethodType.Delete),
+    //new UseCase($"Get{_domainEntity}", RequestType.Query, HttpMethodType.Get)
+    new UseCase($"Login{domainEntity}", RequestType.Command, HttpMethodType.Post),
+    new UseCase($"Register{domainEntity}", RequestType.Command, HttpMethodType.Post),
     new UseCase($"Update{domainEntity}", RequestType.Command, HttpMethodType.Put),
-    new UseCase($"Delete{domainEntity}", RequestType.Command, HttpMethodType.Delete),
-    new UseCase($"Get{domainEntity}", RequestType.Query, HttpMethodType.Get)
 };
 
 var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
-UserCasesBuilder.GenerateUseCases(configuration, domainEntity, dtosPath, useCasesToGenerate, metadataDir);
+var domainBuilder = new DomainBuilder(configuration, dtosPath, metadataDir, domainDefinition);
+
+domainBuilder.BuildEvents();
+
+//UserCasesBuilder.GenerateUseCases(configuration, domainEntity, dtosPath, useCasesToGenerate, metadataDir);

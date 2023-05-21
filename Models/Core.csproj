@@ -46,6 +46,9 @@
     <None Update="TextTemplates\EntityUpdatedEventTextTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TextTemplates\GrpcEndpointTextTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TextTemplates\QueryRequestHandlerTextTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

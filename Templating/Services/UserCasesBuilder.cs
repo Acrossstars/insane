@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Templating.Infra;
 using Core.Models.Common;
 using Core.Extensions;
+using Templating.Features;
 
 namespace Templating.Services;
 
@@ -45,22 +46,22 @@ public class UserCasesBuilder
 
                     var commandRequest = GetCommandRequest(useCase, useCaseNamespace);
 
-                    AppendToBuild(metadataDir, builderContexts, outputFilePath, commandRequest, commandRequest.ClassName);
+                    BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, commandRequest, commandRequest.ClassName);
 
                     var commandRequestHandler = GetCommandRequestHandler(useCase, useCaseNamespace);
 
-                    AppendToBuild(metadataDir, builderContexts, outputFilePath, commandRequestHandler, commandRequestHandler.ClassName);
+                    BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, commandRequestHandler, commandRequestHandler.ClassName);
 
                     break;
                 case RequestType.Query:
                     //TODO: for query handler needed to add using that contains namespace for query request
                     var queryRequest = CreateQueryRequestMetadata(useCase, useCaseNamespace);
 
-                    AppendToBuild(metadataDir, builderContexts, outputFilePath, queryRequest, queryRequest.ClassName);
+                    BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, queryRequest, queryRequest.ClassName);
 
                     var queryRequestHandler = CreateQueryRequestHandlerMetadata(useCase, useCaseNamespace);
 
-                    AppendToBuild(metadataDir, builderContexts, outputFilePath, queryRequestHandler, queryRequestHandler.ClassName);
+                    BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, queryRequestHandler, queryRequestHandler.ClassName);
                     break;
             }
 
@@ -68,7 +69,7 @@ public class UserCasesBuilder
             {
                 RestEndpointMetadata restEndpoint = CreateRestEndpointMetadata(domainEntity, useCase, useCaseNamespace);
 
-                AppendToBuild(metadataDir, builderContexts, outputFilePath, restEndpoint, restEndpoint.ClassName);
+                BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, restEndpoint, restEndpoint.ClassName);
 
             }
 
@@ -81,7 +82,7 @@ public class UserCasesBuilder
 
             var dto = GetDto(useCase, useCaseNamespace);
             var dtoPath = dtosPath + $"\\{domainEntity}s";
-            AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName);
+            BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName);
 
             foreach (var builderMetadata in builderContexts)
             {
@@ -89,27 +90,6 @@ public class UserCasesBuilder
                 builder.Build(builderMetadata);
             }
         }
-    }
-
-    static string GetTextTemplatePath(object item, string metadataDir)
-    {
-        var metadata = (BaseMetadata)item;
-
-        return metadata.Type switch
-        {
-            _ => $"{metadataDir}\\TextTemplates\\{metadata.Type}TextTemplate.txt",
-        };
-    }
-
-    static void AppendToBuild(string metadataDir, List<ObjectBuilderContext> builderContexts, string outputFilePath, object model, string fileName)
-    {
-        builderContexts.Add(new ObjectBuilderContext()
-        {
-            FileName = fileName,
-            Model = model,
-            TextTemplateFilePath = GetTextTemplatePath(model, metadataDir),
-            OutputFilePath = outputFilePath
-        });
     }
 
     static string GetMethodReturnType(UseCase useCase)

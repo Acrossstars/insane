@@ -1,6 +1,4 @@
-﻿using Core.Domain.Enums;
-
-namespace Core.Models.Common;
+﻿namespace Core.Models.Common;
 
 public class BaseMetadata
 {
@@ -10,6 +8,7 @@ public class BaseMetadata
     public string? Namespace { get; set; }
     public string? ClassName { get; set; }
     public List<TypeName>? Constructor { get; set; }
+    public string[]? BaseConstructor { get; set; }
     public List<InjectedProperty>? InjectedProperties { get; set; }
     public List<Property>? Properties { get; set; }
 }
