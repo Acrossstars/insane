@@ -1,5 +1,4 @@
-﻿{{- for item in usings }}using {{ item }};
-{{- end }}
+﻿{{- for item in usings }}using {{ item }};{{- end }}
 
 namespace {{ namespace }};
 
@@ -11,16 +10,15 @@ public class {{ class_name }} : BaseQuery<{{ query_return_type }}>
     /// <summary>
     /// 
     /// </summary>
-    public {{ class_name }}({{ for par in injected_infrastructure }}
-        {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
+    public {{ class_name }}({{ for par in injected_infrastructure }}{{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}
+        {{- end }}
         )
     {
-        {{ for prop in injected_properties }}
-        {{ prop.destination }} = {{ prop.source }};
+        {{ for prop in injected_properties }}{{ prop.destination }} = {{ prop.source }};
         {{ end }}
     }
 
     {{ for prop in properties }} 
-    {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
+    {{ prop.modificator }} {{ prop.type }} {{ prop.name }} {{{ for state in prop.accessors }} {{ state }}; {{- end }} }
     {{- end }}
 }
