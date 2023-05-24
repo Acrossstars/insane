@@ -12,12 +12,13 @@ var domainDefinition = new DomainDefinition()
 {
     DomainEvents = new List<string>()
     {
-        "UserRegistered",
-        "UserUpdated"
+        "FriendshipRequested",
+        "FriendshipAccepted",
+        "FriendshipDeclined"
     }
 };
 
-var domainEntity = "User";
+var _domainEntity = "Friendship";
 
 var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
 
@@ -27,13 +28,17 @@ var useCasesToGenerate = new List<UseCase>()
     //new UseCase("UpdateUnit", RequestType.Command, HttpMethodType.Put),
     //new UseCase("DeleteUnit", RequestType.Command, HttpMethodType.Delete),
     //new UseCase("GetUnits", RequestType.Query, HttpMethodType.Get)
+    new UseCase($"Request{_domainEntity}", RequestType.Command, HttpMethodType.Post),
+    new UseCase($"Accept{_domainEntity}", RequestType.Command, HttpMethodType.Put),
+    new UseCase($"Declined{_domainEntity}", RequestType.Command, HttpMethodType.Delete),
+    new UseCase($"Get{_domainEntity}s", RequestType.Query, HttpMethodType.Get)
     //new UseCase($"Add{_domainEntity}", RequestType.Command, HttpMethodType.Post),
     //new UseCase($"Update{_domainEntity}", RequestType.Command, HttpMethodType.Put),
     //new UseCase($"Delete{_domainEntity}", RequestType.Command, HttpMethodType.Delete),
     //new UseCase($"Get{_domainEntity}", RequestType.Query, HttpMethodType.Get)
-    new UseCase($"Login{domainEntity}", RequestType.Command, HttpMethodType.Post),
-    new UseCase($"Register{domainEntity}", RequestType.Command, HttpMethodType.Post),
-    new UseCase($"Update{domainEntity}", RequestType.Command, HttpMethodType.Put),
+    //new UseCase($"Login{domainEntity}", RequestType.Command, HttpMethodType.Post),
+    //new UseCase($"Register{domainEntity}", RequestType.Command, HttpMethodType.Post),
+    //new UseCase($"Update{domainEntity}", RequestType.Command, HttpMethodType.Put),
 };
 
 var metadataDir = $"{Directory.GetCurrentDirectory()}";
@@ -42,4 +47,4 @@ var domainBuilder = new DomainBuilder(configuration, dtosPath, metadataDir, doma
 
 domainBuilder.BuildEvents();
 
-//UserCasesBuilder.GenerateUseCases(configuration, domainEntity, dtosPath, useCasesToGenerate, metadataDir);
+UserCasesBuilder.GenerateUseCases(configuration, _domainEntity, dtosPath, useCasesToGenerate, metadataDir);

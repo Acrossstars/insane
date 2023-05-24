@@ -7,7 +7,8 @@ public class UseCase
         RequestType requestType,
         HttpMethodType httpMethodType,
         bool hasRestEndpoint = true,
-        bool hasGrpcEndpoint = false)
+        bool hasGrpcEndpoint = false,
+        bool returnList = false)
     {
         Name = name;
         RequestType = requestType;
@@ -17,7 +18,7 @@ public class UseCase
 
         InputDto = Name + "Dto";
 
-        QueryReturnTypeDto = Name + "Dto";
+        QueryReturnTypeDto = returnList ? $"List<{Name}Dto>" : Name + "Dto";
 
         HasRestEndpoint = hasRestEndpoint;
 

@@ -24,8 +24,6 @@ public class UserCasesBuilder
         {
             var builderContexts = new List<ObjectBuilderContext>();
 
-            List<string> filesToGenerate = new();
-
             var useCasesFolderName = $"UseCases";
 
             var manyEntities = $"{domainEntity}s";
