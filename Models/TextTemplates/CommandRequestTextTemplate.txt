@@ -1,6 +1,4 @@
-﻿{{- for item in usings }}using {{ item }};
-{{- end }}
-
+﻿{{- for item in usings }}using {{ item }};{{- end }}
 namespace {{ namespace }};
 
 /// <summary>
@@ -19,8 +17,6 @@ public class {{ class_name }} : BaseCommand
         {{ prop.destination }} = {{ prop.source }};
         {{ end }}
     }
-
-    {{ for prop in properties }} 
-    {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
+    {{ for prop in properties }}{{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
     {{- end }}
 }

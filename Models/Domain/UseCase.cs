@@ -1,8 +1,11 @@
-﻿namespace Core.Domain;
+﻿using Core.Models;
+
+namespace Core.Domain;
 
 public class UseCase
 {
     public UseCase(
+        string domainEntityName,
         string name,
         RequestType requestType,
         HttpMethodType httpMethodType,
@@ -10,6 +13,7 @@ public class UseCase
         bool hasGrpcEndpoint = false,
         bool returnList = false)
     {
+        DomainEntityName = domainEntityName;
         Name = name;
         RequestType = requestType;
         HttpMethodType = httpMethodType;
@@ -35,6 +39,7 @@ public class UseCase
         }
     }
 
+    public string DomainEntityName { get; set; } = default!;
     public string Name { get; set; } = default!;
     public HttpMethodType HttpMethodType { get; }
     public RequestType RequestType { get; }
@@ -46,4 +51,7 @@ public class UseCase
     public string GrpcEndpoint { get; set; } = default!;
     public string InputDto { get; set; } = default!;
     public string QueryReturnTypeDto { get; set; } = default!;
+    public DtoMetadata DtoMetadata { get; set; }
+    public RestEndpointMetadata RestEndpointMetadata { get; set; }
+    public List<Property> ManagedProperties { get; set; } = new List<Property>();
 }

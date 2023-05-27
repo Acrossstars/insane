@@ -16,6 +16,7 @@ public class DomainBuilder
     private string _dtosPath;
     private string _metadataDir;
     private DomainDefinition _domainDefinition;
+    private string _manyEntities;
 
     public DomainBuilder(
         IConfiguration configuration,
@@ -36,6 +37,7 @@ public class DomainBuilder
         _dtosPath = dtosPath;
         _metadataDir = metadataDir;
         _domainDefinition = domainDefinition;
+        _manyEntities = $"{_domainEntity}s";
     }
 
     public void BuildEntities()
@@ -63,9 +65,8 @@ public class DomainBuilder
 
             var eventsFolderName = $"Events";
 
-            var manyEntities = $"{_domainEntity}s";
 
-            var path = $"\\Identity\\Domain\\{eventsFolderName}";
+            var path = $"\\Domain\\{_manyEntities}\\{eventsFolderName}";
 
             string? solutionRoot = _configuration["SolutionRootPath"];
 
@@ -73,7 +74,7 @@ public class DomainBuilder
 
             var outputFilePath = $"{solutionRoot}{apiRoot}\\{path}";
 
-            var generatedNmespace = $"Identity.Domain.Events";
+            var generatedNmespace = $"Domain.{_manyEntities}.Events";
 
             var metadata = CreateDomainEventMetadata(_domainEntity, domainEvent, generatedNmespace);
 
@@ -101,8 +102,8 @@ public class DomainBuilder
             Namespace = generatedNmespace,
             Properties = new List<Property>()
             {
-                new Property("public","string","Id", new string[]{ "get", "set" }),
-                new Property("public","string","Email", new string[]{ "get", "set" }),
+                //new Property("public","string","Id", new string[]{ "get", "set" }),
+                //new Property("public","string","Email", new string[]{ "get", "set" }),
             },
             BaseConstructor = new string[]
                         {
@@ -111,13 +112,13 @@ public class DomainBuilder
                         },
             Constructor = new List<TypeName>()
             {
-                new TypeName("string", "id"),
-                new TypeName("string", "email"),
+                //new TypeName("string", "id"),
+                //new TypeName("string", "email"),
             },
             InjectedProperties = new List<InjectedProperty>()
             {
-                new InjectedProperty("Id", "id"),
-                new InjectedProperty("Email", "email"),
+                //new InjectedProperty("Id", "id"),
+                //new InjectedProperty("Email", "email"),
             },
         };
     }

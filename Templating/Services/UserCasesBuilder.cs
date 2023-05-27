@@ -1,337 +1,110 @@
-﻿using Core.Domain.Enums;
+﻿using Core;
 using Core.Domain;
+using Core.Domain.Enums;
 using Core.Models;
-using Core;
 using Microsoft.Extensions.Configuration;
-using Templating.Infra;
-using Core.Models.Common;
-using Core.Extensions;
 using Templating.Features;
+using Templating.Infra;
 
 namespace Templating.Services;
 
 public class UserCasesBuilder
 {
-    public UserCasesBuilder()
-    {
+    private static string _useCasesFolderName;
+    private static string _manyEntities;
+    private static string? _solutionRoot;
+    private static string? _apiRoot;
+    private static string _useCaseNamespace;
+    private readonly DomainDefinition _domainDefinition;
+    private UseCase _useCase;
+    private string _path;
+    private string _outputFilePath;
 
+    public UserCasesBuilder(IConfigurationRoot configuration, DomainDefinition domainDefinition,
+        UseCase useCase)
+    {
+        _solutionRoot = configuration["SolutionRootPath"];
+        _apiRoot = configuration["ApiRootPath"];
+
+        _useCasesFolderName = $"UseCases";
+        _domainDefinition = domainDefinition;
+        _useCase = useCase;
+        _manyEntities = $"{_useCase.DomainEntityName}s";
+        _useCaseNamespace = $"UseCases.{_manyEntities}.{_useCase.Name}";
+        _path = $"\\{_useCasesFolderName}\\{_manyEntities}\\{_useCase.Name}";
+
+        _outputFilePath = $"{_solutionRoot}{_apiRoot}\\{_path}";
+    }
+
+    public void BuildMetadatas(UseCase @usecase)
+    {
+        //todo build dto
+
+        //var dto = GetDto(useCase, _useCaseNamespace);
+        //var dtoPath = dtosPath + $"\\{domainEntity}s";
+
+        ////todo build rest method
+
+        //RestEndpointMetadata restEndpoint = CreateRestEndpointMetadata(domainEntity, useCase, _useCaseNamespace);
+
+        //BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName);
+
+        //foreach (var builderMetadata in builderContexts)
+        //{
+        //    var builder = new FileBuilder(configuration);
+        //    builder.Build(builderMetadata);
+        //}
     }
 
     //TODO: Rename Namespace to Match Folder Structure
-    public static void GenerateUseCases(IConfigurationRoot configuration, string domainEntity, string dtosPath, List<UseCase> useCasesToGenerate, string metadataDir)
+    public void GenerateUseCase(IConfigurationRoot configuration, string domainEntity, string dtosPath, string metadataDir)
     {
-        foreach (var useCase in useCasesToGenerate)
+        var builderContexts = new List<ObjectBuilderContext>();
+
+        switch (_useCase.RequestType)
         {
-            var builderContexts = new List<ObjectBuilderContext>();
+            case RequestType.Command:
 
-            var useCasesFolderName = $"UseCases";
+                var commandRequest = MetadatasBuilder.GetCommandRequest(_useCase, _useCaseNamespace);
 
-            var manyEntities = $"{domainEntity}s";
+                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequest, commandRequest.ClassName);
 
-            var path = $"\\{useCasesFolderName}\\{manyEntities}\\{useCase.Name}";
+                var commandRequestHandler = MetadatasBuilder.GetCommandRequestHandler(_useCase, _useCaseNamespace);
 
-            string? solutionRoot = configuration["SolutionRootPath"];
+                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequestHandler, commandRequestHandler.ClassName);
 
-            string? apiRoot = configuration["ApiRootPath"];
+                break;
+            case RequestType.Query:
+                //TODO: for query handler needed to add using that contains namespace for query request
+                var queryRequest = MetadatasBuilder.CreateQueryRequestMetadata(_useCase, _useCaseNamespace);
 
-            var outputFilePath = $"{solutionRoot}{apiRoot}\\{path}";
+                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, queryRequest, queryRequest.ClassName);
 
-            var useCaseNamespace = $"UseCases.{manyEntities}.{useCase.Name}";
+                var queryRequestHandler = MetadatasBuilder.CreateQueryRequestHandlerMetadata(_useCase, _useCaseNamespace);
 
-            switch (useCase.RequestType)
-            {
-                case RequestType.Command:
+                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, queryRequestHandler, queryRequestHandler.ClassName);
+                break;
+        }
 
-                    var commandRequest = GetCommandRequest(useCase, useCaseNamespace);
+        var dto = MetadatasBuilder.GetDto(_useCase, _useCaseNamespace);
 
-                    BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, commandRequest, commandRequest.ClassName);
+        _useCase.DtoMetadata = dto;
 
-                    var commandRequestHandler = GetCommandRequestHandler(useCase, useCaseNamespace);
+        var dtoPath = dtosPath + $"\\{domainEntity}s";
+        BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName);
 
-                    BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, commandRequestHandler, commandRequestHandler.ClassName);
+        if (_useCase.HasRestEndpoint)
+        {
+            RestEndpointMetadata restEndpoint = MetadatasBuilder.CreateRestEndpointMetadata(domainEntity, _useCase, _useCaseNamespace);
 
-                    break;
-                case RequestType.Query:
-                    //TODO: for query handler needed to add using that contains namespace for query request
-                    var queryRequest = CreateQueryRequestMetadata(useCase, useCaseNamespace);
+            BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, restEndpoint, restEndpoint.ClassName);
 
-                    BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, queryRequest, queryRequest.ClassName);
+        }
 
-                    var queryRequestHandler = CreateQueryRequestHandlerMetadata(useCase, useCaseNamespace);
-
-                    BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, queryRequestHandler, queryRequestHandler.ClassName);
-                    break;
-            }
-
-            if (useCase.HasRestEndpoint)
-            {
-                RestEndpointMetadata restEndpoint = CreateRestEndpointMetadata(domainEntity, useCase, useCaseNamespace);
-
-                BuildTools.AppendToBuild(metadataDir, builderContexts, outputFilePath, restEndpoint, restEndpoint.ClassName);
-
-            }
-
-            if (useCase.HasGrpcEndpoint)
-            {
-
-
-
-            }
-
-            var dto = GetDto(useCase, useCaseNamespace);
-            var dtoPath = dtosPath + $"\\{domainEntity}s";
-            BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName);
-
-            foreach (var builderMetadata in builderContexts)
-            {
-                var builder = new FileBuilder(configuration);
-                builder.Build(builderMetadata);
-            }
+        foreach (var builderMetadata in builderContexts)
+        {
+            var builder = new FileBuilder(configuration);
+            builder.Build(builderMetadata);
         }
     }
-
-    static string GetMethodReturnType(UseCase useCase)
-    {
-        return useCase.RequestType switch
-        {
-            RequestType.Query => useCase.QueryReturnTypeDto,
-            RequestType.Command => "CommandResult",
-        };
-    }
-
-    static RestEndpointMetadata CreateRestEndpointMetadata(string domainEntity, UseCase useCase, string useCaseNamespace)
-    {
-        return new RestEndpointMetadata()
-        {
-            ClassName = useCase.RestEndpoint,
-            Usings = new string[]
-                {
-
-                },
-            Namespace = useCaseNamespace,
-            RequestType = useCase.Request,
-            MethodReturnType = GetMethodReturnType(useCase),
-            HttpMethod = useCase.HttpMethodType.ToString(),
-            InMemoryBusMethod = useCase.RequestType.ToString(),
-            InputType = $"{useCase.Name}Dto",
-            Tags = $"\"{domainEntity}s\"",
-            Route = $"\"{useCase.Name}\"",
-            Properties = new List<Property>()
-            {
-
-            },
-            Constructor = new List<TypeName>()
-            {
-
-            },
-            InjectedInfrastructure = new List<TypeName>()
-            {
-                new TypeName("IAuthenticatedUserService", "authenticatedUserService"),
-                new TypeName("IInMemoryBus", "inMemoryBus")
-            },
-            BaseConstructor = new string[]
-            {
-                "authenticatedUserService",
-                "inMemoryBus"
-            },
-            InjectedRequestClass = new List<TypeName>()
-            {
-                new TypeName(useCase.Request, useCase.Request[0].ToString().ToLower()),
-            },
-            InjectedProperties = new List<InjectedProperty>()
-            {
-
-            },
-        };
-    }
-
-    static QueryRequestHandlerMetadata CreateQueryRequestHandlerMetadata(UseCase useCase, string useCaseNamespace)
-    {
-        return new QueryRequestHandlerMetadata()
-        {
-            ClassName = useCase.RequestHandler,
-            Usings = new string[]
-                        {
-
-                        },
-            Namespace = useCaseNamespace,
-            RequestType = useCase.Request,
-            QueryReturnType = $"{useCase.Name}Dto",
-            Properties = new List<Property>()
-            {
-                //new Property("public","string","ActionId", new string[]{ "get", "set" }),
-                //new Property("public","string","SessionId", new string[]{ "get", "set" }),
-                //new Property("public","string","DecisionId", new string[]{ "get", "set" }),
-            },
-            Constructor = new List<TypeName>()
-            {
-                //new TypeName("string", "actionId"),
-                //new TypeName("string", "sessionId"),
-                //new TypeName("string", "decisionId"),
-            },
-            InjectedInfrastructure = new List<TypeName>()
-                {
-                    new TypeName("IMapper", "mapper")
-                },
-            BaseConstructor = new string[]
-                        {
-                    "mapper"
-                        },
-            InjectedRequestClass = new List<TypeName>()
-                {
-                    new TypeName(
-                        useCase.Request,
-                        "request"
-                        //useCase.Request[0].ToString().ToLower()
-                        ),
-                },
-            InjectedProperties = new List<InjectedProperty>()
-            {
-                //new InjectedProperty("ActionId", "actionId"),
-                //new InjectedProperty("SessionId", "sessionId"),
-                //new InjectedProperty("DecisionId", "decisionId")
-            },
-        };
-    }
-
-    static QueryRequestMetadata CreateQueryRequestMetadata(UseCase useCase, string useCaseNamespace)
-    {
-        return new QueryRequestMetadata()
-        {
-            //no needed perhaps
-            FilePath = "",
-            Usings = new string[] { },
-            Namespace = useCaseNamespace,
-            ClassName = useCase.Request,
-            QueryReturnType = $"{useCase.Name}Dto",
-            Properties = new List<Property>()
-            {
-                //new Property("public","string","ActionId", new string[]{ "get", "set" }),
-                //new Property("public","string","SessionId", new string[]{ "get", "set" }),
-                //new Property("public","string","DecisionId", new string[]{ "get", "set" }),
-            },
-            Constructor = new List<TypeName>()
-            {
-                //new TypeName("string", "actionId"),
-                //new TypeName("string", "sessionId"),
-                //new TypeName("string", "decisionId"),
-            },
-            InjectedProperties = new List<InjectedProperty>()
-            {
-                //new InjectedProperty("ActionId", "actionId"),
-                //new InjectedProperty("SessionId", "sessionId"),
-                //new InjectedProperty("DecisionId", "decisionId")
-            },
-        };
-    }
-
-    static DtoMetadata GetDto(UseCase useCase, string useCaseNamespace)
-    {
-        return new DtoMetadata()
-        {
-            ClassName = useCase.RequestType switch
-            {
-                RequestType.Command => useCase.InputDto,
-                RequestType.Query => useCase.QueryReturnTypeDto,
-                _ => throw new NotImplementedException()
-            },
-            Usings = new string[]
-                        {
-
-                        },
-
-            Namespace = useCaseNamespace,
-            Properties = new List<Property>()
-            {
-
-            },
-            Constructor = new List<TypeName>()
-            {
-
-            },
-            InjectedProperties = new List<InjectedProperty>()
-            {
-
-            },
-        };
-    }
-
-    static CommandRequestHandlerMetadata GetCommandRequestHandler(UseCase useCase, string useCaseNamespace)
-    {
-        return new CommandRequestHandlerMetadata()
-        {
-            ClassName = useCase.RequestHandler,
-            //no needed perhaps
-            FilePath = "",
-            Usings = new string[]
-                        {
-
-                        },
-            Namespace = useCaseNamespace,
-            RequestType = useCase.Request,
-            Properties = new List<Property>()
-            {
-                //    new Property("public","string","ActionId", new string[]{ "get", "set" }),
-                //    new Property("public","string","SessionId", new string[]{ "get", "set" }),
-                //    new Property("public","string","DecisionId", new string[]{ "get", "set" }),
-            },
-            BaseConstructor = new string[]
-                        {
-                    "messageBus",
-                    "inMemoryBus"
-                        },
-            Constructor = new List<TypeName>()
-            {
-                //new TypeName("string", "actionId"),
-                //new TypeName("string", "sessionId"),
-                //new TypeName("string", "decisionId"),
-            },
-            InjectedInfrastructure = new List<TypeName>()
-                {
-                    new TypeName("IMessageBus", "messageBus"),
-                    new TypeName("IInMemoryBus", "inMemoryBus")
-                },
-            InjectedRequestClass = new List<TypeName>()
-                {
-                    new TypeName(useCase.Request, useCase.Request.FirstLetterToLower()),
-                },
-            //InjectedProperties = new List<InjectedProperty>()
-            //{
-            //    new InjectedProperty("ActionId", "actionId"),
-            //    new InjectedProperty("SessionId", "sessionId"),
-            //    new InjectedProperty("DecisionId", "decisionId")
-            //},
-        };
-    }
-
-    static CommandRequestMetadata GetCommandRequest(UseCase useCase, string useCaseNamespace)
-    {
-        return new CommandRequestMetadata()
-        {
-            //no needed perhaps
-            FilePath = "",
-            Usings = new string[] { },
-            Namespace = useCaseNamespace,
-            ClassName = useCase.Request,
-            Properties = new List<Property>()
-            {
-                //new Property("public","string","ActionId", new string[]{ "get", "set" }),
-                //new Property("public","string","SessionId", new string[]{ "get", "set" }),
-                //new Property("public","string","DecisionId", new string[]{ "get", "set" }),
-            },
-            Constructor = new List<TypeName>()
-            {
-                //new TypeName("string", "actionId"),
-                //new TypeName("string", "sessionId"),
-                //new TypeName("string", "decisionId"),
-            },
-            InjectedProperties = new List<InjectedProperty>()
-            {
-                //new InjectedProperty("ActionId", "actionId"),
-                //new InjectedProperty("SessionId", "sessionId"),
-                //new InjectedProperty("DecisionId", "decisionId")
-            },
-        };
-    }
-
 }

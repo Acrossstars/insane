@@ -13,4 +13,5 @@ public class RestEndpointMetadata : YetAnotherBaseMetadata
     public string MethodReturnType { get; set; }
     public string HttpMethod { get; set; }
     public string InMemoryBusMethod { get; set; }
+    public List<InjectedProperty>? InputProperties { get; set; } = new List<InjectedProperty>();
 }
