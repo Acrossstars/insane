@@ -27,7 +27,7 @@ public class {{ class_name }} : BaseQueryHandler,
     {{- end }}
 
     public async Task<{{ query_return_type }}> Handle({{ for par in injected_request_class }}
-        {{ par.type }} {{ par.name }}{{ if !for.last }},{{ end -}}{{- end }}, CancellationToken cancellationToken)
+        {{ par.type }} request {{ if !for.last }},{{ end -}}{{- end }}, CancellationToken cancellationToken)
     {
         
 

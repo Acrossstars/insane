@@ -5,6 +5,7 @@ using Core.Models;
 using Microsoft.Extensions.Configuration;
 using Templating.Features;
 using Templating.Infra;
+using Humanizer;
 
 namespace Templating.Services;
 
@@ -16,12 +17,12 @@ public class UserCasesBuilder
     private static string? _apiRoot;
     private static string _useCaseNamespace;
     private readonly DomainDefinition _domainDefinition;
-    private UseCase _useCase;
+    private MetaUseCase _useCase;
     private string _path;
     private string _outputFilePath;
 
     public UserCasesBuilder(IConfigurationRoot configuration, DomainDefinition domainDefinition,
-        UseCase useCase)
+        MetaUseCase useCase)
     {
         _solutionRoot = configuration["SolutionRootPath"];
         _apiRoot = configuration["ApiRootPath"];
@@ -29,14 +30,14 @@ public class UserCasesBuilder
         _useCasesFolderName = $"UseCases";
         _domainDefinition = domainDefinition;
         _useCase = useCase;
-        _manyEntities = $"{_useCase.DomainEntityName}s";
+        _manyEntities = _useCase.DomainEntityName.Pluralize();
         _useCaseNamespace = $"UseCases.{_manyEntities}.{_useCase.Name}";
         _path = $"\\{_useCasesFolderName}\\{_manyEntities}\\{_useCase.Name}";
 
         _outputFilePath = $"{_solutionRoot}{_apiRoot}\\{_path}";
     }
 
-    public void BuildMetadatas(UseCase @usecase)
+    public void BuildMetadatas(MetaUseCase @usecase)
     {
         //todo build dto
 

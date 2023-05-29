@@ -1,16 +1,20 @@
 ﻿using Core.Domain;
 using Core.Domain.Enums;
+using Core.Helpers;
 using Core.Models;
 using Core.Models.Common;
+using Humanizer;
 using Microsoft.Extensions.Configuration;
 using Templating.Services;
+
+var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
 var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false, true);
 
 var configuration = configurationBuilder.Build();
 
-var _domainEntity = "SomeEntity";
+var _domainEntity = "Equipment";
 
 var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
 
@@ -21,12 +25,12 @@ var domainDefinition = new DomainDefinition()
     {
         new EntityMetadata()
         {
-            ClassName = "WholeSome",
-            Properties = new List<Property>()
+            ClassName = _domainEntity,
+            Properties = new List<MetaProperty>()
             {
-                new Property("public", "string", "Id", GetAccessorsArray()),
-                new Property("public", "string", "Name", GetAccessorsArray()),
-                new Property("public", "string", "Description", GetAccessorsArray()),
+                new MetaProperty("public", "string", "Id", AwesomeHelper.GetAccessorsArray()),
+                new MetaProperty("public", "string", "Name", AwesomeHelper.GetAccessorsArray()),
+                new MetaProperty("public", "string", "Description", AwesomeHelper.GetAccessorsArray()),
             }
         }
     },
@@ -37,7 +41,9 @@ var domainDefinition = new DomainDefinition()
 
     DomainEvents = new List<string>()
     {
-        "SomeEntityUpdated",
+        $"{_domainEntity}Added",
+        $"{_domainEntity}Updated",
+        $"{_domainEntity}Deleted",
     },
     //Dtos = new List<DtoMetadata>()
     //{
@@ -51,38 +57,42 @@ var domainDefinition = new DomainDefinition()
     //        }
     //    }
     //},
-    UseCases = new List<UseCase>()
+    UseCases = new List<MetaUseCase>()
     {
-        #region MyRegion
-        //new UseCase("AddUnit", RequestType.Command, HttpMethodType.Post),
-        //new UseCase("UpdateUnit", RequestType.Command, HttpMethodType.Put),
-        //new UseCase("DeleteUnit", RequestType.Command, HttpMethodType.Delete),
-        //new UseCase("GetUnits", RequestType.Query, HttpMethodType.Get)
-        //new UseCase($"Request{_domainEntity}", RequestType.Command, HttpMethodType.Post),
-        //new UseCase($"Accept{_domainEntity}", RequestType.Command, HttpMethodType.Put),
-        //new UseCase($"Declined{_domainEntity}", RequestType.Command, HttpMethodType.Delete),
-        //new UseCase($"Get{_domainEntity}s", RequestType.Query, HttpMethodType.Get)
-        //new UseCase($"Add{_domainEntity}", RequestType.Command, HttpMethodType.Post),
-        //new UseCase($"Delete{_domainEntity}", RequestType.Command, HttpMethodType.Delete),
-        //new UseCase($"Get{_domainEntity}", RequestType.Query, HttpMethodType.Get)
-        //new UseCase($"Login{domainEntity}", RequestType.Command, HttpMethodType.Post),
-        //new UseCase($"Register{domainEntity}", RequestType.Command, HttpMethodType.Post),
-        //new UseCase($"Update{domainEntity}", RequestType.Command, HttpMethodType.Put), 
-        #endregion
     }
 };
 
-var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
-var newUseCase = new UseCase($"{_domainEntity}", $"Update{_domainEntity}", RequestType.Command, HttpMethodType.Put)
+var addUseCase = new MetaUseCase($"{_domainEntity}", $"Add{_domainEntity}", RequestType.Command, HttpMethodType.Put)
+{
+
+};
+var getUseCase = new MetaUseCase($"{_domainEntity}", $"Get{_domainEntity.Pluralize()}", RequestType.Query, HttpMethodType.Put)
+{
+
+};
+var updateUseCase = new MetaUseCase($"{_domainEntity}", $"Update{_domainEntity}", RequestType.Command, HttpMethodType.Put)
+{
+
+};
+var deleteUseCase = new MetaUseCase($"{_domainEntity}", $"Delete{_domainEntity}", RequestType.Command, HttpMethodType.Put)
 {
 
 };
 
-domainDefinition.UseCases.Add(newUseCase);
+domainDefinition.UseCases.Add(addUseCase);
+domainDefinition.UseCases.Add(getUseCase);
+domainDefinition.UseCases.Add(updateUseCase);
+domainDefinition.UseCases.Add(deleteUseCase);
 
-var domainBuilder = new DomainBuilder(configuration, dtosPath, metadataDir, domainDefinition);
+var domainBuilder = new DomainBuilder(
+    configuration,
+    dtosPath,
+    metadataDir,
+    _domainEntity,
+    domainDefinition);
 
+domainBuilder.BuildEntities();
 domainBuilder.BuildEvents();
 
 foreach (var useCase in domainDefinition.UseCases)
@@ -95,7 +105,3 @@ foreach (var useCase in domainDefinition.UseCases)
 
 
 
-static string[] GetAccessorsArray()
-{
-    return new string[] { "get", "set" };
-}

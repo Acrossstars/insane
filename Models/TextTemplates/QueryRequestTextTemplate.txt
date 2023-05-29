@@ -19,6 +19,6 @@ public class {{ class_name }} : BaseQuery<{{ query_return_type }}>
     }
 
     {{ for prop in properties }} 
-    {{ prop.modificator }} {{ prop.type }} {{ prop.name }} {{{ for state in prop.accessors }} {{ state }}; {{- end }} }
+    {{ prop.modificator }} {{ prop.type }} {{ prop.name }} {{ for state in prop.accessors }} {{ state }}; {{- end }} }
     {{- end }}
 }

@@ -15,9 +15,9 @@ public class TypeName
     public string Name { get; set; } = default!;
 }
 
-public class Property
+public class MetaProperty
 {
-    public Property(string modificator, string type, string name, string[] accessors)
+    public MetaProperty(string modificator, string type, string name, string[] accessors)
     {
         Modificator = modificator;
         Type = type;

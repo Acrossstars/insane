@@ -2,9 +2,9 @@
 
 namespace Core.Domain;
 
-public class UseCase
+public class MetaUseCase
 {
-    public UseCase(
+    public MetaUseCase(
         string domainEntityName,
         string name,
         RequestType requestType,
@@ -53,5 +53,5 @@ public class UseCase
     public string QueryReturnTypeDto { get; set; } = default!;
     public DtoMetadata DtoMetadata { get; set; }
     public RestEndpointMetadata RestEndpointMetadata { get; set; }
-    public List<Property> ManagedProperties { get; set; } = new List<Property>();
+    public List<MetaProperty> ManagedProperties { get; set; } = new List<MetaProperty>();
 }

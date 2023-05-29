@@ -10,5 +10,5 @@ public class BaseMetadata
     public List<TypeName>? Constructor { get; set; }
     public string[]? BaseConstructor { get; set; }
     public List<InjectedProperty>? InjectedProperties { get; set; } = new List<InjectedProperty>();
-    public List<Property>? Properties { get; set; }
+    public List<MetaProperty>? Properties { get; set; }
 }
