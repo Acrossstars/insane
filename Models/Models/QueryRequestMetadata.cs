@@ -1,6 +1,6 @@
 ﻿namespace Core.Models;
 
-public class QueryRequestMetadata : BaseMetadata
+public class QueryRequestMetadata : YetAnotherBaseMetadata /*BaseMetadata*/
 {
     public QueryRequestMetadata()
     {

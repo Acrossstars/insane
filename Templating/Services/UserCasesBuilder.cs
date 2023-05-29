@@ -66,7 +66,7 @@ public class UserCasesBuilder
         {
             case RequestType.Command:
 
-                var commandRequest = MetadatasBuilder.GetCommandRequest(_useCase, _useCaseNamespace);
+                var commandRequest = MetadatasBuilder.CreateMetaCommandRequest(_useCase, _useCaseNamespace);
 
                 BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequest, commandRequest.ClassName);
 

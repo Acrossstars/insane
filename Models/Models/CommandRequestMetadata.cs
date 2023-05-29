@@ -1,6 +1,6 @@
 ﻿namespace Core.Models;
 
-public class CommandRequestMetadata : BaseMetadata
+public class CommandRequestMetadata : YetAnotherBaseMetadata /*BaseMetadata*/
 {
     public CommandRequestMetadata()
     {

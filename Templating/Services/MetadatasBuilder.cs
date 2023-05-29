@@ -25,21 +25,29 @@ internal class MetadatasBuilder
                        },
 
             Namespace = useCaseNamespace,
-            Properties = new List<MetaProperty>()
-            {
-                new MetaProperty("public","int","Id", new string[]{ "get", "set" }),
-                new MetaProperty("public","string","Name", new string[]{ "get", "set" }),
-                new MetaProperty("public","string","Description", new string[]{ "get", "set" }),
-            },
-            Constructor = new List<TypeName>()
-            {
-
-            },
-            InjectedProperties = new List<InjectedProperty>()
-            {
-
-            },
+            //Properties = new List<MetaProperty>()
+            //{
+            //    new MetaProperty("public","int","Id", new string[]{ "get", "set" }),
+            //    new MetaProperty("public","string","Name", new string[]{ "get", "set" }),
+            //    new MetaProperty("public","string","Description", new string[]{ "get", "set" }),
+            //},
         };
+
+        //metadata.InjectedInfrastructure = new List<TypeName>();
+        //metadata.Constructor = new List<TypeName>();
+        metadata.Properties = new List<MetaProperty>();
+        metadata.InjectedProperties = new List<InjectedProperty>();
+
+        //нихуя себе!
+
+        useCase.UseCaseContext.OperableProperties!.ForEach(x =>
+        {
+            //metadata.InjectedInfrastructure.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
+
+            metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, AwesomeHelper.GetAccessorsArray()));
+
+            //metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
+        });
 
         return metadata;
     }
@@ -85,6 +93,22 @@ internal class MetadatasBuilder
             }
         };
 
+        //metadata.InjectedInfrastructure = new List<TypeName>();
+        //metadata.Constructor = new List<TypeName>();
+        //metadata.Properties = new List<MetaProperty>();
+        //metadata.InjectedProperties = new List<InjectedProperty>();
+
+        ////нихуя себе!
+
+        //useCase.UseCaseContext.OperableProperties!.ForEach(x =>
+        //{
+        //    metadata.InjectedInfrastructure.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
+
+        //    metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, AwesomeHelper.GetAccessorsArray()));
+
+        //    metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
+        //});
+
         useCase.DtoMetadata.Properties.ForEach(x =>
         {
             metadata.InputProperties.Add(new InjectedProperty(x.Name.FirstLetterToLower(), x.Name));
@@ -93,7 +117,7 @@ internal class MetadatasBuilder
         return metadata;
     }
 
-    public static CommandRequestMetadata GetCommandRequest(MetaUseCase useCase, string useCaseNamespace)
+    public static CommandRequestMetadata CreateMetaCommandRequest(MetaUseCase useCase, string useCaseNamespace)
     {
         CommandRequestMetadata metadata = new CommandRequestMetadata()
         {
@@ -104,22 +128,26 @@ internal class MetadatasBuilder
             ClassName = useCase.Request,
         };
 
+        metadata.InjectedInfrastructure = new List<TypeName>();
         metadata.Constructor = new List<TypeName>();
         metadata.Properties = new List<MetaProperty>();
         metadata.InjectedProperties = new List<InjectedProperty>();
 
         //нихуя себе!
 
-        //useCase.
+        useCase.UseCaseContext.OperableProperties!.ForEach(x =>
+        {
+            metadata.InjectedInfrastructure.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
 
-        //metadata.Constructor.Add(new TypeName("string", "actionId"));
+            metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, AwesomeHelper.GetAccessorsArray()));
 
-        //metadata.Properties.Add(new MetaProperty("public", "string", "ActionId", AwesomeHelper.GetAccessorsArray()));
-
-        //metadata.InjectedProperties.Add(new InjectedProperty("ActionId", "actionId"));
+            metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
+        });
 
         return metadata;
     }
+
+
 
     #region CommandRequestHandler
 
@@ -149,13 +177,7 @@ internal class MetadatasBuilder
             InjectedRequestClass = new List<TypeName>()
                 {
                     new TypeName(useCase.Request, useCase.Request.FirstLetterToLower()),
-                },
-            //InjectedProperties = new List<InjectedProperty>()
-            //{
-            //    new InjectedProperty("ActionId", "actionId"),
-            //    new InjectedProperty("SessionId", "sessionId"),
-            //    new InjectedProperty("DecisionId", "decisionId")
-            //},
+                }
         };
 
 
@@ -179,19 +201,21 @@ internal class MetadatasBuilder
             QueryReturnType = $"{useCase.Name}Dto"
         };
 
+        metadata.InjectedInfrastructure = new List<TypeName>();
         metadata.Constructor = new List<TypeName>();
         metadata.Properties = new List<MetaProperty>();
         metadata.InjectedProperties = new List<InjectedProperty>();
 
         //нихуя себе!
 
-        //useCase.
+        useCase.UseCaseContext.OperableProperties!.ForEach(x =>
+        {
+            metadata.InjectedInfrastructure.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
 
-        //metadata.Constructor.Add(new TypeName("string", "actionId"));
+            metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, AwesomeHelper.GetAccessorsArray()));
 
-        //metadata.Properties.Add(new MetaProperty("public", "string", "ActionId", AwesomeHelper.GetAccessorsArray()));
-
-        //metadata.InjectedProperties.Add(new InjectedProperty("ActionId", "actionId"));
+            metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
+        });
 
         return metadata;
     }
@@ -226,18 +250,30 @@ internal class MetadatasBuilder
                 }
         };
 
+        return metadata;
+    }
+
+    /// <summary>
+    /// For MetaRequest
+    /// </summary>
+    /// <param name="useCase"></param>
+    /// <param name="metadata"></param>
+    private static void SetupProperties(MetaUseCase useCase, CommandRequestMetadata metadata)
+    {
+        metadata.InjectedInfrastructure = new List<TypeName>();
         metadata.Constructor = new List<TypeName>();
         metadata.Properties = new List<MetaProperty>();
         metadata.InjectedProperties = new List<InjectedProperty>();
 
-        //useCase.
+        //нихуя себе!
 
-        //metadata.Constructor.Add(new TypeName("string", "actionId"));
+        useCase.UseCaseContext.OperableProperties!.ForEach(x =>
+        {
+            metadata.InjectedInfrastructure.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
 
-        //metadata.Properties.Add(new MetaProperty("public", "string", "ActionId", AwesomeHelper.GetAccessorsArray()));
+            metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, AwesomeHelper.GetAccessorsArray()));
 
-        //metadata.InjectedProperties.Add(new InjectedProperty("ActionId", "actionId"));
-
-        return metadata;
+            metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
+        });
     }
- }
+}

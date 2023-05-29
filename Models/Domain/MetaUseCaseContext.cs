@@ -21,5 +21,5 @@ public class MetaUseCaseContext
     /// <summary>
     /// 
     /// </summary>
-    public List<MetaProperty>? OperableProperties { get; set; }
+    public List<MetaProperty>? OperableProperties { get; set; } = new List<MetaProperty>();
 }

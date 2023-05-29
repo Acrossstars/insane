@@ -14,7 +14,7 @@ var configurationBuilder = new ConfigurationBuilder()
 
 var configuration = configurationBuilder.Build();
 
-var _domainEntity = "Equipment";
+var _domainEntity = "FuckYeah";
 
 var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
 
@@ -65,19 +65,48 @@ var domainDefinition = new DomainDefinition()
 
 var addUseCase = new MetaUseCase($"{_domainEntity}", $"Add{_domainEntity}", RequestType.Command, HttpMethodType.Put)
 {
-
+    UseCaseContext = new MetaUseCaseContext()
+    {
+        OperableProperties = new List<MetaProperty>()
+        {
+            new MetaProperty("public","string","Name", new string[]{ "get", "set" }),
+            new MetaProperty("public","string","Description", new string[]{ "get", "set" }),
+        }
+    }
 };
 var getUseCase = new MetaUseCase($"{_domainEntity}", $"Get{_domainEntity.Pluralize()}", RequestType.Query, HttpMethodType.Put)
 {
+    UseCaseContext = new MetaUseCaseContext()
+    {
+        OperableProperties = new List<MetaProperty>()
+        {
 
+        }
+    }
 };
+
 var updateUseCase = new MetaUseCase($"{_domainEntity}", $"Update{_domainEntity}", RequestType.Command, HttpMethodType.Put)
 {
-
+    UseCaseContext = new MetaUseCaseContext()
+    {
+        OperableProperties = new List<MetaProperty>()
+        {
+            new MetaProperty("public","string","Id", new string[]{ "get", "set" }),
+            new MetaProperty("public","string","Name", new string[]{ "get", "set" }),
+            new MetaProperty("public","string","Description", new string[]{ "get", "set" }),
+        }
+    }
 };
-var deleteUseCase = new MetaUseCase($"{_domainEntity}", $"Delete{_domainEntity}", RequestType.Command, HttpMethodType.Put)
-{
 
+var deleteUseCase = new MetaUseCase($"{_domainEntity}", $"Delete{_domainEntity}", RequestType.Command, HttpMethodType.Delete)
+{
+    UseCaseContext = new MetaUseCaseContext()
+    {
+        OperableProperties = new List<MetaProperty>()
+        {
+            new MetaProperty("public","string","Id", new string[]{ "get", "set" }),
+        }
+    }
 };
 
 domainDefinition.UseCases.Add(addUseCase);
@@ -101,7 +130,3 @@ foreach (var useCase in domainDefinition.UseCases)
 
     userCasesBuilder.GenerateUseCase(configuration, _domainEntity, dtosPath, metadataDir);
 }
-
-
-
-

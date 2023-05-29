@@ -54,4 +54,5 @@ public class MetaUseCase
     public DtoMetadata DtoMetadata { get; set; }
     public RestEndpointMetadata RestEndpointMetadata { get; set; }
     public List<MetaProperty> ManagedProperties { get; set; } = new List<MetaProperty>();
+    public MetaUseCaseContext UseCaseContext { get; set; }
 }
