@@ -1,9 +1,4 @@
 ﻿using Core;
-using Core.Domain;
-using Core.Models;
-using Core.Models.Common;
-using Humanizer;
-using Microsoft.Extensions.Configuration;
 using Templating.Features;
 using Templating.Infra;
 

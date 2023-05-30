@@ -1,23 +1,13 @@
-﻿using Core.Domain;
-using Core.Domain.Enums;
-using Core.Helpers;
-using Core.Models;
-using Core.Models.Common;
-using Humanizer;
-using Microsoft.Extensions.Configuration;
-using Templating.Services;
-
-var metadataDir = $"{Directory.GetCurrentDirectory()}";
+﻿var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
 var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false, true);
 
 var configuration = configurationBuilder.Build();
 
-var _domainEntity = "FuckYeah";
+var _domainEntity = "Equipment";
 
 var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
-
 
 var domainDefinition = new DomainDefinition()
 {
@@ -28,7 +18,7 @@ var domainDefinition = new DomainDefinition()
             ClassName = _domainEntity,
             Properties = new List<MetaProperty>()
             {
-                new MetaProperty("public", "string", "Id", AwesomeHelper.GetAccessorsArray()),
+                //new MetaProperty("public", "string", "Id", AwesomeHelper.GetAccessorsArray()),
                 new MetaProperty("public", "string", "Name", AwesomeHelper.GetAccessorsArray()),
                 new MetaProperty("public", "string", "Description", AwesomeHelper.GetAccessorsArray()),
             }
@@ -63,7 +53,7 @@ var domainDefinition = new DomainDefinition()
 };
 
 
-var addUseCase = new MetaUseCase($"{_domainEntity}", $"Add{_domainEntity}", RequestType.Command, HttpMethodType.Put)
+var addUseCase = new MetaUseCase($"{_domainEntity}", $"Add{_domainEntity}", RequestType.Command, HttpMethodType.Post)
 {
     UseCaseContext = new MetaUseCaseContext()
     {
@@ -74,7 +64,7 @@ var addUseCase = new MetaUseCase($"{_domainEntity}", $"Add{_domainEntity}", Requ
         }
     }
 };
-var getUseCase = new MetaUseCase($"{_domainEntity}", $"Get{_domainEntity.Pluralize()}", RequestType.Query, HttpMethodType.Put)
+var getUseCase = new MetaUseCase($"{_domainEntity}", $"Get{_domainEntity.Pluralize()}", RequestType.Query, HttpMethodType.Get)
 {
     UseCaseContext = new MetaUseCaseContext()
     {

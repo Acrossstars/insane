@@ -104,7 +104,7 @@ public class UserCasesBuilder
 
         foreach (var builderMetadata in builderContexts)
         {
-            var builder = new FileBuilder(configuration);
+            var builder = new FileBuilder();
             builder.Build(builderMetadata);
         }
     }

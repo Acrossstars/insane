@@ -1,9 +1,4 @@
-﻿using Core.Domain;
-using Core.Domain.Enums;
-using Core.Extensions;
-using Core.Helpers;
-using Core.Models;
-using Core.Models.Common;
+﻿using Core.Extensions;
 
 namespace Templating.Services;
 

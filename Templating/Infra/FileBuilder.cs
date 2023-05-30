@@ -6,15 +6,8 @@ namespace Templating.Infra;
 
 public class FileBuilder
 {
-    private readonly IConfigurationRoot _configuration;
-
     public FileBuilder()
     {
-    }
-
-    public FileBuilder(IConfigurationRoot configuration)
-    {
-        _configuration = configuration;
     }
 
     public void Build(ObjectBuilderContext builderMetadata)
