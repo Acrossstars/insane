@@ -15,10 +15,10 @@ public class {{ class_name }} : BaseEntity
     {
         {{ for prop in injected_properties }}
         {{ prop.destination }} = {{ prop.source }};
-        {{ end }}
+        {{- end }}
     }
-
-    {{ for prop in properties }} 
-    {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
+    {{~ for prop in properties }} 
+    {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} } 
+        {{- if prop.default_value }} = {{ prop.default_value }}; {{ end }}
     {{- end }}
 }

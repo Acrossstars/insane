@@ -17,18 +17,20 @@ public class TypeName
 
 public class MetaProperty
 {
-    public MetaProperty(string modificator, string type, string name, string[] accessors)
+    public MetaProperty(string modificator, string type, string name, string[] accessors, string? defaultValue = null)
     {
         Modificator = modificator;
         Type = type;
         Name = name;
         Accessors = accessors;
+        DefaultValue = defaultValue;
     }
 
     public string Modificator { get; set; } = default!;
     public string Type { get; set; } = default!;
     public string Name { get; set; } = default!;
     public string[] Accessors { get; set; } = default!;
+    public string? DefaultValue { get; set; }
 }
 
 public class InjectedProperty
