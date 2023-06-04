@@ -5,7 +5,7 @@ var configurationBuilder = new ConfigurationBuilder()
 
 var configuration = configurationBuilder.Build();
 
-var _domainEntity = "Equipment";
+var _domainEntity = "Test";
 
 var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
 
@@ -59,8 +59,8 @@ var addUseCase = new MetaUseCase($"{_domainEntity}", $"Add{_domainEntity}", Requ
     {
         OperableProperties = new List<MetaProperty>()
         {
-            new MetaProperty("public","string","Name", new string[]{ "get", "set" }),
-            new MetaProperty("public","string","Description", new string[]{ "get", "set" }),
+            MetaProperty.PublicString("Name"),
+            MetaProperty.PublicString("Description")
         }
     }
 };
@@ -74,27 +74,25 @@ var getUseCase = new MetaUseCase($"{_domainEntity}", $"Get{_domainEntity.Plurali
         }
     }
 };
-
 var updateUseCase = new MetaUseCase($"{_domainEntity}", $"Update{_domainEntity}", RequestType.Command, HttpMethodType.Put)
 {
     UseCaseContext = new MetaUseCaseContext()
     {
         OperableProperties = new List<MetaProperty>()
         {
-            new MetaProperty("public","string","Id", new string[]{ "get", "set" }),
-            new MetaProperty("public","string","Name", new string[]{ "get", "set" }),
-            new MetaProperty("public","string","Description", new string[]{ "get", "set" }),
+            MetaProperty.PublicString("Id"),
+            MetaProperty.PublicString("Name"),
+            MetaProperty.PublicString("Description")
         }
     }
 };
-
 var deleteUseCase = new MetaUseCase($"{_domainEntity}", $"Delete{_domainEntity}", RequestType.Command, HttpMethodType.Delete)
 {
     UseCaseContext = new MetaUseCaseContext()
     {
         OperableProperties = new List<MetaProperty>()
         {
-            new MetaProperty("public","string","Id", new string[]{ "get", "set" }),
+            MetaProperty.PublicString("Id")
         }
     }
 };

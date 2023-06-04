@@ -7,3 +7,13 @@ public class DomainEventMetadata : BaseMetadata
         Type = MetadataType.DomainEvent;
     }
 }
+
+public class DomainEventHandlerMetadata : BaseMetadata
+{
+    public DomainEventHandlerMetadata()
+    {
+        Type = MetadataType.DomainEventHandler;
+    }
+
+    public string EventClassName { get; set; }
+}

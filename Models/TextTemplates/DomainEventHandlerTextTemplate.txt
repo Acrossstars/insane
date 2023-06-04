@@ -1,0 +1,31 @@
+﻿{{- for item in usings }}using {{ item }};
+{{- end }}
+
+namespace {{ namespace }};
+
+/// <summary>
+/// 
+/// </summary>
+public class {{ class_name }} : EventNotificationHandler<{{ event_class_name }}>
+{
+    private readonly ILogger _logger;
+    private readonly ISyncDataService _syncDataService;
+    private readonly IApplicationDbContext _dbContext;
+
+    public {{ class_name }}(
+        ISyncDataService syncDataService,
+        IApplicationDbContext dbContext,
+        ILogger logger)
+    {
+        _syncDataService = syncDataService;
+        _dbContext = dbContext;
+        _logger = logger;
+    }
+
+    public override async Task Handle({{ event_class_name }} @event, CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("{UserId} resources changed. Current Value ManaScrap: {ManaScrap} Oil: {Oil}", @event.UserId, @event.ManaScrap, @event.Oil);
+
+
+    }
+}

@@ -28,6 +28,9 @@
     <None Update="TextTemplates\CommandRequestTextTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="TextTemplates\DomainEventHandlerTextTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="TextTemplates\DtoTextTemplate.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

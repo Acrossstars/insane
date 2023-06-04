@@ -29,6 +29,9 @@ public class MetaProperty
     public string Type { get; set; } = default!;
     public string Name { get; set; } = default!;
     public string[] Accessors { get; set; } = default!;
+
+    public static MetaProperty PublicString(string name)
+        => new MetaProperty("public", "string", name, new[] { "get", "set" });
 }
 
 public class InjectedProperty
