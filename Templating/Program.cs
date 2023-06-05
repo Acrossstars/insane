@@ -5,7 +5,7 @@ var configurationBuilder = new ConfigurationBuilder()
 
 var configuration = configurationBuilder.Build();
 
-var _domainEntity = "Another";
+var _domainEntity = "ConstructorCheck";
 
 var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
 

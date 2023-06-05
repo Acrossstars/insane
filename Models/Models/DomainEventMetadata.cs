@@ -1,8 +1,9 @@
 ﻿using Core.Domain;
+using Core.Domain.Interfaces;
 
 namespace Core.Models;
 
-public class DomainEventMetadata : BaseMetadata
+public class DomainEventMetadata : BaseMetadata, IMetaProperties
 {
     public DomainEventMetadata()
     {

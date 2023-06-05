@@ -117,26 +117,25 @@ public class DomainBuilder
 
             BaseConstructor = new string[]
                                 {
-                            "entityId: id",
-                            $"entityType: DomainMetadata.{domainEntity}"
+                                    "entityId: id",
+                                    $"entityType: DomainMetadata.{domainEntity}"
                                 },
+            Context = new()
+            {
+                OperableProperties = new List<MetaProperty>()
+                {
+                    MetaProperty.PublicString("Id"),
+                    MetaProperty.PublicString("Name"),
+                    MetaProperty.PublicString("Description")
+                }
+            }
         };
 
-        //metadata.InjectedInfrastructure = new List<TypeName>();
         metadata.Constructor = new List<TypeName>();
         metadata.Properties = new List<MetaProperty>();
         metadata.InjectedProperties = new List<InjectedProperty>();
 
-        properties.ForEach(x =>
-        {
-            metadata.Constructor.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
-
-            metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, AwesomeHelper.GetAccessorsArray()));
-
-            metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
-        });
-
-        //AwesomeHelper.FillOperablePropertiesFromMetadata(metadata.UseCaseContext, metadata);
+        AwesomeHelper.FillOperablePropertiesFromMetadata(metadata.Context, metadata);
 
         return metadata;
     }

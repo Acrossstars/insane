@@ -9,12 +9,7 @@ public class {{ class_name }} : BaseCommand
     /// <summary>
     /// 
     /// </summary>
-    public {{ class_name }}(
-        {{ for par in constructor }}
-        {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
-        {{ for par in injected_infrastructure }}
-        {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
-        )
+    public {{ class_name }}({{ for par in constructor }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
         {{ for prop in injected_properties }}
         {{ prop.destination }} = {{ prop.source }};

@@ -15,16 +15,15 @@ public class {{ class_name }} : INotificationHandler<{{ event_class_name }}>
         {{ for par in constructor }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
         {{ for par in injected_infrastructure }}
-        {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
-        )
+        {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }})
     {
         {{ for prop in injected_properties }}
         {{ prop.destination }} = {{ prop.source }};
         {{ end }}
     }
 
-    public override async Task Handle({{ event_class_name }} @event, CancellationToken cancellationToken)
+    public async Task Handle({{ event_class_name }} @event, CancellationToken cancellationToken)
     {
-        
+        await Task.CompletedTask;
     }
 }

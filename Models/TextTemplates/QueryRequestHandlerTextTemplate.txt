@@ -13,8 +13,7 @@ public class {{ class_name }} : BaseQueryHandler,
     /// 
     /// </summary>
     public {{ class_name }}({{ for par in injected_infrastructure }}
-        {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
-        )
+        {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }})
     :base({{ for par in base_constructor }}{{ par }}{{ if !for.last}},{{ end -}}{{- end }})
     {
         {{ for prop in injected_properties }}

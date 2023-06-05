@@ -25,7 +25,9 @@ public static class AwesomeHelper
         //нихуя себе!
         context.OperableProperties!.ForEach(x =>
         {
-            metadata.InjectedInfrastructure.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
+            //metadata.InjectedInfrastructure.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
+
+            metadata.Constructor.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
 
             metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, AwesomeHelper.GetAccessorsArray()));
 
