@@ -1,4 +1,6 @@
-﻿namespace Core.Models;
+﻿using Core.Domain;
+
+namespace Core.Models;
 
 public class DomainEventMetadata : BaseMetadata
 {
@@ -6,6 +8,8 @@ public class DomainEventMetadata : BaseMetadata
     {
         Type = MetadataType.DomainEvent;
     }
+
+    public DomainEventContext Context { get; set; }
 }
 
 public class DomainEventHandlerMetadata : BaseMetadata

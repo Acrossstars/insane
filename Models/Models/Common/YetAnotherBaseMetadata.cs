@@ -1,6 +1,8 @@
-﻿namespace Core.Models.Common;
+﻿using Core.Domain.Interfaces;
 
-public class YetAnotherBaseMetadata : BaseMetadata
+namespace Core.Models.Common;
+
+public class YetAnotherBaseMetadata : BaseMetadata, IMetaProperties
 {
     public List<TypeName>? InjectedRequestClass { get; set; }
     public string? RequestType { get; set; }

@@ -1,9 +1,11 @@
-﻿namespace Core.Domain;
+﻿using Core.Domain.Interfaces;
+
+namespace Core.Domain;
 
 /// <summary>
 /// 
 /// </summary>
-public class MetaUseCaseContext
+public class MetaUseCaseContext : IDataContext
 {
     /// <summary>
     /// 

@@ -1,4 +1,6 @@
-﻿namespace Core.Models.Common;
+﻿using Core.Helpers;
+
+namespace Core.Models.Common;
 
 //public record TypeName(string Type, string Name);
 //public record Property(string Modificator, string Type, string Name, string[] Accessors);
@@ -30,8 +32,13 @@ public class MetaProperty
     public string Name { get; set; } = default!;
     public string[] Accessors { get; set; } = default!;
 
+    /// <summary>
+    /// Fabric method
+    /// </summary>
+    /// <param name="name"></param>
+    /// <returns></returns>
     public static MetaProperty PublicString(string name)
-        => new MetaProperty("public", "string", name, new[] { "get", "set" });
+        => new("public", "string", name, AwesomeHelper.GetAccessorsArray());
 }
 
 public class InjectedProperty

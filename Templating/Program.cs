@@ -5,7 +5,7 @@ var configurationBuilder = new ConfigurationBuilder()
 
 var configuration = configurationBuilder.Build();
 
-var _domainEntity = "Test";
+var _domainEntity = "Another";
 
 var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
 
@@ -29,24 +29,25 @@ var domainDefinition = new DomainDefinition()
         "SomeEntity",
     },
 
-    DomainEvents = new List<string>()
+    DomainEvents = new List<DomainEventMetadata>()
     {
-        $"{_domainEntity}Added",
-        $"{_domainEntity}Updated",
-        $"{_domainEntity}Deleted",
+        new DomainEventMetadata()
+        {
+            ClassName = _domainEntity,
+            Context = new()
+            {
+                OperableProperties = new List<MetaProperty>()
+                {
+                    MetaProperty.PublicString("Id"),
+                    MetaProperty.PublicString("Name"),
+                    MetaProperty.PublicString("Description")
+                }
+            }
+        }
+        //$"{_domainEntity}Added",
+        //$"{_domainEntity}Updated",
+        //$"{_domainEntity}Deleted",
     },
-    //Dtos = new List<DtoMetadata>()
-    //{
-    //    new DtoMetadata()
-    //    {
-    //        Properties = new List<Property>()
-    //        {
-    //            new Property("public","int","Id", new string[]{ "get", "set" }),
-    //            new Property("public","string","Name", new string[]{ "get", "set" }),
-    //            new Property("public","string","Description", new string[]{ "get", "set" }),
-    //        }
-    //    }
-    //},
     UseCases = new List<MetaUseCase>()
     {
     }
@@ -99,8 +100,8 @@ var deleteUseCase = new MetaUseCase($"{_domainEntity}", $"Delete{_domainEntity}"
 
 domainDefinition.UseCases.Add(addUseCase);
 domainDefinition.UseCases.Add(getUseCase);
-domainDefinition.UseCases.Add(updateUseCase);
-domainDefinition.UseCases.Add(deleteUseCase);
+//domainDefinition.UseCases.Add(updateUseCase);
+//domainDefinition.UseCases.Add(deleteUseCase);
 
 var domainBuilder = new DomainBuilder(
     configuration,
@@ -110,6 +111,10 @@ var domainBuilder = new DomainBuilder(
     domainDefinition);
 
 domainBuilder.BuildEntities();
+
+//foreach (var item in domainDefinition.DomainEvents)
+//{
+//}
 domainBuilder.BuildEvents();
 
 foreach (var useCase in domainDefinition.UseCases)

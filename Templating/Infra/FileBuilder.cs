@@ -1,5 +1,4 @@
 ﻿using Core;
-using Microsoft.Extensions.Configuration;
 using Scriban;
 
 namespace Templating.Infra;

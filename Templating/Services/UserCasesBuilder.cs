@@ -1,11 +1,6 @@
 ﻿using Core;
-using Core.Domain;
-using Core.Domain.Enums;
-using Core.Models;
-using Microsoft.Extensions.Configuration;
 using Templating.Features;
 using Templating.Infra;
-using Humanizer;
 
 namespace Templating.Services;
 
@@ -35,26 +30,6 @@ public class UserCasesBuilder
         _path = $"\\{_useCasesFolderName}\\{_manyEntities}\\{_useCase.Name}";
 
         _outputFilePath = $"{_solutionRoot}{_apiRoot}\\{_path}";
-    }
-
-    public void BuildMetadatas(MetaUseCase @usecase)
-    {
-        //todo build dto
-
-        //var dto = GetDto(useCase, _useCaseNamespace);
-        //var dtoPath = dtosPath + $"\\{domainEntity}s";
-
-        ////todo build rest method
-
-        //RestEndpointMetadata restEndpoint = CreateRestEndpointMetadata(domainEntity, useCase, _useCaseNamespace);
-
-        //BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName);
-
-        //foreach (var builderMetadata in builderContexts)
-        //{
-        //    var builder = new FileBuilder(configuration);
-        //    builder.Build(builderMetadata);
-        //}
     }
 
     //TODO: Rename Namespace to Match Folder Structure

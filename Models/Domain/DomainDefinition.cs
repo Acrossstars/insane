@@ -13,7 +13,7 @@ public class DomainDefinition
     public List<string>? Aggregates { get; set; } = new List<string>();
     public List<string>? ValueObjects { get; set; } = new List<string>();
     public List<string>? IntegrationEvents { get; set; } = new List<string>();
-    public List<string>? DomainEvents { get; set; } = new List<string>();
+    public List<DomainEventMetadata>? DomainEvents { get; set; }
     public List<EntityMetadata>? Entities { get; set; }
     public List<MetaUseCase>? UseCases { get; set; }
     public List<DtoMetadata> Dtos { get; set; }

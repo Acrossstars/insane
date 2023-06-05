@@ -1,4 +1,6 @@
 ﻿using Core.Domain;
+using Core.Domain.Interfaces;
+using Core.Extensions;
 
 namespace Core.Helpers;
 
@@ -16,5 +18,18 @@ public static class AwesomeHelper
             RequestType.Query => useCase.QueryReturnTypeDto,
             RequestType.Command => "CommandResult",
         };
+    }
+
+    public static void FillOperablePropertiesFromMetadata(IDataContext context, IMetaProperties metadata)
+    {
+        //нихуя себе!
+        context.OperableProperties!.ForEach(x =>
+        {
+            metadata.InjectedInfrastructure.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
+
+            metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, AwesomeHelper.GetAccessorsArray()));
+
+            metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
+        });
     }
 }
