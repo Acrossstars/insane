@@ -1,6 +1,7 @@
-﻿using Core.Models;
+﻿using Core.Domain.Common;
+using Core.Metadatas;
 
-namespace Core.Domain;
+namespace Core.Domain.UseCases;
 
 public class MetaUseCase
 {
@@ -55,4 +56,5 @@ public class MetaUseCase
     public RestEndpointMetadata RestEndpointMetadata { get; set; }
     public List<MetaProperty> ManagedProperties { get; set; } = new List<MetaProperty>();
     public MetaUseCaseContext UseCaseContext { get; set; }
+    public List<MetaUseCaseStep> UseCaseSteps { get; set; }
 }

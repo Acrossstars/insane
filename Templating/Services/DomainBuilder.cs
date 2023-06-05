@@ -1,5 +1,7 @@
 ﻿using Core;
+using Core.Domain.Common;
 using Core.Extensions;
+using Core.Metadatas;
 using Templating.Features;
 using Templating.Infra;
 

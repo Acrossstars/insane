@@ -1,21 +1,6 @@
 ﻿using Core.Helpers;
 
-namespace Core.Models.Common;
-
-//public record TypeName(string Type, string Name);
-//public record Property(string Modificator, string Type, string Name, string[] Accessors);
-
-public class TypeName
-{
-    public TypeName(string type, string name)
-    {
-        Type = type;
-        Name = name;
-    }
-
-    public string Type { get; set; } = default!;
-    public string Name { get; set; } = default!;
-}
+namespace Core.Domain.Common;
 
 public class MetaProperty
 {
@@ -39,16 +24,4 @@ public class MetaProperty
     /// <returns></returns>
     public static MetaProperty PublicString(string name)
         => new("public", "string", name, AwesomeHelper.GetAccessorsArray());
-}
-
-public class InjectedProperty
-{
-    public InjectedProperty(string destination, string source)
-    {
-        Destination = destination;
-        Source = source;
-    }
-
-    public string Destination { get; set; } = default!;
-    public string Source { get; set; } = default!;
 }

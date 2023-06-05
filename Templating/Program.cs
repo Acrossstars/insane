@@ -1,4 +1,8 @@
-﻿var metadataDir = $"{Directory.GetCurrentDirectory()}";
+﻿using Core.Domain.Common;
+using Core.Domain.UseCases;
+using Core.Metadatas;
+
+var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
 var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("appsettings.json", false, true);

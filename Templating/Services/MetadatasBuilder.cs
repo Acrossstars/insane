@@ -1,4 +1,9 @@
-﻿using Core.Extensions;
+﻿using Core.Domain.Common;
+using Core.Domain.UseCases;
+using Core.Extensions;
+using Core.Metadatas;
+using Core.Metadatas.Commands;
+using Core.Metadatas.Queries;
 
 namespace Templating.Services;
 
@@ -167,7 +172,6 @@ internal class MetadatasBuilder
             QueryReturnType = $"{useCase.Name}Dto"
         };
 
-        metadata.InjectedInfrastructure = new List<TypeName>();
         metadata.Constructor = new List<TypeName>();
         metadata.Properties = new List<MetaProperty>();
         metadata.InjectedProperties = new List<InjectedProperty>();

@@ -1,6 +1,7 @@
-﻿using Core.Domain.Interfaces;
+﻿using Core.Domain.Common;
+using Core.Domain.Interfaces;
 
-namespace Core.Domain;
+namespace Core.Domain.UseCases;
 
 /// <summary>
 /// 

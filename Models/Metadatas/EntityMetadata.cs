@@ -1,4 +1,6 @@
-﻿namespace Core.Models;
+﻿using Core.Domain.Common;
+
+namespace Core.Metadatas;
 
 public class EntityMetadata : BaseMetadata
 {

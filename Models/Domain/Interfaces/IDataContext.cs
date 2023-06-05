@@ -1,4 +1,6 @@
-﻿namespace Core.Domain.Interfaces;
+﻿using Core.Domain.Common;
+
+namespace Core.Domain.Interfaces;
 
 public interface IDataContext
 {

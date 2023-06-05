@@ -1,4 +1,6 @@
 ﻿using Core;
+using Core.Domain.UseCases;
+using Core.Metadatas;
 using Templating.Features;
 using Templating.Infra;
 

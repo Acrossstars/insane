@@ -1,4 +1,6 @@
-﻿namespace Core.Models;
+﻿using Core.Domain.Common;
+
+namespace Core.Metadatas.Commands;
 
 public class CommandRequestMetadata : YetAnotherBaseMetadata /*BaseMetadata*/
 {

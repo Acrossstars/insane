@@ -1,4 +1,5 @@
-﻿using Core.Models;
+﻿using Core.Domain.UseCases;
+using Core.Metadatas;
 
 namespace Core.Domain;
 

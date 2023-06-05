@@ -1,5 +1,5 @@
 ﻿using Core;
-using Core.Models.Common;
+using Core.Domain.Common;
 
 namespace Templating.Features;
 
