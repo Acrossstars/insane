@@ -9,7 +9,7 @@ var configurationBuilder = new ConfigurationBuilder()
 
 var configuration = configurationBuilder.Build();
 
-var _domainEntity = "ConstructorCheck";
+var _domainEntity = "UnitProperty";
 
 var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
 
@@ -23,8 +23,8 @@ var domainDefinition = new DomainDefinition()
             Properties = new List<MetaProperty>()
             {
                 //new MetaProperty("public", "string", "Id", AwesomeHelper.GetAccessorsArray()),
-                new MetaProperty("public", "string", "Name", AwesomeHelper.GetAccessorsArray()),
-                new MetaProperty("public", "string", "Description", AwesomeHelper.GetAccessorsArray()),
+                //new MetaProperty("public", "string", "Name", AwesomeHelper.GetAccessorsArray()),
+                //new MetaProperty("public", "string", "Description", AwesomeHelper.GetAccessorsArray()),
             }
         }
     },
@@ -37,17 +37,46 @@ var domainDefinition = new DomainDefinition()
     {
         new DomainEventMetadata()
         {
-            ClassName = _domainEntity,
+            ClassName = $"{_domainEntity}Updated",
             Context = new()
             {
                 OperableProperties = new List<MetaProperty>()
                 {
                     MetaProperty.PublicString("Id"),
+                    MetaProperty.PublicDouble("Value"),
                     MetaProperty.PublicString("Name"),
-                    MetaProperty.PublicString("Description")
+                    MetaProperty.PublicString("UnitLevel"),
+                    MetaProperty.PublicString("UnitType"),
                 }
             }
-        }
+        },
+        new DomainEventMetadata()
+        {
+            ClassName = $"{_domainEntity}Added",
+            Context = new()
+            {
+                OperableProperties = new List<MetaProperty>()
+                {
+                    MetaProperty.PublicString("Id"),
+                    MetaProperty.PublicDouble("Value"),
+                    MetaProperty.PublicString("Name"),
+                    MetaProperty.PublicString("UnitLevel"),
+                    MetaProperty.PublicString("UnitType"),
+                }
+            }
+        },
+        new DomainEventMetadata()
+        {
+            ClassName = $"{_domainEntity}Deleted",
+            Context = new()
+            {
+                OperableProperties = new List<MetaProperty>()
+                {
+                    MetaProperty.PublicString("Id"),
+                }
+            }
+        },
+
         //$"{_domainEntity}Added",
         //$"{_domainEntity}Updated",
         //$"{_domainEntity}Deleted",
@@ -64,8 +93,11 @@ var addUseCase = new MetaUseCase($"{_domainEntity}", $"Add{_domainEntity}", Requ
     {
         OperableProperties = new List<MetaProperty>()
         {
+            MetaProperty.PublicString("Id"),
+            MetaProperty.PublicDouble("Value"),
             MetaProperty.PublicString("Name"),
-            MetaProperty.PublicString("Description")
+            MetaProperty.PublicString("UnitLevel"),
+            MetaProperty.PublicString("UnitType"),
         }
     }
 };
@@ -86,8 +118,10 @@ var updateUseCase = new MetaUseCase($"{_domainEntity}", $"Update{_domainEntity}"
         OperableProperties = new List<MetaProperty>()
         {
             MetaProperty.PublicString("Id"),
+            MetaProperty.PublicDouble("Value"),
             MetaProperty.PublicString("Name"),
-            MetaProperty.PublicString("Description")
+            MetaProperty.PublicString("UnitLevel"),
+            MetaProperty.PublicString("UnitType"),
         }
     }
 };
@@ -105,7 +139,7 @@ var deleteUseCase = new MetaUseCase($"{_domainEntity}", $"Delete{_domainEntity}"
 domainDefinition.UseCases.Add(addUseCase);
 domainDefinition.UseCases.Add(getUseCase);
 //domainDefinition.UseCases.Add(updateUseCase);
-//domainDefinition.UseCases.Add(deleteUseCase);
+domainDefinition.UseCases.Add(deleteUseCase);
 
 var domainBuilder = new DomainBuilder(
     configuration,
@@ -114,12 +148,12 @@ var domainBuilder = new DomainBuilder(
     _domainEntity,
     domainDefinition);
 
-domainBuilder.BuildEntities();
+//domainBuilder.BuildEntities();
 
 //foreach (var item in domainDefinition.DomainEvents)
 //{
 //}
-domainBuilder.BuildEvents();
+//domainBuilder.BuildEvents();
 
 foreach (var useCase in domainDefinition.UseCases)
 {

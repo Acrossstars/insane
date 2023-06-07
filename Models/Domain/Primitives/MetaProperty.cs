@@ -24,4 +24,10 @@ public class MetaProperty
     /// <returns></returns>
     public static MetaProperty PublicString(string name)
         => new("public", "string", name, AwesomeHelper.GetAccessorsArray());
+    
+    public static MetaProperty PublicInt(string name)
+        => new("public", "int", name, AwesomeHelper.GetAccessorsArray());
+
+    public static MetaProperty PublicDouble(string name)
+        => new("public", "double", name, AwesomeHelper.GetAccessorsArray());
 }

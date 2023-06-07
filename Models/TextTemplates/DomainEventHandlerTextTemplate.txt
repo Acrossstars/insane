@@ -8,8 +8,8 @@ namespace {{ namespace }};
 /// </summary>
 public class {{ class_name }} : INotificationHandler<{{ event_class_name }}>
 {
-
-    
+    {{ for par in private_fields }}
+    {{ par.type }} {{ par.name }}{{ if ! for.last }}{{ end }}{{- end }};
 
     public {{ class_name }}(
         {{ for par in constructor }}
@@ -24,6 +24,7 @@ public class {{ class_name }} : INotificationHandler<{{ event_class_name }}>
 
     public async Task Handle({{ event_class_name }} @event, CancellationToken cancellationToken)
     {
+        _logger.Information("UnitPropertyUpdated Id: {Id}", @event.EntityId);
         await Task.CompletedTask;
     }
 }

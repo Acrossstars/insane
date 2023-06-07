@@ -92,7 +92,12 @@ public class DomainBuilder
 
         foreach (var domainEvent in _domainDefinition.DomainEvents!)
         {
-            var eventMetadata = CreateDomainEventMetadata(_domainEntity, domainEvent.ClassName, eventsGeneratedNmespace, domainEvent.Context.OperableProperties);
+            var eventMetadata = CreateDomainEventMetadata(
+                _domainEntity,
+                domainEvent.ClassName,
+                eventsGeneratedNmespace, domainEvent.Context.OperableProperties,
+                domainEvent.Context
+                );
 
             BuildTools.AppendToBuild(_metadataDir, builderContexts, eventsOutputFilePath, eventMetadata, eventMetadata.ClassName);
 
@@ -107,7 +112,7 @@ public class DomainBuilder
         }
     }
 
-    private DomainEventMetadata CreateDomainEventMetadata(string domainEntity, string domainEvent, string generatedNmespace, List<MetaProperty> properties)
+    private DomainEventMetadata CreateDomainEventMetadata(string domainEntity, string domainEvent, string generatedNmespace, List<MetaProperty> properties, DomainEventContext context)
     {
         DomainEventMetadata metadata = new DomainEventMetadata()
         {
@@ -120,17 +125,9 @@ public class DomainBuilder
             BaseConstructor = new string[]
                                 {
                                     "entityId: id",
-                                    $"entityType: DomainMetadata.{domainEntity}"
+                                    $"\"{domainEntity}\""
                                 },
-            Context = new()
-            {
-                OperableProperties = new List<MetaProperty>()
-                {
-                    MetaProperty.PublicString("Id"),
-                    MetaProperty.PublicString("Name"),
-                    MetaProperty.PublicString("Description")
-                }
-            }
+            Context = context
         };
 
         metadata.Constructor = new List<TypeName>();
@@ -144,23 +141,43 @@ public class DomainBuilder
 
     private DomainEventHandlerMetadata CreateDomainEventHandlerMetadata(string domainEvent, DomainEventMetadata eventMetadata, string generatedNmespace)
     {
-        return new DomainEventHandlerMetadata()
+        DomainEventHandlerMetadata metadata = new DomainEventHandlerMetadata()
         {
             ClassName = $"{domainEvent}EventHandler",
             EventClassName = eventMetadata.ClassName,
             //no needed perhaps
             FilePath = "",
             Usings = new string[]
-            {
-                eventMetadata.Namespace!
-            },
+                    {
+                        eventMetadata.Namespace!
+                    },
             Namespace = generatedNmespace,
             BaseConstructor = new string[]
-                        {
+                                {
                             "entityId: id",
-                            $"entityType: DomainMetadata.User"
-                        },
+                            $"entityType:           $\"{eventMetadata.Context.DomainEntityName}\""
+                                },
         };
+
+        metadata.Constructor = new List<TypeName>();
+        metadata.Properties = new List<MetaProperty>();
+
+        metadata.PrivateFields = new List<TypeName>()
+        {
+            new TypeName("private readonly ILogger", "_logger")
+        };
+
+        metadata.InjectedInfrastructure = new List<TypeName>()
+        {
+            new TypeName("ILogger", "logger")
+        };
+
+        metadata.InjectedProperties = new List<InjectedProperty>();
+        {
+            new InjectedProperty("_logger", "logger");
+        }
+
+        return metadata;
     }
 
     public void BuildRepository()
