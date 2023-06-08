@@ -4,6 +4,10 @@ namespace Core.Domain.Common;
 
 public class MetaProperty
 {
+    public MetaProperty()
+    {
+    }
+
     public MetaProperty(string modificator, string type, string name, string[] accessors)
     {
         Modificator = modificator;
@@ -12,9 +16,10 @@ public class MetaProperty
         Accessors = accessors;
     }
 
-    public string Modificator { get; set; } = default!;
-    public string Type { get; set; } = default!;
-    public string Name { get; set; } = default!;
+
+    public string? Modificator { get; set; } = default!;
+    public string? Type { get; set; } = default!;
+    public string? Name { get; set; } = default!;
     public string[] Accessors { get; set; } = default!;
 
     /// <summary>

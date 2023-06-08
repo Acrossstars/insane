@@ -90,7 +90,7 @@ public class DomainBuilder
         var eventsGeneratedNmespace = $"{_domainLayerNamespaceRoot}{eventsInternalPath.Replace("\\", ".")}";
         var eventHandlersGeneratedNmespace = $"{_applicationLayerPath.Split("\\").Last()}{eventHadlersInternalPath.Replace("\\", ".")}";
 
-        foreach (var domainEvent in _domainDefinition.DomainEvents!)
+        foreach (var domainEvent in _domainDefinition.Events!)
         {
             var eventMetadata = CreateDomainEventMetadata(
                 _domainEntity,

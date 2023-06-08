@@ -5,11 +5,14 @@ using Core.Metadatas;
 var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
 var configurationBuilder = new ConfigurationBuilder()
+    .AddJsonFile("Configurations/conf.json", false, true)
     .AddJsonFile("appsettings.json", false, true);
 
 var configuration = configurationBuilder.Build();
 
-var _domainEntity = "UnitProperty";
+var definition = configuration.Get<DomainDefinition>();
+
+var _domainEntity = "Caliber";
 
 var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
 
@@ -33,7 +36,7 @@ var domainDefinition = new DomainDefinition()
         "SomeEntity",
     },
 
-    DomainEvents = new List<DomainEventMetadata>()
+    Events = new List<DomainEventMetadata>()
     {
         new DomainEventMetadata()
         {
@@ -148,16 +151,16 @@ var domainBuilder = new DomainBuilder(
     _domainEntity,
     domainDefinition);
 
-//domainBuilder.BuildEntities();
+domainBuilder.BuildEntities();
 
-//foreach (var item in domainDefinition.DomainEvents)
-//{
-//}
-//domainBuilder.BuildEvents();
-
-foreach (var useCase in domainDefinition.UseCases)
+foreach (var item in domainDefinition.Events)
 {
-    var userCasesBuilder = new UserCasesBuilder(configuration, domainDefinition, useCase);
-
-    userCasesBuilder.GenerateUseCase(configuration, _domainEntity, dtosPath, metadataDir);
 }
+domainBuilder.BuildEvents();
+
+//foreach (var useCase in domainDefinition.UseCases)
+//{
+//    var userCasesBuilder = new UserCasesBuilder(configuration, domainDefinition, useCase);
+
+//    userCasesBuilder.GenerateUseCase(configuration, _domainEntity, dtosPath, metadataDir);
+//}
