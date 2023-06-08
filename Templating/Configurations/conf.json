@@ -1,16 +1,12 @@
 {
-  "domain": "Bases",
+  "domain": "Base",
   "entities": [
     {
       "className": "CaliberSet",
       "properties": [
         {
-          "name": "Id",
-          "type": "string"
-        },
-        {
           "name": "LevelInfo",
-          "type": "CaliberLevelInfo"
+          "type": "CaliberSetLevelInfo"
         },
         {
           "name": "Calibers",
@@ -21,10 +17,6 @@
     {
       "className": "Caliber",
       "properties": [
-        {
-          "name": "Id",
-          "type": "string"
-        },
         {
           "name": "Name",
           "type": "string"
@@ -47,10 +39,6 @@
       "className": "CaliberProperty",
       "properties": [
         {
-          "name": "Id",
-          "type": "string"
-        },
-        {
           "name": "Name",
           "type": "string"
         },
@@ -65,7 +53,7 @@
       ]
     },
     {
-      "className": "CaliberLevelInfo",
+      "className": "CaliberSetLevelInfo",
       "properties": [
         {
           "name": "WeaponSlotsCount",
@@ -77,10 +65,6 @@
       "className": "CaliberAttackTarget",
       "properties": [
         {
-          "name": "Id",
-          "type": "string"
-        },
-        {
           "name": "Name",
           "type": "int"
         }
@@ -89,7 +73,7 @@
   ],
   "repositories": [
     {
-      "name": "BookRepository",
+      "className": "Book",
       "operations": [
         {
           "name": "AddBook",
@@ -113,28 +97,63 @@
   ],
   "events": [
     {
-      "name": "BookLended",
-      "attributes": [
+      "className": "CailberAdded",
+      "properties": [
         {
-          "name": "BookId",
-          "type": "Guid"
+          "name": "Id",
+          "type": "string"
         },
         {
-          "name": "CopyId",
-          "type": "Guid"
+          "name": "CaliberSetId",
+          "type": "string"
         }
       ]
     },
     {
-      "name": "BookReturned",
-      "attributes": [
+      "className": "CailberUpdated",
+      "properties": [
         {
-          "name": "BookId",
-          "type": "Guid"
+          "name": "Id",
+          "type": "string"
         },
         {
-          "name": "CopyId",
-          "type": "Guid"
+          "name": "CaliberSetId",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "className": "CailberDeleted",
+      "properties": [
+        {
+          "name": "Id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "className": "CailberBought",
+      "properties": [
+        {
+          "name": "Id",
+          "type": "string"
+        },
+        {
+          "name": "CaliberSetId",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "className": "CailberMounted",
+      "properties": [
+        {
+          "name": "Id",
+          "type": "string"
+        },
+        {
+          "name": "CaliberSetId",
+          "type": "string"
         }
       ]
     }

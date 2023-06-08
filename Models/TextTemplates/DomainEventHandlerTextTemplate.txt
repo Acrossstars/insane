@@ -24,7 +24,7 @@ public class {{ class_name }} : INotificationHandler<{{ event_class_name }}>
 
     public async Task Handle({{ event_class_name }} @event, CancellationToken cancellationToken)
     {
-        _logger.Information("UnitPropertyUpdated Id: {Id}", @event.EntityId);
+        _logger.Information("{{ event_class_name }} Id: {Id}", @event.EntityId);
         await Task.CompletedTask;
     }
 }

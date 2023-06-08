@@ -6,6 +6,9 @@ public class MetaProperty
 {
     public MetaProperty()
     {
+        //by default
+        Modificator = "public";
+        Accessors = AwesomeHelper.GetAccessorsArray();
     }
 
     public MetaProperty(string modificator, string type, string name, string[] accessors)

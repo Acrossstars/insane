@@ -1,94 +1,16 @@
 ﻿using Core.Domain.Common;
 using Core.Domain.UseCases;
-using Core.Metadatas;
 
 var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
 var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("Configurations/conf.json", false, true)
     .AddJsonFile("appsettings.json", false, true);
-
 var configuration = configurationBuilder.Build();
 
 var definition = configuration.Get<DomainDefinition>();
 
 var _domainEntity = "Caliber";
-
-var dtosPath = configuration["SolutionRootPath"] + configuration["DtoPath"];
-
-var domainDefinition = new DomainDefinition()
-{
-    Entities = new List<EntityMetadata>()
-    {
-        new EntityMetadata()
-        {
-            ClassName = _domainEntity,
-            Properties = new List<MetaProperty>()
-            {
-                //new MetaProperty("public", "string", "Id", AwesomeHelper.GetAccessorsArray()),
-                //new MetaProperty("public", "string", "Name", AwesomeHelper.GetAccessorsArray()),
-                //new MetaProperty("public", "string", "Description", AwesomeHelper.GetAccessorsArray()),
-            }
-        }
-    },
-    Aggregates = new List<string>()
-    {
-        "SomeEntity",
-    },
-
-    Events = new List<DomainEventMetadata>()
-    {
-        new DomainEventMetadata()
-        {
-            ClassName = $"{_domainEntity}Updated",
-            Context = new()
-            {
-                OperableProperties = new List<MetaProperty>()
-                {
-                    MetaProperty.PublicString("Id"),
-                    MetaProperty.PublicDouble("Value"),
-                    MetaProperty.PublicString("Name"),
-                    MetaProperty.PublicString("UnitLevel"),
-                    MetaProperty.PublicString("UnitType"),
-                }
-            }
-        },
-        new DomainEventMetadata()
-        {
-            ClassName = $"{_domainEntity}Added",
-            Context = new()
-            {
-                OperableProperties = new List<MetaProperty>()
-                {
-                    MetaProperty.PublicString("Id"),
-                    MetaProperty.PublicDouble("Value"),
-                    MetaProperty.PublicString("Name"),
-                    MetaProperty.PublicString("UnitLevel"),
-                    MetaProperty.PublicString("UnitType"),
-                }
-            }
-        },
-        new DomainEventMetadata()
-        {
-            ClassName = $"{_domainEntity}Deleted",
-            Context = new()
-            {
-                OperableProperties = new List<MetaProperty>()
-                {
-                    MetaProperty.PublicString("Id"),
-                }
-            }
-        },
-
-        //$"{_domainEntity}Added",
-        //$"{_domainEntity}Updated",
-        //$"{_domainEntity}Deleted",
-    },
-    UseCases = new List<MetaUseCase>()
-    {
-    }
-};
-
 
 var addUseCase = new MetaUseCase($"{_domainEntity}", $"Add{_domainEntity}", RequestType.Command, HttpMethodType.Post)
 {
@@ -139,28 +61,20 @@ var deleteUseCase = new MetaUseCase($"{_domainEntity}", $"Delete{_domainEntity}"
     }
 };
 
-domainDefinition.UseCases.Add(addUseCase);
-domainDefinition.UseCases.Add(getUseCase);
+//domainDefinitionCode.UseCases.Add(addUseCase);
+//domainDefinitionCode.UseCases.Add(getUseCase);
 //domainDefinition.UseCases.Add(updateUseCase);
-domainDefinition.UseCases.Add(deleteUseCase);
+//domainDefinitionCode.UseCases.Add(deleteUseCase);
 
 var domainBuilder = new DomainBuilder(
     configuration,
-    dtosPath,
     metadataDir,
     _domainEntity,
-    domainDefinition);
+    definition);
+//domainDefinitionCode);
 
 domainBuilder.BuildEntities();
 
-foreach (var item in domainDefinition.Events)
-{
-}
 domainBuilder.BuildEvents();
 
-//foreach (var useCase in domainDefinition.UseCases)
-//{
-//    var userCasesBuilder = new UserCasesBuilder(configuration, domainDefinition, useCase);
-
-//    userCasesBuilder.GenerateUseCase(configuration, _domainEntity, dtosPath, metadataDir);
-//}
+//domainBuilder.BuildUseCases();

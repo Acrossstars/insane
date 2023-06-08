@@ -18,16 +18,6 @@ public class {{ class_name }} : BaseEntity
 
     private {{ class_name }}() {}
 
-    /// <summary>
-    /// 
-    /// </summary>
-    private {{ class_name }}()
-    {
-        {{ for prop in injected_properties }}
-        {{ prop.destination }} = {{ prop.source }};
-        {{ end }}
-    }
-
     private {{ class_name }}({{ for par in constructor }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
         SetId(Guid.NewGuid().ToString());
@@ -37,7 +27,7 @@ public class {{ class_name }} : BaseEntity
 
         //CheckPolicies({{ class_name }}ValidatorService);
 
-        AddDomainEvent(new {{ entity_name_created_event }}({{ for par in entity_name_created_event_constructor }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }}));
+        //AddDomainEvent(new {{ entity_name_created_event }}({{ for par in entity_name_created_event_constructor }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }}));
     }
 
     #endregion
@@ -68,9 +58,9 @@ public class {{ class_name }} : BaseEntity
         {{ for prop in update_properties }}
         {{ prop.destination }} = {{ prop.source }};{{ end }}
 
-        //CheckPolicies(ownerValidatorService);
+        //CheckPolicies();
 
-        AddDomainEvent(new {{ class_name }}UpdatedEvent({{ for par in update_parameters }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }}));
+        //AddDomainEvent(new {{ class_name }}UpdatedEvent({{ for par in update_parameters }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }}));
     }
 
     #endregion
