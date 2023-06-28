@@ -1,0 +1,25 @@
+﻿public class {{ class_name }}
+    : IClassFixture<CustomWebApplicationFactory<Program>>
+{
+    private readonly HttpClient _client;
+
+    public {{ class_name }}(CustomWebApplicationFactory<Program> factory)
+    {
+        _client = factory.CreateClient();
+    }
+
+    {{ for fact in fact }} 
+    [Fact]
+    public async Task {{ fact }}()
+    {
+        // Arrange 
+
+
+        // Act
+
+
+        // Assert
+
+    }
+    {{- end }}
+}
