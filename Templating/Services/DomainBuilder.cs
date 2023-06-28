@@ -158,9 +158,9 @@ public class DomainBuilder
     {
         foreach (var useCase in _domainDefinition.UseCases)
         {
-            //var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, useCase);
+            var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, useCase);
 
-            //userCasesBuilder.GenerateUseCase(_configuration, _domainEntity, _dtosPath, _metadataDir);
+            userCasesBuilder.GenerateUseCase(_domainEntity, _dtosPath, _metadataDir);
         }
     }
 

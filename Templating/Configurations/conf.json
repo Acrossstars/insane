@@ -1,21 +1,8 @@
 {
-  "domain": "Base",
+  "domain": "Kyk",
   "entities": [
     {
-      "className": "CaliberSet",
-      "properties": [
-        {
-          "name": "LevelInfo",
-          "type": "CaliberSetLevelInfo"
-        },
-        {
-          "name": "Calibers",
-          "type": "List<Caliber>"
-        }
-      ]
-    },
-    {
-      "className": "Caliber",
+      "className": "Kyk",
       "properties": [
         {
           "name": "Name",
@@ -24,49 +11,6 @@
         {
           "name": "Description",
           "type": "string"
-        },
-        {
-          "name": "CaliberProperties",
-          "type": "List<CaliberProperty>"
-        },
-        {
-          "name": "AllowedTargerts",
-          "type": "List<CaliberAttackTarget>"
-        }
-      ]
-    },
-    {
-      "className": "CaliberProperty",
-      "properties": [
-        {
-          "name": "Name",
-          "type": "string"
-        },
-        {
-          "name": "Description",
-          "type": "string"
-        },
-        {
-          "name": "Value",
-          "type": "int"
-        }
-      ]
-    },
-    {
-      "className": "CaliberSetLevelInfo",
-      "properties": [
-        {
-          "name": "WeaponSlotsCount",
-          "type": "int"
-        }
-      ]
-    },
-    {
-      "className": "CaliberAttackTarget",
-      "properties": [
-        {
-          "name": "Name",
-          "type": "int"
         }
       ]
     }
@@ -97,33 +41,33 @@
   ],
   "events": [
     {
-      "className": "CailberAdded",
+      "className": "KykAdded",
       "properties": [
         {
           "name": "Id",
           "type": "string"
         },
         {
-          "name": "CaliberSetId",
+          "name": "Name",
           "type": "string"
         }
       ]
     },
     {
-      "className": "CailberUpdated",
+      "className": "KykUpdated",
       "properties": [
         {
           "name": "Id",
           "type": "string"
         },
         {
-          "name": "CaliberSetId",
+          "name": "Name",
           "type": "string"
         }
       ]
     },
     {
-      "className": "CailberDeleted",
+      "className": "KykDeleted",
       "properties": [
         {
           "name": "Id",
@@ -131,51 +75,79 @@
         }
       ]
     },
-    {
-      "className": "CailberBought",
-      "properties": [
-        {
-          "name": "Id",
-          "type": "string"
-        },
-        {
-          "name": "CaliberSetId",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "className": "CailberMounted",
-      "properties": [
-        {
-          "name": "Id",
-          "type": "string"
-        },
-        {
-          "name": "CaliberSetId",
-          "type": "string"
-        }
-      ]
-    }
   ],
-  "useCases": [
-    {
-      "name": "LendBook",
-      "steps": [
-        "Find the book by its title",
-        "Get an available copy of the book",
-        "Mark the copy as not available",
-        "Trigger the BookLended event"
-      ]
-    },
-    {
-      "name": "ReturnBook",
-      "steps": [
-        "Find the book by its title",
-        "Find the copy by its id",
-        "Mark the copy as available",
-        "Trigger the BookReturned event"
-      ]
-    }
-  ]
-} 
+  //"useCases": [
+  //  {
+  //    "DomainEntityName": "Kyk",
+  //    "HttpMethodType": 2,
+  //    "RequestType": 0,
+  //    "name": "KykAdd",
+  //    "UseCaseContext": {
+  //      "OperableProperties": [
+  //        {
+  //          "Modificator": "public",
+  //          "Type": "string",
+  //          "Name": "Id",
+  //          "Accessors": [ "get", "set" ]
+  //        },
+  //        {
+  //          "Modificator": "public",
+  //          "Type": "string",
+  //          "Name": "Name",
+  //          "Accessors": [ "get", "set" ]
+  //        }
+  //      ]
+  //    },
+  //    "steps": [
+  //      "Find the book by its title",
+  //      "Get an available copy of the book",
+  //      "Mark the copy as not available",
+  //      "Trigger the BookLended event"
+  //    ]
+  //  },
+  //  {
+  //    "DomainEntityName": "Kyk",
+  //    "HttpMethodType": 3,
+  //    "RequestType": 0,
+  //    "name": "KykUpdate",
+  //    "UseCaseContext": {
+  //      "OperableProperties": [
+  //        {
+  //          "Modificator": "public",
+  //          "Type": "string",
+  //          "Name": "Id",
+  //          "Accessors": [ "get", "set" ]
+  //        },
+  //        {
+  //          "Modificator": "public",
+  //          "Type": "string",
+  //          "Name": "Name",
+  //          "Accessors": [ "get", "set" ]
+  //        }
+  //      ]
+  //    }
+  //  },
+  //  {
+  //    "DomainEntityName": "Kyk",
+  //    "HttpMethodType": 4,
+  //    "RequestType": 0,
+  //    "name": "DeleteKyk",
+  //    "UseCaseContext": {
+  //      "OperableProperties": [
+  //        {
+  //          "Modificator": "public",
+  //          "Type": "string",
+  //          "Name": "Id",
+  //          "Accessors": [ "get", "set" ]
+  //        }
+  //      ]
+  //    },
+  //    "steps": [
+  //      "Find the book by its title",
+  //      "Find the copy by its id",
+  //      "Mark the copy as available",
+  //      "Trigger the BookReturned event"
+  //    ]
+  //  }
+  //]
+}

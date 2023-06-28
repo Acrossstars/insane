@@ -18,7 +18,7 @@ public class UserCasesBuilder
     private string _path;
     private string _outputFilePath;
 
-    public UserCasesBuilder(IConfigurationRoot configuration, DomainDefinition domainDefinition,
+    public UserCasesBuilder(IConfiguration configuration, DomainDefinition domainDefinition,
         MetaUseCase useCase)
     {
         _solutionRoot = configuration["SolutionRootPath"];
@@ -35,7 +35,7 @@ public class UserCasesBuilder
     }
 
     //TODO: Rename Namespace to Match Folder Structure
-    public void GenerateUseCase(IConfigurationRoot configuration, string domainEntity, string dtosPath, string metadataDir)
+    public void GenerateUseCase(string domainEntity, string dtosPath, string metadataDir)
     {
         var builderContexts = new List<ObjectBuilderContext>();
 

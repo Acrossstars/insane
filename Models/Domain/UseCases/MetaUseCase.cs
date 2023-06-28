@@ -1,10 +1,14 @@
-﻿using Core.Domain.Common;
-using Core.Metadatas;
+﻿using Core.Metadatas;
 
 namespace Core.Domain.UseCases;
 
 public class MetaUseCase
 {
+    public MetaUseCase()
+    {
+
+    }
+
     public MetaUseCase(
         string domainEntityName,
         string name,

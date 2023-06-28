@@ -1,0 +1,55 @@
+import {{ repository_name }}Repository from '@/repositories/{{ repository_name }}';
+
+const repository = new {{ repository_name }}();
+
+// initial state
+const state = {
+  all: [],
+  constantProps: [],
+}
+
+// getters
+const getters = {}
+
+// actions
+const actions = {
+  async getAll{{ store_name }}({ commit }) {
+    var res = await repository.get{{ store_name }}()
+    commit('set{{ store_name }}', res)
+  },
+  async update{{ store_name }}({ commit }, payload) {
+
+    //TODO: Refactor it. Urgently
+    let toSend = {
+        
+    }
+
+    await repository.update{{ store_name }}(toSend)
+
+    commit('update{{ store_name }}', payload)
+  },
+}
+
+// mutations
+const mutations = {
+  set{{ store_name }}(state, collection) {
+    state.all = collection
+  },
+  update{{ store_name }}(state, item) {
+
+    let index = state.all.findIndex((obj => obj.id == item.Id));
+
+    let update = state.all[index];
+
+
+    
+  },
+}
+
+export default {
+  namespaced: true,
+  state,
+  getters,
+  actions,
+  mutations
+}

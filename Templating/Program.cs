@@ -10,7 +10,7 @@ var configuration = configurationBuilder.Build();
 
 var definition = configuration.Get<DomainDefinition>();
 
-var _domainEntity = "Caliber";
+var _domainEntity = "Kyk";
 
 var addUseCase = new MetaUseCase($"{_domainEntity}", $"Add{_domainEntity}", RequestType.Command, HttpMethodType.Post)
 {
@@ -61,10 +61,13 @@ var deleteUseCase = new MetaUseCase($"{_domainEntity}", $"Delete{_domainEntity}"
     }
 };
 
-//domainDefinitionCode.UseCases.Add(addUseCase);
-//domainDefinitionCode.UseCases.Add(getUseCase);
-//domainDefinition.UseCases.Add(updateUseCase);
-//domainDefinitionCode.UseCases.Add(deleteUseCase);
+definition.UseCases = new List<MetaUseCase>
+{
+    addUseCase,
+    getUseCase,
+    updateUseCase,
+    deleteUseCase
+};
 
 var domainBuilder = new DomainBuilder(
     configuration,
@@ -77,4 +80,4 @@ domainBuilder.BuildEntities();
 
 domainBuilder.BuildEvents();
 
-//domainBuilder.BuildUseCases();
+domainBuilder.BuildUseCases();

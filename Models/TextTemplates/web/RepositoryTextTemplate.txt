@@ -1,0 +1,37 @@
+import { http } from '@/api/instance';
+
+class {{ name }}Repository {
+  async getConstants() {
+    return await http.get("/Constants/GetConstants")
+      .then(response => {
+        return response.data.value
+      })
+      .catch(error => console.log(error.response))
+  }
+
+  async addConstant(payload) {
+    return await http.post("/Constants/AddConstant", payload)
+      .then(response => {
+        return response.data.value
+      })
+      .catch(error => console.log(error.response))
+  }
+
+  async updateConstant(payload) {
+    return await http.put("/Constants/UpdateConstant", payload)
+      .then(response => {
+        return response.data.value
+      })
+      .catch(error => console.log(error.response))
+  }
+
+  async deleteConstant(payload) {
+    return await http.delete("/Constants/DeleteConstant", payload)
+      .then(response => {
+        return response.data.value
+      })
+      .catch(error => console.log(error.response))
+  }
+}
+
+export default ConstantsRepository;
