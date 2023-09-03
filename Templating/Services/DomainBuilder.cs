@@ -204,10 +204,9 @@ public class DomainBuilder
             new TypeName("ILogger", "logger")
         };
 
-        metadata.InjectedProperties = new List<InjectedProperty>();
+        metadata.InjectedProperties = new List<InjectedProperty>()
         {
-            new InjectedProperty("_logger", "logger");
-        }
+        };
 
         return metadata;
     }
