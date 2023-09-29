@@ -51,6 +51,8 @@ public class UserCasesBuilder
 
                 BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequestHandler, commandRequestHandler.ClassName);
 
+               // var commandRestEndpoint = MetadatasBuilder.
+
                 break;
             case RequestType.Query:
                 //TODO: for query handler needed to add using that contains namespace for query request

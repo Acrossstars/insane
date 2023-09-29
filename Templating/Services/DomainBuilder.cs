@@ -1,5 +1,6 @@
 ﻿using Core;
 using Core.Domain.Common;
+using Core.Domain.UseCases;
 using Core.Metadatas;
 using Templating.Features;
 using Templating.Infra;
@@ -158,7 +159,15 @@ public class DomainBuilder
     {
         foreach (var useCase in _domainDefinition.UseCases)
         {
-            var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, useCase);
+            var metaUseCase = new MetaUseCase(
+                useCase.DomainEntityName, 
+                useCase.Name, 
+                useCase.RequestType, 
+                useCase.HttpMethodType,
+                useCase.UseCaseContext,
+                useCase.HasRestEndpoint);
+
+            var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, metaUseCase);
 
             userCasesBuilder.GenerateUseCase(_domainEntity, _dtosPath, _metadataDir);
         }

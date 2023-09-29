@@ -14,6 +14,7 @@ public class MetaUseCase
         string name,
         RequestType requestType,
         HttpMethodType httpMethodType,
+        MetaUseCaseContext metaUseCaseContext,
         bool hasRestEndpoint = true,
         bool hasGrpcEndpoint = false,
         bool returnList = false)
@@ -42,12 +43,14 @@ public class MetaUseCase
         {
             GrpcEndpoint = Name + "GrpcEndpoint";
         }
+
+        UseCaseContext = metaUseCaseContext;
     }
 
     public string DomainEntityName { get; set; } = default!;
     public string Name { get; set; } = default!;
-    public HttpMethodType HttpMethodType { get; }
-    public RequestType RequestType { get; }
+    public HttpMethodType HttpMethodType { get; set; }
+    public RequestType RequestType { get; set; }
     public string Request { get; set; } = default!;
     public string RequestHandler { get; set; } = default!;
     public bool HasRestEndpoint { get; set; }

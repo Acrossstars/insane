@@ -28,7 +28,7 @@ public static class AwesomeHelper
         {
             metadata.Constructor.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
 
-            metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, AwesomeHelper.GetAccessorsArray()));
+            metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, GetAccessorsArray()));
 
             metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
         });

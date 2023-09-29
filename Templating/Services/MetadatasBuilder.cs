@@ -69,28 +69,20 @@ internal class MetadatasBuilder
             InputType = $"{useCase.Name}Dto",
             Tags = $"\"{domainEntity}s\"",
             Route = $"\"{useCase.Name}\"",
-            Properties = new List<MetaProperty>()
-            {
-
-            },
-            Constructor = new List<TypeName>()
-            {
-
-            },
-            InjectedInfrastructure = new List<TypeName>()
-            {
-                new TypeName("IAuthenticatedUserService", "authenticatedUserService"),
-                new TypeName("IInMemoryBus", "inMemoryBus")
-            },
             BaseConstructor = new string[]
-                    {
-                "authenticatedUserService",
-                "inMemoryBus"
-                    },
+                                {
+                    "authenticatedUserService",
+                    "inMemoryBus"
+                                },
+            InjectedInfrastructure = new List<TypeName>()
+                {
+                    new TypeName("IAuthenticatedUserService", "authenticatedUserService"),
+                    new TypeName("IInMemoryBus", "inMemoryBus")
+                },
             InjectedRequestClass = new List<TypeName>()
-            {
-                new TypeName(useCase.Request, useCase.Request[0].ToString().ToLower()),
-            }
+                {
+                    new TypeName(useCase.Request, useCase.Request.FirstLetterToLower()),
+                }
         };
 
         useCase.DtoMetadata.Properties.ForEach(x =>
@@ -106,6 +98,7 @@ internal class MetadatasBuilder
         CommandRequestMetadata metadata = new CommandRequestMetadata()
         {
             //no needed perhaps
+            
             FilePath = "",
             Usings = new string[] { },
             Namespace = useCaseNamespace,

@@ -2,10 +2,10 @@
 
 public enum HttpMethodType
 {
-    Get = 1,
-    Post = 2,
-    Put = 3,
-    Delete = 4,
-    Options = 5,
-    Head = 6,
+    Get = 0,
+    Post = 1,
+    Put = 2,
+    Delete = 3,
+    Options = 4,
+    Head = 5,
 }
