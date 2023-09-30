@@ -58,9 +58,9 @@ internal class MetadatasBuilder
         {
             ClassName = useCase.RestEndpoint,
             Usings = new string[]
-                        {
+            {
 
-                        },
+            },
             Namespace = useCaseNamespace,
             RequestType = useCase.Request,
             MethodReturnType = AwesomeHelper.GetMethodReturnType(useCase),
@@ -70,24 +70,24 @@ internal class MetadatasBuilder
             Tags = $"\"{domainEntity.Pluralize()}\"",
             Route = $"\"{useCase.Name}\"",
             BaseConstructor = new string[]
-                                {
-                    "authenticatedUserService",
-                    "inMemoryBus"
-                                },
+            {
+                "authenticatedUserService",
+                "inMemoryBus"
+            },
             InjectedInfrastructure = new List<TypeName>()
-                {
-                    new TypeName("IAuthenticatedUserService", "authenticatedUserService"),
-                    new TypeName("IInMemoryBus", "inMemoryBus")
-                },
+            {
+                new TypeName("IAuthenticatedUserService", "authenticatedUserService"),
+                new TypeName("IInMemoryBus", "inMemoryBus")
+            },
             InjectedRequestClass = new List<TypeName>()
-                {
-                    new TypeName(useCase.Request, useCase.Request.FirstLetterToLower()),
-                }
+            {
+                new TypeName(useCase.Request, useCase.Request.FirstLetterToLower()),
+            }
         };
 
-        useCase.DtoMetadata.Properties.ForEach(x =>
+        useCase.DtoMetadata.Properties!.ForEach(x =>
         {
-            metadata.InputProperties.Add(new InjectedProperty(x.Name.FirstLetterToLower(), x.Name));
+            metadata.InputProperties!.Add(new InjectedProperty(x.Name.FirstLetterToLower(), x.Name));
         });
 
         return metadata;
@@ -100,7 +100,7 @@ internal class MetadatasBuilder
             //no needed perhaps
             
             FilePath = "",
-            Usings = new string[] { },
+            Usings = Array.Empty<string>(),
             Namespace = useCaseNamespace,
             ClassName = useCase.Request,
         };
@@ -126,26 +126,24 @@ internal class MetadatasBuilder
             ClassName = useCase.RequestHandler,
             //no needed perhaps
             FilePath = "",
-            Usings = new string[]
-                                {
-
-                                },
+            Usings = Array.Empty<string>(),
             Namespace = useCaseNamespace,
             RequestType = useCase.Request,
             BaseConstructor = new string[]
-                                {
-                    "messageBus",
-                    "inMemoryBus"
-                                },
+            {
+                "messageBus",
+                "inMemoryBus"
+            },
             InjectedInfrastructure = new List<TypeName>()
-                {
-                    new TypeName("IMessageBus", "messageBus"),
-                    new TypeName("IInMemoryBus", "inMemoryBus")
-                },
+            {
+                new TypeName("IMessageBus", "messageBus"),
+                new TypeName("IInMemoryBus", "inMemoryBus")
+            },
             InjectedRequestClass = new List<TypeName>()
-                {
-                    new TypeName(useCase.Request, useCase.Request.FirstLetterToLower()),
-                }
+            {
+                new TypeName(useCase.Request, useCase.Request.FirstLetterToLower()),
+            },
+            Steps = useCase.UseCaseSteps
         };
 
         return metadata;
@@ -179,29 +177,26 @@ internal class MetadatasBuilder
         QueryRequestHandlerMetadata metadata = new QueryRequestHandlerMetadata()
         {
             ClassName = useCase.RequestHandler,
-            Usings = new string[]
-                                {
-
-                                },
+            Usings = Array.Empty<string>(),
             Namespace = useCaseNamespace,
             RequestType = useCase.Request,
             QueryReturnType = $"{useCase.Name}Dto",
             InjectedInfrastructure = new List<TypeName>()
-                {
-                    new TypeName("IMapper", "mapper")
-                },
+            {
+                new TypeName("IMapper", "mapper")
+            },
             BaseConstructor = new string[]
-                                {
-                                    "mapper"
-                                },
+            {
+                "mapper"
+            },
             InjectedRequestClass = new List<TypeName>()
-                {
-                    new TypeName(
+            {
+                new TypeName(
                         useCase.Request,
                         "request"
                         //useCase.Request[0].ToString().ToLower()
-                        ),
-                }
+                    ),
+            },
         };
 
         return metadata;

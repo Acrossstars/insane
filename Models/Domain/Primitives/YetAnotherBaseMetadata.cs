@@ -1,6 +1,4 @@
-﻿using Core.Domain.Interfaces;
-
-namespace Core.Domain.Common;
+﻿namespace Core.Domain.Common;
 
 public class YetAnotherBaseMetadata : BaseMetadata, IMetaProperties
 {

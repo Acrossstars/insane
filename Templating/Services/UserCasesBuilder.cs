@@ -70,7 +70,7 @@ public class UserCasesBuilder
 
         _useCase.DtoMetadata = dto;
 
-        var dtoPath = dtosPath + $"\\{domainEntity}s";
+        var dtoPath = dtosPath + $"\\{domainEntity.Pluralize()}";
         BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName);
 
         if (_useCase.HasRestEndpoint)
@@ -80,6 +80,8 @@ public class UserCasesBuilder
             BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, restEndpoint, restEndpoint.ClassName);
 
         }
+
+
 
         foreach (var builderMetadata in builderContexts)
         {
