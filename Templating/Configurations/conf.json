@@ -1,8 +1,8 @@
 {
-  "domain": "Kyk",
+  "domain": "Country",
   "entities": [
     {
-      "className": "Kyk",
+      "className": "Country",
       "properties": [
         {
           "name": "Name",
@@ -41,7 +41,7 @@
   ],
   "events": [
     {
-      "className": "KykAdded",
+      "className": "CountryAdded",
       "properties": [
         {
           "name": "Id",
@@ -54,7 +54,7 @@
       ]
     },
     {
-      "className": "KykUpdated",
+      "className": "CountryUpdated",
       "properties": [
         {
           "name": "Id",
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "className": "KykDeleted",
+      "className": "CountryDeleted",
       "properties": [
         {
           "name": "Id",
@@ -76,78 +76,81 @@
       ]
     },
   ],
-  //"useCases": [
-  //  {
-  //    "DomainEntityName": "Kyk",
-  //    "HttpMethodType": 2,
-  //    "RequestType": 0,
-  //    "name": "KykAdd",
-  //    "UseCaseContext": {
-  //      "OperableProperties": [
-  //        {
-  //          "Modificator": "public",
-  //          "Type": "string",
-  //          "Name": "Id",
-  //          "Accessors": [ "get", "set" ]
-  //        },
-  //        {
-  //          "Modificator": "public",
-  //          "Type": "string",
-  //          "Name": "Name",
-  //          "Accessors": [ "get", "set" ]
-  //        }
-  //      ]
-  //    },
-  //    "steps": [
-  //      "Find the book by its title",
-  //      "Get an available copy of the book",
-  //      "Mark the copy as not available",
-  //      "Trigger the BookLended event"
-  //    ]
-  //  },
-  //  {
-  //    "DomainEntityName": "Kyk",
-  //    "HttpMethodType": 3,
-  //    "RequestType": 0,
-  //    "name": "KykUpdate",
-  //    "UseCaseContext": {
-  //      "OperableProperties": [
-  //        {
-  //          "Modificator": "public",
-  //          "Type": "string",
-  //          "Name": "Id",
-  //          "Accessors": [ "get", "set" ]
-  //        },
-  //        {
-  //          "Modificator": "public",
-  //          "Type": "string",
-  //          "Name": "Name",
-  //          "Accessors": [ "get", "set" ]
-  //        }
-  //      ]
-  //    }
-  //  },
-  //  {
-  //    "DomainEntityName": "Kyk",
-  //    "HttpMethodType": 4,
-  //    "RequestType": 0,
-  //    "name": "DeleteKyk",
-  //    "UseCaseContext": {
-  //      "OperableProperties": [
-  //        {
-  //          "Modificator": "public",
-  //          "Type": "string",
-  //          "Name": "Id",
-  //          "Accessors": [ "get", "set" ]
-  //        }
-  //      ]
-  //    },
-  //    "steps": [
-  //      "Find the book by its title",
-  //      "Find the copy by its id",
-  //      "Mark the copy as available",
-  //      "Trigger the BookReturned event"
-  //    ]
-  //  }
-  //]
+  "useCases": [
+    {
+      "DomainEntityName": "Country",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "CountryAdd",
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          },
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Name",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
+      "steps": [
+        "Find the book by its title",
+        "Get an available copy of the book",
+        "Mark the copy as not available",
+        "Trigger the BookLended event"
+      ]
+    },
+    {
+      "DomainEntityName": "Country",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 2,
+      "RequestType": 0,
+      "name": "CountryUpdate",
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          },
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Name",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      }
+    },
+    {
+      "DomainEntityName": "Country",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 3,
+      "RequestType": 0,
+      "name": "DeleteCountry",
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
+      "steps": [
+        "Find the book by its title",
+        "Find the copy by its id",
+        "Mark the copy as available",
+        "Trigger the BookReturned event"
+      ]
+    }
+  ]
 }

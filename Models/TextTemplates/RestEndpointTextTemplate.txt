@@ -2,17 +2,10 @@
 
 namespace {{ namespace }};
 
-/// <summary>
-/// 
-/// </summary>
-//[Authorize("user-write-access")]
 [Tags({{ tags }})]
 [Route({{ tags }})]
 public class {{ class_name }} : BaseApiController
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
         )
@@ -23,9 +16,6 @@ public class {{ class_name }} : BaseApiController
         {{ end }}
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
     [Http{{ http_method }}]
     [Route({{ route }})]
     public async Task<Result<{{ method_return_type }}>> {{ http_method }}([FromBody] {{ input_type }} input)

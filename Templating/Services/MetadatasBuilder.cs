@@ -67,7 +67,7 @@ internal class MetadatasBuilder
             HttpMethod = useCase.HttpMethodType.ToString(),
             InMemoryBusMethod = useCase.RequestType.ToString(),
             InputType = $"{useCase.Name}Dto",
-            Tags = $"\"{domainEntity}s\"",
+            Tags = $"\"{domainEntity.Pluralize()}\"",
             Route = $"\"{useCase.Name}\"",
             BaseConstructor = new string[]
                                 {
