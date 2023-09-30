@@ -4,10 +4,7 @@ namespace Core.Domain.UseCases;
 
 public class MetaUseCase
 {
-    public MetaUseCase()
-    {
-
-    }
+    public MetaUseCase() { }
 
     public MetaUseCase(
         string domainEntityName,
@@ -15,6 +12,7 @@ public class MetaUseCase
         RequestType requestType,
         HttpMethodType httpMethodType,
         MetaUseCaseContext metaUseCaseContext,
+        List<string> steps,
         bool hasRestEndpoint = true,
         bool hasGrpcEndpoint = false,
         bool returnList = false)
@@ -45,6 +43,7 @@ public class MetaUseCase
         }
 
         UseCaseContext = metaUseCaseContext;
+        UseCaseSteps = steps;
     }
 
     public string DomainEntityName { get; set; } = default!;
@@ -63,5 +62,6 @@ public class MetaUseCase
     public RestEndpointMetadata RestEndpointMetadata { get; set; }
     public List<MetaProperty> ManagedProperties { get; set; } = new List<MetaProperty>();
     public MetaUseCaseContext UseCaseContext { get; set; }
-    public List<MetaUseCaseStep> UseCaseSteps { get; set; }
+    //public List<MetaUseCaseStep> UseCaseSteps { get; set; }
+    public List<string> UseCaseSteps { get; set; }
 }

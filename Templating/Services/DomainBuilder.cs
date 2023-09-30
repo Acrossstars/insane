@@ -160,14 +160,16 @@ public class DomainBuilder
         foreach (var useCase in _domainDefinition.UseCases)
         {
             var metaUseCase = new MetaUseCase(
-                useCase.DomainEntityName, 
-                useCase.Name, 
-                useCase.RequestType, 
+                useCase.DomainEntityName,
+                useCase.Name,
+                useCase.RequestType,
                 useCase.HttpMethodType,
                 useCase.UseCaseContext,
+                useCase.UseCaseSteps,
                 useCase.HasRestEndpoint);
 
             var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, metaUseCase);
+            //var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, useCase);
 
             userCasesBuilder.GenerateUseCase(_domainEntity, _dtosPath, _metadataDir);
         }

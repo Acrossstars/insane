@@ -29,7 +29,9 @@ public class {{ class_name }} : BaseQueryHandler,
         {{ par.type }} request {{ if !for.last }},{{ end -}}{{- end }}, CancellationToken cancellationToken)
     {
         
-
+        {{- for item in steps }}
+        //step: {{ item }};
+        {{- end }}
 
         return new {{ query_return_type }}();
     }

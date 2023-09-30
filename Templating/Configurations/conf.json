@@ -1,8 +1,8 @@
 {
-  "domain": "Country",
+  "domain": "Gillingham",
   "entities": [
     {
-      "className": "Country",
+      "className": "Gillingham",
       "properties": [
         {
           "name": "Name",
@@ -41,7 +41,7 @@
   ],
   "events": [
     {
-      "className": "CountryAdded",
+      "className": "GillinghamAdded",
       "properties": [
         {
           "name": "Id",
@@ -54,7 +54,7 @@
       ]
     },
     {
-      "className": "CountryUpdated",
+      "className": "GillinghamUpdated",
       "properties": [
         {
           "name": "Id",
@@ -67,7 +67,7 @@
       ]
     },
     {
-      "className": "CountryDeleted",
+      "className": "GillinghamDeleted",
       "properties": [
         {
           "name": "Id",
@@ -78,11 +78,11 @@
   ],
   "useCases": [
     {
-      "DomainEntityName": "Country",
+      "DomainEntityName": "Gillingham",
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "CountryAdd",
+      "name": "AddGillingham",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -99,19 +99,19 @@
           }
         ]
       },
-      "steps": [
-        "Find the book by its title",
-        "Get an available copy of the book",
-        "Mark the copy as not available",
-        "Trigger the BookLended event"
+      "UseCaseSteps": [
+        "Check entity exists by id",
+        "Create new Entity",
+        "Add new Entity to DataBase",
+        "Trigger the EntityCreated DomainEvent"
       ]
     },
     {
-      "DomainEntityName": "Country",
+      "DomainEntityName": "Gillingham",
       "HasRestEndpoint": true,
       "HttpMethodType": 2,
       "RequestType": 0,
-      "name": "CountryUpdate",
+      "name": "UpdateGillingham",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -127,14 +127,20 @@
             "Accessors": [ "get", "set" ]
           }
         ]
-      }
+      },
+      "UseCaseSteps": [
+        "Find entity in db by id",
+        "Update Entity",
+        "Save to DataBase",
+        "Trigger the EntityUpdated DomainEvent"
+      ]
     },
     {
-      "DomainEntityName": "Country",
+      "DomainEntityName": "Gillingham",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteCountry",
+      "name": "DeleteGillingham",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -145,11 +151,11 @@
           }
         ]
       },
-      "steps": [
-        "Find the book by its title",
-        "Find the copy by its id",
-        "Mark the copy as available",
-        "Trigger the BookReturned event"
+      "UseCaseSteps": [
+        "Find entity in db by id",
+        "Delete Entity",
+        "Save to DataBase",
+        "Trigger the EntityDeleted DomainEvent"
       ]
     }
   ]

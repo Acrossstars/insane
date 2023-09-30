@@ -1,0 +1,162 @@
+{
+  "domain": "Gillingham",
+  "entities": [
+    {
+      "className": "Gillingham",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "string"
+        },
+        {
+          "name": "Description",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "repositories": [
+    {
+      "className": "Book",
+      "operations": [
+        {
+          "name": "AddBook",
+          "parameters": [ "Book" ]
+        },
+        {
+          "name": "RemoveBook",
+          "parameters": [ "Book" ]
+        },
+        {
+          "name": "GetAllBooks",
+          "returnType": "List<Book>"
+        },
+        {
+          "name": "FindBookByTitle",
+          "parameters": [ "string" ],
+          "returnType": "Book"
+        }
+      ]
+    }
+  ],
+  "events": [
+    {
+      "className": "GillinghamAdded",
+      "properties": [
+        {
+          "name": "Id",
+          "type": "string"
+        },
+        {
+          "name": "Name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "className": "GillinghamUpdated",
+      "properties": [
+        {
+          "name": "Id",
+          "type": "string"
+        },
+        {
+          "name": "Name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "className": "GillinghamDeleted",
+      "properties": [
+        {
+          "name": "Id",
+          "type": "string"
+        }
+      ]
+    }
+  ],
+  "useCases": [
+    {
+      "DomainEntityName": "Gillingham",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "AddGillingham",
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          },
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Name",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
+      "UseCaseSteps": [
+        "Check entity exists by id",
+        "Create new Entity",
+        "Add new Entity to DataBase",
+        "Trigger the EntityCreated DomainEvent"
+      ]
+    },
+    {
+      "DomainEntityName": "Gillingham",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 2,
+      "RequestType": 0,
+      "name": "UpdateGillingham",
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          },
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Name",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
+      "UseCaseSteps": [
+        "Find entity in db by id",
+        "Update Entity",
+        "Save to DataBase",
+        "Trigger the EntityUpdated DomainEvent"
+      ]
+    },
+    {
+      "DomainEntityName": "Gillingham",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 3,
+      "RequestType": 0,
+      "name": "DeleteGillingham",
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
+      "UseCaseSteps": [
+        "Find entity in db by id",
+        "Delete Entity",
+        "Save to DataBase",
+        "Trigger the EntityDeleted DomainEvent"
+      ]
+    }
+  ]
+}

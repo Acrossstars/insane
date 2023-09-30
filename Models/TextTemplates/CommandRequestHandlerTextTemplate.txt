@@ -3,15 +3,9 @@
 
 namespace {{ namespace }};
 
-/// <summary>
-/// 
-/// </summary>
 public class {{ class_name }} : BaseCommandHandler,
     IRequestHandler<{{ request_type }}, CommandResult>
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }})
     :base({{ for par in base_constructor }}{{ par }}{{ if !for.last}},{{ end -}}{{- end }})
@@ -29,6 +23,10 @@ public class {{ class_name }} : BaseCommandHandler,
         {{ par.type }} request {{ if !for.last }},{{ end -}}{{- end }}, CancellationToken cancellationToken)
     {
         var entityId = "";
+
+        {{- for item in steps }}
+        //step: {{ item }};
+        {{- end }}
 
         return CommandResult.Create(ContractsMessages.Operation_Success, entityId);
     }

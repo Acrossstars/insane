@@ -1,8 +1,6 @@
-﻿using Core.Domain.Common;
+﻿namespace Core.Metadatas.Queries;
 
-namespace Core.Metadatas.Queries;
-
-public class QueryRequestHandlerMetadata : YetAnotherBaseMetadata
+public class QueryRequestHandlerMetadata : YetAnotherBaseMetadata, ISteppable
 {
     public QueryRequestHandlerMetadata()
     {
@@ -10,4 +8,5 @@ public class QueryRequestHandlerMetadata : YetAnotherBaseMetadata
     }
 
     public string? QueryReturnType { get; set; }
+    public List<string>? Steps { get; set; } = default!;
 }
