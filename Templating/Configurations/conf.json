@@ -1,73 +1,135 @@
 {
-  "domain": "Gillingham",
+  "domain": "Tournaments",
   "entities": [
     {
-      "className": "Gillingham",
+      "className": "Tournament",
       "properties": [
         {
-          "name": "Name",
+          "name": "ID",
+          "type": "string"
+        },
+        {
+          "name": "Title",
           "type": "string"
         },
         {
           "name": "Description",
           "type": "string"
+        },
+        {
+          "name": "StartDate",
+          "type": "datetime"
+        },
+        {
+          "name": "EndDate",
+          "type": "datetime"
+        },
+        {
+          "name": "PrizeFund",
+          "type": "decimal"
+        },
+        {
+          "name": "PrizeDistribution",
+          "type": "object"
+        },
+        {
+          "name": "BestPlayerRewards",
+          "type": "object"
         }
       ]
+    },
+    {
+      "className": "TournamentStatistics",
+      "properties": [
+        {
+          "name": "IOStatistics",
+          "type": "object"
+        },
+        {
+          "name": "BVBStatistics",
+          "type": "object"
+        },
+        {
+          "name": "MapStatistics",
+          "type": "object"
+        }
+      ]
+    },
+    {
+      "className": "ClanRating",
+      "properties": [
+        {
+          "name": "ClanMemberRating",
+          "type": "object"
+        }
+      ]
+    },
+    {
+      "className": "WorldMapSection",
+      "properties": []
+    },
+    {
+      "className": "TournamentNews",
+      "properties": []
     }
   ],
   "repositories": [
     {
-      "className": "Book",
+      "className": "TournamentRepository",
       "operations": [
         {
-          "name": "AddBook",
-          "parameters": [ "Book" ]
+          "name": "AddTournament",
+          "parameters": [ "Tournament" ]
         },
         {
-          "name": "RemoveBook",
-          "parameters": [ "Book" ]
+          "name": "EditTournament",
+          "parameters": [ "Tournament" ]
         },
         {
-          "name": "GetAllBooks",
-          "returnType": "List<Book>"
+          "name": "DeleteTournament",
+          "parameters": [ "string" ]
         },
         {
-          "name": "FindBookByTitle",
+          "name": "GetAllTournaments",
+          "returnType": "List<Tournament>"
+        },
+        {
+          "name": "FindTournamentById",
           "parameters": [ "string" ],
-          "returnType": "Book"
+          "returnType": "Tournament"
         }
       ]
     }
   ],
   "events": [
     {
-      "className": "GillinghamAdded",
+      "className": "TournamentAdded",
       "properties": [
         {
           "name": "Id",
           "type": "string"
         },
         {
-          "name": "Name",
+          "name": "Title",
           "type": "string"
         }
       ]
     },
     {
-      "className": "GillinghamUpdated",
+      "className": "TournamentUpdated",
       "properties": [
         {
           "name": "Id",
           "type": "string"
         },
         {
-          "name": "Name",
+          "name": "Title",
           "type": "string"
         }
       ]
     },
     {
-      "className": "GillinghamDeleted",
+      "className": "TournamentDeleted",
       "properties": [
         {
           "name": "Id",
@@ -75,14 +137,41 @@
         }
       ]
     },
+    {
+      "className": "TournamentStartEvent",
+      "properties": [
+        {
+          "name": "Id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "className": "TournamentEndEvent",
+      "properties": [
+        {
+          "name": "Id",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "className": "TournamentSignificantEvents",
+      "properties": [
+        {
+          "name": "Id",
+          "type": "string"
+        }
+      ]
+    }
   ],
   "useCases": [
     {
-      "DomainEntityName": "Gillingham",
+      "DomainEntityName": "Tournament",
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "AddGillingham",
+      "name": "AddTournament",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -94,7 +183,7 @@
           {
             "Modificator": "public",
             "Type": "string",
-            "Name": "Name",
+            "Name": "Title",
             "Accessors": [ "get", "set" ]
           }
         ]
@@ -107,11 +196,11 @@
       ]
     },
     {
-      "DomainEntityName": "Gillingham",
+      "DomainEntityName": "Tournament",
       "HasRestEndpoint": true,
       "HttpMethodType": 2,
       "RequestType": 0,
-      "name": "UpdateGillingham",
+      "name": "UpdateTournament",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -123,7 +212,7 @@
           {
             "Modificator": "public",
             "Type": "string",
-            "Name": "Name",
+            "Name": "Title",
             "Accessors": [ "get", "set" ]
           }
         ]
@@ -136,11 +225,11 @@
       ]
     },
     {
-      "DomainEntityName": "Gillingham",
+      "DomainEntityName": "Tournament",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteGillingham",
+      "name": "DeleteTournament",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -156,6 +245,136 @@
         "Delete Entity",
         "Save to DataBase",
         "Trigger the EntityDeleted DomainEvent"
+      ]
+    },
+    {
+      "DomainEntityName": "Tournament",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "AddTournament",
+      "UseCaseContext": {
+        "OperableProperties": [
+          /* ... existing properties ... */
+        ]
+      },
+      "UseCaseSteps": [
+        /* ... existing steps ... */
+      ]
+    },
+    /* ... other use cases for Tournament ... */
+    {
+      "DomainEntityName": "TournamentManagement",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "CreateTournament",
+      "UseCaseContext": {},
+      "UseCaseSteps": [
+        "Create new tournament",
+        "Save to database"
+      ]
+    },
+    {
+      "DomainEntityName": "TournamentManagement",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 2,
+      "RequestType": 0,
+      "name": "EditTournament",
+      "UseCaseContext": {},
+      "UseCaseSteps": [
+        "Find tournament by id",
+        "Update tournament properties",
+        "Save to database"
+      ]
+    },
+    {
+      "DomainEntityName": "TournamentManagement",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 3,
+      "RequestType": 0,
+      "name": "DeleteTournament",
+      "UseCaseContext": {},
+      "UseCaseSteps": [
+        "Find tournament by id",
+        "Delete tournament",
+        "Save to database"
+      ]
+    },
+    {
+      "DomainEntityName": "TournamentStatisticsAPI",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "CollectStatistics",
+      "UseCaseContext": {},
+      "UseCaseSteps": [
+        "Collect statistics",
+        "Save to database"
+      ]
+    },
+    {
+      "DomainEntityName": "TournamentStatisticsAPI",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "UpdateStatistics",
+      "UseCaseContext": {},
+      "UseCaseSteps": [
+        "Retrieve current statistics",
+        "Update statistics",
+        "Save to database"
+      ]
+    },
+    {
+      "DomainEntityName": "TournamentStatisticsAPI",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "DisplayStatistics",
+      "UseCaseContext": {},
+      "UseCaseSteps": [
+        "Retrieve statistics from database",
+        "Format statistics",
+        "Display to user"
+      ]
+    },
+    {
+      "DomainEntityName": "TournamentEvent",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "CreateEvent",
+      "UseCaseContext": {},
+      "UseCaseSteps": [
+        "Create new event",
+        "Save to database"
+      ]
+    },
+    {
+      "DomainEntityName": "TournamentEvent",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "EditEvent",
+      "UseCaseContext": {},
+      "UseCaseSteps": [
+        "Find event by id",
+        "Update event properties",
+        "Save to database"
+      ]
+    },
+    {
+      "DomainEntityName": "TournamentEvent",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "DeleteEvent",
+      "UseCaseContext": {},
+      "UseCaseSteps": [
+        "Find event by id",
+        "Delete event",
+        "Save to database"
       ]
     }
   ]

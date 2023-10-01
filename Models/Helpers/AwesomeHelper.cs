@@ -23,15 +23,22 @@ public static class AwesomeHelper
 
     public static void FillOperablePropertiesFromMetadata(IDataContext context, IMetaProperties metadata)
     {
-        //нихуя себе!
-        context.OperableProperties!.ForEach(x =>
+        try
         {
-            metadata.Constructor.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
+            //нихуя себе!
+            context.OperableProperties!.ForEach(x =>
+            {
+                metadata.Constructor.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
 
-            metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, GetAccessorsArray()));
+                metadata.Properties.Add(new MetaProperty(x.Modificator, x.Type, x.Name, GetAccessorsArray()));
 
-            metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
-        });
+                metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
+            });
+        }
+        catch (Exception xex)
+        {
+
+        }
     }
 
     public static void FillInjectedInfrastructureFromMetadata(IDataContext context, IMetaProperties metadata)
