@@ -63,15 +63,15 @@
           "type": "object"
         }
       ]
-    },
-    {
-      "className": "WorldMapSection",
-      "properties": []
-    },
-    {
-      "className": "TournamentNews",
-      "properties": []
     }
+    //{
+    //  "className": "WorldMapSection",
+    //  "properties": []
+    //},
+    //{
+    //  "className": "TournamentNews",
+    //  "properties": []
+    //}
   ],
   "repositories": [
     {
@@ -252,36 +252,38 @@
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "AddTournament",
+      "name": "CreateTournament",
       "UseCaseContext": {
         "OperableProperties": [
-          /* ... existing properties ... */
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
         ]
       },
-      "UseCaseSteps": [
-        /* ... existing steps ... */
-      ]
-    },
-    /* ... other use cases for Tournament ... */
-    {
-      "DomainEntityName": "TournamentManagement",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "CreateTournament",
-      "UseCaseContext": {},
       "UseCaseSteps": [
         "Create new tournament",
         "Save to database"
       ]
     },
     {
-      "DomainEntityName": "TournamentManagement",
+      "DomainEntityName": "Tournament",
       "HasRestEndpoint": true,
       "HttpMethodType": 2,
       "RequestType": 0,
       "name": "EditTournament",
-      "UseCaseContext": {},
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
       "UseCaseSteps": [
         "Find tournament by id",
         "Update tournament properties",
@@ -289,12 +291,21 @@
       ]
     },
     {
-      "DomainEntityName": "TournamentManagement",
+      "DomainEntityName": "Tournament",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
       "name": "DeleteTournament",
-      "UseCaseContext": {},
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
       "UseCaseSteps": [
         "Find tournament by id",
         "Delete tournament",
@@ -307,7 +318,16 @@
       "HttpMethodType": 1,
       "RequestType": 0,
       "name": "CollectStatistics",
-      "UseCaseContext": {},
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
       "UseCaseSteps": [
         "Collect statistics",
         "Save to database"
@@ -319,7 +339,16 @@
       "HttpMethodType": 1,
       "RequestType": 0,
       "name": "UpdateStatistics",
-      "UseCaseContext": {},
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
       "UseCaseSteps": [
         "Retrieve current statistics",
         "Update statistics",
@@ -332,7 +361,16 @@
       "HttpMethodType": 1,
       "RequestType": 0,
       "name": "DisplayStatistics",
-      "UseCaseContext": {},
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
       "UseCaseSteps": [
         "Retrieve statistics from database",
         "Format statistics",
@@ -345,7 +383,16 @@
       "HttpMethodType": 1,
       "RequestType": 0,
       "name": "CreateEvent",
-      "UseCaseContext": {},
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
       "UseCaseSteps": [
         "Create new event",
         "Save to database"
@@ -357,7 +404,16 @@
       "HttpMethodType": 1,
       "RequestType": 0,
       "name": "EditEvent",
-      "UseCaseContext": {},
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
       "UseCaseSteps": [
         "Find event by id",
         "Update event properties",
@@ -370,7 +426,16 @@
       "HttpMethodType": 1,
       "RequestType": 0,
       "name": "DeleteEvent",
-      "UseCaseContext": {},
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "Modificator": "public",
+            "Type": "string",
+            "Name": "Id",
+            "Accessors": [ "get", "set" ]
+          }
+        ]
+      },
       "UseCaseSteps": [
         "Find event by id",
         "Delete event",
