@@ -18,14 +18,11 @@ public class DomainBuilder
     private string _metadataDir;
     private DomainDefinition _domainDefinition;
     private string _manyEntities;
-    private readonly PathService _pathService;
+    private readonly PathNameSpacesService _pathService;
+    private readonly GenerationDesign _generationDesign;
     private string _solutionRoot;
     private string _domainLayerPath;
     private string? _domainLayerNamespaceRoot;
-    private string _applicationLayerPath;
-
-    private string _eventsInternalPath;
-    private string _eventHandlersInternalPath;
     private string _eventsOutputFilePath;
     private string _eventHadlersOutputFilePath;
     private string _eventsGeneratedNmespace;
@@ -34,41 +31,37 @@ public class DomainBuilder
     public DomainBuilder(
         IConfiguration configuration,
         string metadataDir,
-        PathService pathService,
+        PathNameSpacesService pathService,
+        GenerationDesign generationDesign,
         DomainDefinition domainDefinition
         )
     {
         _configuration = configuration;
         _metadataDir = metadataDir;
-        _domainEntity = domainDefinition.Domain;
+        _domainEntity = domainDefinition.Domain!;
         _domainDefinition = domainDefinition;
         _manyEntities = _domainEntity.Pluralize();
 
         _pathService = pathService;
+        _generationDesign = generationDesign;
         _solutionRoot = _pathService.GetSolutionRootPath();
         _domainLayerPath = _pathService.GetDomainLayerPath();
         _domainLayerNamespaceRoot = _pathService.GetDomainLayerNamespaceRoot();
-        _applicationLayerPath = _pathService.GetApplicationLayerPath();
         _dtosPath = _pathService.GetDtosPath();
 
-        _eventsInternalPath = $"\\{_manyEntities}\\{_eventsFolderName}";
-        _eventHandlersInternalPath = $"\\{_manyEntities}\\{_eventHandlersFolderName}";
+        var eventPath = _pathService.GetEventsPathConfig(_manyEntities);
 
-        _eventsOutputFilePath = $"{_solutionRoot}{_domainLayerPath}{_eventsInternalPath}";
-        _eventHadlersOutputFilePath = $"{_solutionRoot}{_applicationLayerPath}{_eventHandlersInternalPath}";
+        _eventsOutputFilePath = eventPath.EventsOutputFilePath!;
+        _eventHadlersOutputFilePath = eventPath.EventHandlersOutputFilePath!;
 
-        _eventsGeneratedNmespace = $"{_domainLayerNamespaceRoot}{_eventsInternalPath.Replace("\\", ".")}";
-
-        _eventHandlersGeneratedNmespace = $"{_applicationLayerPath.Split("\\").Last()}{_eventHandlersInternalPath.Replace("\\", ".")}";
+        (_eventsGeneratedNmespace, _eventHandlersGeneratedNmespace) = _pathService.GetEventsGeneratedNamespace(_manyEntities);
     }
 
     public void BuildEntities()
     {
         var builderContexts = new List<ObjectBuilderContext>();
 
-        var entitiesFolderName = $"Entities";
-
-        var internalPath = $"\\{_manyEntities}\\{entitiesFolderName}";
+        var internalPath = $"\\{_manyEntities}\\{_generationDesign.EntitiesFolderName}";
 
         var outputFilePath = $"{_solutionRoot}{_domainLayerPath}{internalPath}";
 
@@ -77,7 +70,7 @@ public class DomainBuilder
             //ультракостыль
             metadata.OperableProperties = metadata.Properties;
 
-            metadata.Namespace = $"{_domainLayerNamespaceRoot}{internalPath.Replace("\\", ".")}";
+            metadata.Namespace = $"{_pathService.GetDomainLayerNamespaceRoot()}{internalPath.Replace("\\", ".")}";
 
             metadata.Usings = new string[] { };
             metadata.Constructor = new List<TypeName>();
@@ -89,7 +82,7 @@ public class DomainBuilder
             //тож костыль но менее критичный
             metadata.CreateParameters = metadata.Constructor;
 
-            BuildTools.AppendToBuild(_metadataDir, builderContexts, outputFilePath, metadata, metadata.ClassName);
+            BuildTools.AppendToBuild(_metadataDir, builderContexts, outputFilePath, metadata, metadata.ClassName!);
         }
 
         foreach (var builderMetadata in builderContexts)
@@ -113,28 +106,27 @@ public class DomainBuilder
 
         foreach (var domainEvent in _domainDefinition.Events!)
         {
-            DomainEventMetadata metadata = new DomainEventMetadata()
+            var metadata = new DomainEventMetadata
             {
-                ClassName = $"{domainEvent.ClassName}Event",
+                ClassName = string.Format(_generationDesign.EventСlassNamePattern!, domainEvent.ClassName),
                 //no needed perhaps
                 FilePath = "",
                 Usings = Array.Empty<string>(),
                 Namespace = _eventsGeneratedNmespace,
 
                 BaseConstructor = new string[]
-                                {
-                                    "entityId: id",
-                                    $"\"{_domainEntity}\""
-                                },
+                {
+                    "entityId: id",
+                    $"\"{_domainEntity}\""
+                },
                 Context = new()
                 {
                     OperableProperties = domainEvent.Properties
-                }
+                },
+                Constructor = new List<TypeName>(),
+                Properties = new List<MetaProperty>(),
+                InjectedProperties = new List<InjectedProperty>()
             };
-
-            metadata.Constructor = new List<TypeName>();
-            metadata.Properties = new List<MetaProperty>();
-            metadata.InjectedProperties = new List<InjectedProperty>();
 
             AwesomeHelper.FillOperablePropertiesFromMetadata(metadata.Context, metadata);
 
@@ -142,7 +134,7 @@ public class DomainBuilder
 
             var eventHandlerMetadata = CreateDomainEventHandlerMetadata(metadata.ClassName, metadata, _eventHandlersGeneratedNmespace);
 
-            BuildTools.AppendToBuild(_metadataDir, builderContexts, _eventHadlersOutputFilePath, eventHandlerMetadata, eventHandlerMetadata.ClassName);
+            BuildTools.AppendToBuild(_metadataDir, builderContexts, _eventHadlersOutputFilePath, eventHandlerMetadata, eventHandlerMetadata.ClassName!);
         }
 
         foreach (var builderMetadata in builderContexts)
@@ -154,7 +146,7 @@ public class DomainBuilder
 
     public void BuildUseCases()
     {
-        foreach (var useCase in _domainDefinition.UseCases)
+        foreach (var useCase in _domainDefinition.UseCases!)
         {
             var metaUseCase = new MetaUseCase(
                 useCase.DomainEntityName,
@@ -172,31 +164,25 @@ public class DomainBuilder
         }
     }
 
-    //private DomainEventMetadata CreateDomainEventMetadata(string domainEntity, string domainEvent, string generatedNmespace, List<MetaProperty> properties, DomainEventContext context)
-    //{
-
-
-    //    return metadata;
-    //}
-
     private DomainEventHandlerMetadata CreateDomainEventHandlerMetadata(string domainEvent, DomainEventMetadata eventMetadata, string generatedNmespace)
     {
         DomainEventHandlerMetadata metadata = new DomainEventHandlerMetadata()
         {
-            ClassName = $"{domainEvent}EventHandler",
-            EventClassName = eventMetadata.ClassName,
+            ClassName = string.Format(_generationDesign.EventHandlerСlassNamePattern!, domainEvent),
+
+            EventClassName = eventMetadata.ClassName!,
             //no needed perhaps
             FilePath = "",
             Usings = new string[]
-                    {
-                        eventMetadata.Namespace!
-                    },
+            {
+                eventMetadata.Namespace!
+            },
             Namespace = generatedNmespace,
             BaseConstructor = new string[]
-                                {
-                            "entityId: id",
-                            $"entityType:           $\"{eventMetadata.Context.DomainEntityName}\""
-                                },
+            {
+                "entityId: id",
+                $"entityType: $\"{eventMetadata.Context.DomainEntityName}\""
+            },
         };
 
         metadata.Constructor = new List<TypeName>();

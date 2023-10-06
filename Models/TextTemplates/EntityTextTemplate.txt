@@ -3,9 +3,6 @@
 
 namespace {{ namespace }};
 
-/// <summary>
-/// 
-/// </summary>
 public class {{ class_name }} : BaseEntity
 {
 
@@ -42,17 +39,11 @@ public class {{ class_name }} : BaseEntity
 
     #region Methods
 
-    /// <summary>
-    /// 
-    /// </summary>
     public static {{ class_name }} Create({{ for par in create_parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
         return new {{ class_name }}({{ for par in create_parameters }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }});
     }
 
-    ///// <summary>
-    /////  
-    ///// </summary>
     public void Update{{ class_name }}({{ for par in update_parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
         {{ for prop in update_properties }}

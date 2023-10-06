@@ -1,8 +1,8 @@
 {
-  "domain": "DigitalCollections",
+  "domain": "Seledkas",
   "entities": [
     {
-      "className": "DigitalCollection",
+      "className": "Seledka",
       "properties": [
         {
           "name": "CollectionId",
@@ -57,35 +57,35 @@
   ],
   "repositories": [
     {
-      "className": "DigitalCollectionRepository",
+      "className": "SeledkaRepository",
       "operations": [
         {
-          "name": "AddDigitalCollection",
-          "parameters": [ "DigitalCollection" ]
+          "name": "AddSeledka",
+          "parameters": [ "Seledka" ]
         },
         {
-          "name": "EditDigitalCollection",
-          "parameters": [ "DigitalCollection" ]
+          "name": "EditSeledka",
+          "parameters": [ "Seledka" ]
         },
         {
-          "name": "DeleteDigitalCollection",
+          "name": "DeleteSeledka",
           "parameters": [ "string" ]
         },
         {
-          "name": "GetAllDigitalCollections",
-          "returnType": "List<DigitalCollection>"
+          "name": "GetAllSeledka",
+          "returnType": "List<Seledka>"
         },
         {
-          "name": "FindDigitalCollectionById",
+          "name": "FindSeledkaById",
           "parameters": [ "string" ],
-          "returnType": "DigitalCollection"
+          "returnType": "Seledka"
         }
       ]
     }
   ],
   "events": [
     {
-      "className": "DigitalCollectionAdded",
+      "className": "SeledkaAdded",
       "properties": [
         {
           "name": "Id",
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "className": "DigitalCollectionUpdated",
+      "className": "SeledkaUpdated",
       "properties": [
         {
           "name": "Id",
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "className": "DigitalCollectionDeleted",
+      "className": "SeledkaDeleted",
       "properties": [
         {
           "name": "Id",
@@ -122,11 +122,11 @@
   ],
   "useCases": [
     {
-      "DomainEntityName": "DigitalCollection",
+      "DomainEntityName": "Seledka",
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "AddDigitalCollection",
+      "name": "AddSeledka",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -187,11 +187,11 @@
       ]
     },
     {
-      "DomainEntityName": "DigitalCollection",
+      "DomainEntityName": "Seledka",
       "HasRestEndpoint": true,
       "HttpMethodType": 2,
       "RequestType": 0,
-      "name": "UpdateDigitalCollection",
+      "name": "UpdateSeledka",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -252,11 +252,11 @@
       ]
     },
     {
-      "DomainEntityName": "DigitalCollection",
+      "DomainEntityName": "Seledka",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteDigitalCollection",
+      "name": "DeleteSeledka",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -275,11 +275,11 @@
       ]
     },
     {
-      "DomainEntityName": "DigitalCollection",
+      "DomainEntityName": "Seledka",
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "CreateDigitalCollection",
+      "name": "CreateSeledka",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -333,16 +333,16 @@
         ]
       },
       "UseCaseSteps": [
-        "Create new DigitalCollection",
+        "Create new Seledka",
         "Save to database"
       ]
     },
     {
-      "DomainEntityName": "DigitalCollection",
+      "DomainEntityName": "Seledka",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteDigitalCollection",
+      "name": "DeleteSeledka",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -354,8 +354,8 @@
         ]
       },
       "UseCaseSteps": [
-        "Find DigitalCollection by id",
-        "Delete DigitalCollection",
+        "Find Seledka by id",
+        "Delete Seledka",
         "Save to database"
       ]
     }

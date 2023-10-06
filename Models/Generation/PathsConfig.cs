@@ -1,7 +1,9 @@
-﻿namespace Core.Generation;
-public class PathConfig
+﻿using Core.Generation.Interface;
+
+namespace Core.Generation;
+public class PathsConfig : IEventsPathInterface
 {
-    public PathConfig()
+    public PathsConfig()
     {
         SolutionRootPath = "C:\\rep\\draft\\subject";
         ApiRootPath = "\\Services\\Gleb.API";
@@ -10,7 +12,7 @@ public class PathConfig
         ApplicationLayerPath = "\\Services\\ApplicationOld";
     }
 
-    public PathConfig(string? solutionRootPath, string? apiRootPath, string? dtoPath, string? domainLayerPath, string? applicationLayerPath)
+    public PathsConfig(string? solutionRootPath, string? apiRootPath, string? dtoPath, string? domainLayerPath, string? applicationLayerPath)
     {
         SolutionRootPath = solutionRootPath;
         ApiRootPath = apiRootPath;
@@ -24,4 +26,6 @@ public class PathConfig
     public string? DtoPath { get; set; }
     public string? DomainLayerPath { get; set; }
     public string? ApplicationLayerPath { get; set; }
+    public string? EventsOutputFilePath { get; set; }
+    public string? EventHandlersOutputFilePath { get; set; }
 }

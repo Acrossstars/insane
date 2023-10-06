@@ -2,9 +2,6 @@
 
 namespace {{ namespace }};
 
-/// <summary>
-/// 
-/// </summary>
 public class {{ aggregate_entity }}AggregateRepository : MongoDbBaseAggregateRepository<{{ aggregate_entity }}>, {{ interface_name }}
 {
     #region Fields

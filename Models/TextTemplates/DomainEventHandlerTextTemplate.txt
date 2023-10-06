@@ -3,9 +3,6 @@
 
 namespace {{ namespace }};
 
-/// <summary>
-/// 
-/// </summary>
 public class {{ class_name }} : INotificationHandler<{{ event_class_name }}>
 {
     {{ for par in private_fields }}

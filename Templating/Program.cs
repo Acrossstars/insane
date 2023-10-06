@@ -9,13 +9,14 @@ var configurationBuilder = new ConfigurationBuilder()
 var configuration = configurationBuilder.Build();
 
 var definition = configuration.Get<DomainDefinition>();
-
-var pathService = new PathService(configuration);
+var generationDesign = new GenerationDesign();
+var pathService = new PathNameSpacesService(configuration, generationDesign);
 
 var domainBuilder = new DomainBuilder(
     configuration,
     metadataDir,
     pathService,
+    generationDesign,
     definition);
 
 domainBuilder.BuildEntities();
