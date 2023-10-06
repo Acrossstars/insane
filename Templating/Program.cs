@@ -7,12 +7,9 @@ var configuration = configurationBuilder.Build();
 
 var definition = configuration.Get<DomainDefinition>(); 
 
-var _domainEntity = "BVB";
-
 var domainBuilder = new DomainBuilder(
     configuration,
     metadataDir,
-    _domainEntity,
     definition);
 
 domainBuilder.BuildEntities();

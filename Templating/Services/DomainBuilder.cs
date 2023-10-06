@@ -34,14 +34,12 @@ public class DomainBuilder
     public DomainBuilder(
         IConfiguration configuration,
         string metadataDir,
-        string domainEntity,
         DomainDefinition domainDefinition
         )
     {
         _configuration = configuration;
         _metadataDir = metadataDir;
         _domainEntity = domainDefinition.Domain;
-        //_domainEntity = domainEntity;
         _domainDefinition = domainDefinition;
         _manyEntities = _domainEntity.Pluralize();
 

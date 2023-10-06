@@ -1,109 +1,91 @@
 {
-  "domain": "Tournaments",
+  "domain": "DigitalCollections",
   "entities": [
     {
-      "className": "Tournament",
+      "className": "DigitalCollection",
       "properties": [
         {
-          "name": "ID",
+          "name": "CollectionId",
           "type": "string"
         },
         {
-          "name": "Title",
+          "name": "CreatorId",
           "type": "string"
         },
         {
-          "name": "Description",
+          "name": "TokenName",
           "type": "string"
         },
         {
-          "name": "StartDate",
-          "type": "datetime"
+          "name": "TokenSymbol",
+          "type": "string"
         },
         {
-          "name": "EndDate",
-          "type": "datetime"
+          "name": "ContractOwner",
+          "type": "string"
         },
         {
-          "name": "PrizeFund",
-          "type": "decimal"
+          "name": "ContractAddress",
+          "type": "string"
         },
         {
-          "name": "PrizeDistribution",
-          "type": "object"
+          "name": "TxHash",
+          "type": "string"
         },
         {
-          "name": "BestPlayerRewards",
-          "type": "object"
+          "name": "BlockHash",
+          "type": "string"
+        },
+        {
+          "name": "ContractStandart",
+          "type": "string"
+        },
+        {
+          "name": "GasUsed",
+          "type": "BigInteger"
+        },
+        {
+          "name": "GasPrice",
+          "type": "BigInteger"
+        },
+        {
+          "name": "CreatedDate",
+          "type": "DateTime"
         }
       ]
-    },
-    {
-      "className": "TournamentStatistics",
-      "properties": [
-        {
-          "name": "IOStatistics",
-          "type": "object"
-        },
-        {
-          "name": "BVBStatistics",
-          "type": "object"
-        },
-        {
-          "name": "MapStatistics",
-          "type": "object"
-        }
-      ]
-    },
-    {
-      "className": "ClanRating",
-      "properties": [
-        {
-          "name": "ClanMemberRating",
-          "type": "object"
-        }
-      ]
-    },
-    //{
-    //  "className": "WorldMapSection",
-    //  "properties": []
-    //},
-    //{
-    //  "className": "TournamentNews",
-    //  "properties": []
-    //}
+    }
   ],
   "repositories": [
     {
-      "className": "TournamentRepository",
+      "className": "DigitalCollectionRepository",
       "operations": [
         {
-          "name": "AddTournament",
-          "parameters": [ "Tournament" ]
+          "name": "AddDigitalCollection",
+          "parameters": [ "DigitalCollection" ]
         },
         {
-          "name": "EditTournament",
-          "parameters": [ "Tournament" ]
+          "name": "EditDigitalCollection",
+          "parameters": [ "DigitalCollection" ]
         },
         {
-          "name": "DeleteTournament",
+          "name": "DeleteDigitalCollection",
           "parameters": [ "string" ]
         },
         {
-          "name": "GetAllTournaments",
-          "returnType": "List<Tournament>"
+          "name": "GetAllDigitalCollections",
+          "returnType": "List<DigitalCollection>"
         },
         {
-          "name": "FindTournamentById",
+          "name": "FindDigitalCollectionById",
           "parameters": [ "string" ],
-          "returnType": "Tournament"
+          "returnType": "DigitalCollection"
         }
       ]
     }
   ],
   "events": [
     {
-      "className": "TournamentAdded",
+      "className": "DigitalCollectionAdded",
       "properties": [
         {
           "name": "Id",
@@ -116,7 +98,7 @@
       ]
     },
     {
-      "className": "TournamentUpdated",
+      "className": "DigitalCollectionUpdated",
       "properties": [
         {
           "name": "Id",
@@ -129,34 +111,7 @@
       ]
     },
     {
-      "className": "TournamentDeleted",
-      "properties": [
-        {
-          "name": "Id",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "className": "TournamentStartEvent",
-      "properties": [
-        {
-          "name": "Id",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "className": "TournamentEndEvent",
-      "properties": [
-        {
-          "name": "Id",
-          "type": "string"
-        }
-      ]
-    },
-    {
-      "className": "TournamentSignificantEvents",
+      "className": "DigitalCollectionDeleted",
       "properties": [
         {
           "name": "Id",
@@ -167,24 +122,60 @@
   ],
   "useCases": [
     {
-      "DomainEntityName": "Tournament",
+      "DomainEntityName": "DigitalCollection",
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "AddTournament",
+      "name": "AddDigitalCollection",
       "UseCaseContext": {
         "OperableProperties": [
           {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
+            "name": "CollectionId",
+            "type": "string"
           },
           {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Title",
-            "Accessors": [ "get", "set" ]
+            "name": "CreatorId",
+            "type": "string"
+          },
+          {
+            "name": "TokenName",
+            "type": "string"
+          },
+          {
+            "name": "TokenSymbol",
+            "type": "string"
+          },
+          {
+            "name": "ContractOwner",
+            "type": "string"
+          },
+          {
+            "name": "ContractAddress",
+            "type": "string"
+          },
+          {
+            "name": "TxHash",
+            "type": "string"
+          },
+          {
+            "name": "BlockHash",
+            "type": "string"
+          },
+          {
+            "name": "ContractStandart",
+            "type": "string"
+          },
+          {
+            "name": "GasUsed",
+            "type": "BigInteger"
+          },
+          {
+            "name": "GasPrice",
+            "type": "BigInteger"
+          },
+          {
+            "name": "CreatedDate",
+            "type": "DateTime"
           }
         ]
       },
@@ -196,24 +187,60 @@
       ]
     },
     {
-      "DomainEntityName": "Tournament",
+      "DomainEntityName": "DigitalCollection",
       "HasRestEndpoint": true,
       "HttpMethodType": 2,
       "RequestType": 0,
-      "name": "UpdateTournament",
+      "name": "UpdateDigitalCollection",
       "UseCaseContext": {
         "OperableProperties": [
           {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
+            "name": "CollectionId",
+            "type": "string"
           },
           {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Title",
-            "Accessors": [ "get", "set" ]
+            "name": "CreatorId",
+            "type": "string"
+          },
+          {
+            "name": "TokenName",
+            "type": "string"
+          },
+          {
+            "name": "TokenSymbol",
+            "type": "string"
+          },
+          {
+            "name": "ContractOwner",
+            "type": "string"
+          },
+          {
+            "name": "ContractAddress",
+            "type": "string"
+          },
+          {
+            "name": "TxHash",
+            "type": "string"
+          },
+          {
+            "name": "BlockHash",
+            "type": "string"
+          },
+          {
+            "name": "ContractStandart",
+            "type": "string"
+          },
+          {
+            "name": "GasUsed",
+            "type": "BigInteger"
+          },
+          {
+            "name": "GasPrice",
+            "type": "BigInteger"
+          },
+          {
+            "name": "CreatedDate",
+            "type": "DateTime"
           }
         ]
       },
@@ -225,11 +252,11 @@
       ]
     },
     {
-      "DomainEntityName": "Tournament",
+      "DomainEntityName": "DigitalCollection",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteTournament",
+      "name": "DeleteDigitalCollection",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -248,54 +275,74 @@
       ]
     },
     {
-      "DomainEntityName": "Tournament",
+      "DomainEntityName": "DigitalCollection",
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "CreateTournament",
+      "name": "CreateDigitalCollection",
       "UseCaseContext": {
         "OperableProperties": [
           {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
+            "name": "CollectionId",
+            "type": "string"
+          },
+          {
+            "name": "CreatorId",
+            "type": "string"
+          },
+          {
+            "name": "TokenName",
+            "type": "string"
+          },
+          {
+            "name": "TokenSymbol",
+            "type": "string"
+          },
+          {
+            "name": "ContractOwner",
+            "type": "string"
+          },
+          {
+            "name": "ContractAddress",
+            "type": "string"
+          },
+          {
+            "name": "TxHash",
+            "type": "string"
+          },
+          {
+            "name": "BlockHash",
+            "type": "string"
+          },
+          {
+            "name": "ContractStandart",
+            "type": "string"
+          },
+          {
+            "name": "GasUsed",
+            "type": "BigInteger"
+          },
+          {
+            "name": "GasPrice",
+            "type": "BigInteger"
+          },
+          {
+            "name": "CreatedDate",
+            "type": "DateTime"
           }
         ]
       },
       "UseCaseSteps": [
-        "Create new tournament",
+        "Create new DigitalCollection",
         "Save to database"
       ]
     },
     {
-      "DomainEntityName": "Tournament",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 2,
-      "RequestType": 0,
-      "name": "EditTournament",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Find tournament by id",
-        "Update tournament properties",
-        "Save to database"
-      ]
-    },
-    {
-      "DomainEntityName": "Tournament",
+      "DomainEntityName": "DigitalCollection",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteTournament",
+      "name": "DeleteDigitalCollection",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -307,138 +354,8 @@
         ]
       },
       "UseCaseSteps": [
-        "Find tournament by id",
-        "Delete tournament",
-        "Save to database"
-      ]
-    },
-    {
-      "DomainEntityName": "TournamentStatisticsAPI",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "CollectStatistics",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Collect statistics",
-        "Save to database"
-      ]
-    },
-    {
-      "DomainEntityName": "TournamentStatisticsAPI",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "UpdateStatistics",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Retrieve current statistics",
-        "Update statistics",
-        "Save to database"
-      ]
-    },
-    {
-      "DomainEntityName": "TournamentStatisticsAPI",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "DisplayStatistics",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Retrieve statistics from database",
-        "Format statistics",
-        "Display to user"
-      ]
-    },
-    {
-      "DomainEntityName": "TournamentEvent",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "CreateEvent",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Create new event",
-        "Save to database"
-      ]
-    },
-    {
-      "DomainEntityName": "TournamentEvent",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "EditEvent",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Find event by id",
-        "Update event properties",
-        "Save to database"
-      ]
-    },
-    {
-      "DomainEntityName": "TournamentEvent",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "DeleteEvent",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Find event by id",
-        "Delete event",
+        "Find DigitalCollection by id",
+        "Delete DigitalCollection",
         "Save to database"
       ]
     }

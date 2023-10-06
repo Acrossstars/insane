@@ -1,5 +1,7 @@
 ﻿using Core;
+using Core.Formatiing;
 using Scriban;
+using System.Runtime.Serialization;
 
 namespace Templating.Infra;
 
@@ -23,8 +25,10 @@ public class FileBuilder
             var fileName = $"{builderMetadata.FileName}.cs";
             var fileDirectory = builderMetadata.OutputFilePath;
 
+            var formattedCode = CodeFormatter.FormatCodeWithRoslyn(res);
+
             var fileLoader = new FileLoader();
-            fileLoader.AddFileToProject(fileDirectory, fileName, res);
+            fileLoader.AddFileToProject(fileDirectory, fileName, formattedCode);
 
             Console.WriteLine(res);
         }
