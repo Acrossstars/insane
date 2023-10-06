@@ -1,7 +1,9 @@
 ﻿using Core;
 using Core.Domain.Common;
 using Core.Domain.UseCases;
+using Core.Generation;
 using Core.Metadatas;
+using System;
 using Templating.Features;
 using Templating.Infra;
 
@@ -16,16 +18,14 @@ public class DomainBuilder
     private string _metadataDir;
     private DomainDefinition _domainDefinition;
     private string _manyEntities;
-
+    private readonly PathService _pathService;
     private string _solutionRoot;
     private string _domainLayerPath;
     private string? _domainLayerNamespaceRoot;
     private string _applicationLayerPath;
 
-    private string _eventsFolderName;
-    private string _eventHadlersFolderName;
     private string _eventsInternalPath;
-    private string _eventHadlersInternalPath;
+    private string _eventHandlersInternalPath;
     private string _eventsOutputFilePath;
     private string _eventHadlersOutputFilePath;
     private string _eventsGeneratedNmespace;
@@ -34,6 +34,7 @@ public class DomainBuilder
     public DomainBuilder(
         IConfiguration configuration,
         string metadataDir,
+        PathService pathService,
         DomainDefinition domainDefinition
         )
     {
@@ -43,24 +44,22 @@ public class DomainBuilder
         _domainDefinition = domainDefinition;
         _manyEntities = _domainEntity.Pluralize();
 
-        _solutionRoot = _configuration["SolutionRootPath"]!;
-        _domainLayerPath = _configuration["DomainLayerPath"]!;
-        _domainLayerNamespaceRoot = _configuration["DomainLayerNamespaceRoot"];
-        _applicationLayerPath = _configuration["ApplicationLayerPath"]!;
-        _dtosPath = _configuration["SolutionRootPath"] + _configuration["DtoPath"];
-
-        _eventsFolderName = $"Events";
-        _eventHadlersFolderName = "EventHandlers";
+        _pathService = pathService;
+        _solutionRoot = _pathService.GetSolutionRootPath();
+        _domainLayerPath = _pathService.GetDomainLayerPath();
+        _domainLayerNamespaceRoot = _pathService.GetDomainLayerNamespaceRoot();
+        _applicationLayerPath = _pathService.GetApplicationLayerPath();
+        _dtosPath = _pathService.GetDtosPath();
 
         _eventsInternalPath = $"\\{_manyEntities}\\{_eventsFolderName}";
-        _eventHadlersInternalPath = $"\\{_manyEntities}\\{_eventHadlersFolderName}";
+        _eventHandlersInternalPath = $"\\{_manyEntities}\\{_eventHandlersFolderName}";
 
         _eventsOutputFilePath = $"{_solutionRoot}{_domainLayerPath}{_eventsInternalPath}";
-        _eventHadlersOutputFilePath = $"{_solutionRoot}{_applicationLayerPath}{_eventHadlersInternalPath}";
+        _eventHadlersOutputFilePath = $"{_solutionRoot}{_applicationLayerPath}{_eventHandlersInternalPath}";
 
         _eventsGeneratedNmespace = $"{_domainLayerNamespaceRoot}{_eventsInternalPath.Replace("\\", ".")}";
 
-        _eventHandlersGeneratedNmespace = $"{_applicationLayerPath.Split("\\").Last()}{_eventHadlersInternalPath.Replace("\\", ".")}";
+        _eventHandlersGeneratedNmespace = $"{_applicationLayerPath.Split("\\").Last()}{_eventHandlersInternalPath.Replace("\\", ".")}";
     }
 
     public void BuildEntities()
