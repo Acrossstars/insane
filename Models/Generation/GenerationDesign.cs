@@ -16,6 +16,13 @@ public class GenerationDesign
 
         EventСlassNamePattern = "{0}Event";
         EventHandlerСlassNamePattern = "{0}EventHandler";
+
+        CommandRequestBasePattern = "IRequest";
+        CommandRequestHandlerBaseePattern = "IRequestHandler<{0}{1}>";
+        
+        QueryRequestBasePattern = "IRequest<{0}>";
+        QueryRequestHandlerBaseePattern = "IRequestHandler<{0}{1}>";
+
     }
 
     public GenerationStyleType GenerationStyle { get; set; }
@@ -26,4 +33,10 @@ public class GenerationDesign
     public string? UseCasesFolderName { get; set; }
     public string? EventСlassNamePattern { get; set; }
     public string? EventHandlerСlassNamePattern { get; set; }
+    public string? CommandRequestBasePattern { get; set; }
+    public string? CommandRequestHandlerBaseePattern { get; set; }
+    public string? QueryRequestBasePattern { get; set; }
+    public string? QueryRequestHandlerBaseePattern { get; set; }
+
+
 }

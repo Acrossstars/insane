@@ -1,14 +1,28 @@
 ﻿using Core.Domain.Common;
 using Core.Domain.UseCases;
 using Core.Extensions;
+using Core.Generation;
 using Core.Metadatas;
 using Core.Metadatas.Commands;
 using Core.Metadatas.Queries;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Templating.Services;
 
 internal class MetadatasBuilder
 {
+    private readonly GenerationDesign _generationDesign;
+    private readonly PathNameSpacesService _pathNameSpacesService;
+
+    public MetadatasBuilder(
+        GenerationDesign generationDesign,
+        PathNameSpacesService pathNameSpacesService
+        )
+    {
+        _generationDesign = generationDesign;
+        _pathNameSpacesService = pathNameSpacesService;
+    }
+
     public static DtoMetadata GetDto(MetaUseCase useCase, string useCaseNamespace)
     {
         var metadata = new DtoMetadata()
@@ -93,7 +107,7 @@ internal class MetadatasBuilder
         return metadata;
     }
 
-    public static CommandRequestMetadata CreateMetaCommandRequest(MetaUseCase useCase, string useCaseNamespace)
+    public CommandRequestMetadata CreateMetaCommandRequest(MetaUseCase useCase, string useCaseNamespace)
     {
         CommandRequestMetadata metadata = new CommandRequestMetadata()
         {
@@ -104,6 +118,8 @@ internal class MetadatasBuilder
             Namespace = useCaseNamespace,
             ClassName = useCase.Request,
         };
+
+        string.Format(_generationDesign.CommandRequestBasePattern!, request, returntype);
 
         metadata.InjectedInfrastructure = new List<TypeName>();
         metadata.Constructor = new List<TypeName>();

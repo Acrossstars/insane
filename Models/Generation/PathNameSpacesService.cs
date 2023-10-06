@@ -7,7 +7,7 @@ public class PathNameSpacesService
     private readonly IConfiguration _configuration;
     private readonly GenerationDesign _generationDesign;
 
-    public string EventHandlersOutputFilePath { get; private set; }
+    public string EventHandlersOutputFilePath { get; set; }
 
     public PathNameSpacesService(
         IConfiguration configuration,
