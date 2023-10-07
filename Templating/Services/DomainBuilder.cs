@@ -18,8 +18,10 @@ public class DomainBuilder
     private string _metadataDir;
     private DomainDefinition _domainDefinition;
     private string _manyEntities;
+
     private readonly PathNameSpacesService _pathService;
     private readonly GenerationDesign _generationDesign;
+
     private string _solutionRoot;
     private string _domainLayerPath;
     private string? _domainLayerNamespaceRoot;
@@ -166,7 +168,7 @@ public class DomainBuilder
                 useCase.UseCaseSteps,
                 useCase.HasRestEndpoint);
 
-            var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, metaUseCase);
+            var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, metaUseCase, _generationDesign, _pathService);
             //var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, useCase);
 
             userCasesBuilder.GenerateUseCase(_domainEntity, _dtosPath, _metadataDir);

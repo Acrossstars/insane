@@ -1,5 +1,6 @@
 ﻿using Core;
 using Core.Domain.UseCases;
+using Core.Generation;
 using Core.Metadatas;
 using Templating.Features;
 using Templating.Infra;
@@ -15,31 +16,44 @@ public class UserCasesBuilder
     private static string _useCaseNamespace;
     private readonly DomainDefinition _domainDefinition;
     private MetaUseCase _useCase;
+    private readonly GenerationDesign _generationDesign;
+    private readonly PathNameSpacesService _pathNameSpacesService;
     private string _path;
     private string _outputFilePath;
+    private readonly MetadatasBuilder _metadataBuilder;
 
-    public UserCasesBuilder(IConfiguration configuration, DomainDefinition domainDefinition,
-        MetaUseCase useCase)
+    public UserCasesBuilder(
+        IConfiguration configuration,
+        DomainDefinition domainDefinition,
+        MetaUseCase useCase,
+        GenerationDesign generationDesign,
+        PathNameSpacesService pathNameSpacesService
+        )
     {
-        _solutionRoot = configuration["SolutionRootPath"];
-        _apiRoot = configuration["ApiRootPath"];
+        _solutionRoot = pathNameSpacesService.GetSolutionRootPath();
+        _apiRoot = pathNameSpacesService.GetApiRootPath();
 
-        _useCasesFolderName = $"UseCases";
+        _useCasesFolderName = generationDesign.UseCasesFolderName!;
         _domainDefinition = domainDefinition;
         _useCase = useCase;
+
+        _generationDesign = generationDesign;
+        _pathNameSpacesService = pathNameSpacesService;
+
         _manyEntities = _useCase.DomainEntityName.Pluralize();
+        
         _useCaseNamespace = $"UseCases.{_manyEntities}.{_useCase.Name}";
         _path = $"\\{_useCasesFolderName}\\{_manyEntities}\\{_useCase.Name}";
 
         _outputFilePath = $"{_solutionRoot}{_apiRoot}\\{_path}";
+
+        _metadataBuilder = new MetadatasBuilder(_generationDesign, _pathNameSpacesService);
     }
 
     //TODO: Rename Namespace to Match Folder Structure
     public void GenerateUseCase(string domainEntity, string dtosPath, string metadataDir)
     {
         var builderContexts = new List<ObjectBuilderContext>();
-
-
 
         switch (_useCase.RequestType)
         {
@@ -73,13 +87,13 @@ public class UserCasesBuilder
         _useCase.DtoMetadata = dto;
 
         var dtoPath = dtosPath + $"\\{domainEntity.Pluralize()}";
-        BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName);
+        BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName!);
 
         if (_useCase.HasRestEndpoint)
         {
-            RestEndpointMetadata restEndpoint = MetadatasBuilder.CreateRestEndpointMetadata(domainEntity, _useCase, _useCaseNamespace);
+            RestEndpointMetadata restEndpoint = _metadataBuilder.CreateRestEndpointMetadata(domainEntity, _useCase, _useCaseNamespace);
 
-            BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, restEndpoint, restEndpoint.ClassName);
+            BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, restEndpoint, restEndpoint.ClassName!);
 
         }
 

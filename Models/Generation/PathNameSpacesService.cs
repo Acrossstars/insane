@@ -18,6 +18,9 @@ public class PathNameSpacesService
         _generationDesign = generationDesign;
     }
 
+    public string GetApiRootPath()
+        => _configuration["ApiRootPath"]!;
+
     public string GetSolutionRootPath()
         => _configuration["SolutionRootPath"]!;
 

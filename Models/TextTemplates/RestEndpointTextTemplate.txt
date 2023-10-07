@@ -4,7 +4,7 @@ namespace {{ namespace }};
 
 [Tags({{ tags }})]
 [Route({{ tags }})]
-public class {{ class_name }} : BaseApiController
+public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
 {
     public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}

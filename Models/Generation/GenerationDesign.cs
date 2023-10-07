@@ -18,6 +18,7 @@ public class GenerationDesign
         EventHandlerСlassNamePattern = "{0}EventHandler";
 
         EventHandlerBaseСlassNamePattern = "INotificationHandler<{0}>";
+        RestEndpointBaseСlassName = "BaseApiController";
 
         CommandRequestBasePattern = "IRequest";
         CommandRequestHandlerBaseePattern = "IRequestHandler<{0}{1}>";
@@ -36,6 +37,7 @@ public class GenerationDesign
     public string? EventСlassNamePattern { get; set; }
     public string? EventHandlerСlassNamePattern { get; set; }
     public string? EventHandlerBaseСlassNamePattern { get; set; }
+    public string? RestEndpointBaseСlassName { get; set; }
     public string? CommandRequestBasePattern { get; set; }
     public string? CommandRequestHandlerBaseePattern { get; set; }
     public string? QueryRequestBasePattern { get; set; }

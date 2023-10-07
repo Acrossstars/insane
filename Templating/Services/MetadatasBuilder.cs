@@ -66,10 +66,14 @@ internal class MetadatasBuilder
         return metadata;
     }
 
-    public static RestEndpointMetadata CreateRestEndpointMetadata(string domainEntity, MetaUseCase useCase, string useCaseNamespace)
+    public RestEndpointMetadata CreateRestEndpointMetadata(string domainEntity, MetaUseCase useCase, string useCaseNamespace)
     {
         var metadata = new RestEndpointMetadata()
         {
+            BaseEntities = new List<string>()
+            {
+                _generationDesign.RestEndpointBaseСlassName!
+            },
             ClassName = useCase.RestEndpoint,
             Usings = new string[]
             {
