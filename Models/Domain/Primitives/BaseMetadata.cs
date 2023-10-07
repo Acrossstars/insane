@@ -4,8 +4,8 @@ namespace Core.Domain.Common;
 
 public class BaseMetadata
 {
+    public List<string>? BaseEntities { get; set; }
     public string? ClassName { get; set; }
-
     public List<MetaProperty>? Properties { get; set; }
 
     public string? FilePath { get; set; }

@@ -3,7 +3,7 @@
 
 namespace {{ namespace }};
 
-public class {{ class_name }} : INotificationHandler<{{ event_class_name }}>
+public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
 {
     {{ for par in private_fields }}
     {{ par.type }} {{ par.name }}{{ if ! for.last }}{{ end }}{{- end }};

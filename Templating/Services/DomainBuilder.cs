@@ -67,6 +67,11 @@ public class DomainBuilder
 
         foreach (var metadata in _domainDefinition.Entities!)
         {
+            metadata.BaseEntities = new List<string>()
+            {
+                "BaseEntity"
+            };
+
             //ультракостыль
             metadata.OperableProperties = metadata.Properties;
 
@@ -108,6 +113,10 @@ public class DomainBuilder
         {
             var metadata = new DomainEventMetadata
             {
+                BaseEntities = new List<string>()
+                {
+                    "DomainEvent"
+                },
                 ClassName = string.Format(_generationDesign.EventСlassNamePattern!, domainEvent.ClassName),
                 //no needed perhaps
                 FilePath = "",
@@ -168,6 +177,11 @@ public class DomainBuilder
     {
         DomainEventHandlerMetadata metadata = new DomainEventHandlerMetadata()
         {
+            BaseEntities = new List<string>()
+            {
+                //"INotificationHandler<{{ event_class_name }}>",
+                string.Format(_generationDesign.EventHandlerBaseСlassNamePattern!, domainEvent)
+            },
             ClassName = string.Format(_generationDesign.EventHandlerСlassNamePattern!, domainEvent),
 
             EventClassName = eventMetadata.ClassName!,

@@ -1,8 +1,8 @@
 {
-  "domain": "Seledkas",
+  "domain": "BaseEventTests",
   "entities": [
     {
-      "className": "Seledka",
+      "className": "BaseEventTest",
       "properties": [
         {
           "name": "CollectionId",
@@ -57,35 +57,35 @@
   ],
   "repositories": [
     {
-      "className": "SeledkaRepository",
+      "className": "BaseEventTestRepository",
       "operations": [
         {
-          "name": "AddSeledka",
-          "parameters": [ "Seledka" ]
+          "name": "AddBaseEventTest",
+          "parameters": [ "BaseEventTest" ]
         },
         {
-          "name": "EditSeledka",
-          "parameters": [ "Seledka" ]
+          "name": "EditBaseEventTest",
+          "parameters": [ "BaseEventTest" ]
         },
         {
-          "name": "DeleteSeledka",
+          "name": "DeleteBaseEventTest",
           "parameters": [ "string" ]
         },
         {
-          "name": "GetAllSeledka",
-          "returnType": "List<Seledka>"
+          "name": "GetAllBaseEventTest",
+          "returnType": "List<BaseEventTest>"
         },
         {
-          "name": "FindSeledkaById",
+          "name": "FindBaseEventTestById",
           "parameters": [ "string" ],
-          "returnType": "Seledka"
+          "returnType": "BaseEventTest"
         }
       ]
     }
   ],
   "events": [
     {
-      "className": "SeledkaAdded",
+      "className": "BaseEventTestAdded",
       "properties": [
         {
           "name": "Id",
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "className": "SeledkaUpdated",
+      "className": "BaseEventTestUpdated",
       "properties": [
         {
           "name": "Id",
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "className": "SeledkaDeleted",
+      "className": "BaseEventTestDeleted",
       "properties": [
         {
           "name": "Id",
@@ -122,11 +122,11 @@
   ],
   "useCases": [
     {
-      "DomainEntityName": "Seledka",
+      "DomainEntityName": "BaseEventTest",
       "HasRestEndpoint": true,
       "HttpMethodType": 2,
       "RequestType": 0,
-      "name": "UpdateSeledka",
+      "name": "UpdateBaseEventTest",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -187,11 +187,11 @@
       ]
     },
     {
-      "DomainEntityName": "Seledka",
+      "DomainEntityName": "BaseEventTest",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteSeledka",
+      "name": "DeleteBaseEventTest",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -210,11 +210,11 @@
       ]
     },
     {
-      "DomainEntityName": "Seledka",
+      "DomainEntityName": "BaseEventTest",
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "CreateSeledka",
+      "name": "CreateBaseEventTest",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -268,16 +268,16 @@
         ]
       },
       "UseCaseSteps": [
-        "Create new Seledka",
+        "Create new BaseEventTest",
         "Save to database"
       ]
     },
     {
-      "DomainEntityName": "Seledka",
+      "DomainEntityName": "BaseEventTest",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteSeledka",
+      "name": "DeleteBaseEventTest",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -289,8 +289,8 @@
         ]
       },
       "UseCaseSteps": [
-        "Find Seledka by id",
-        "Delete Seledka",
+        "Find BaseEventTest by id",
+        "Delete BaseEventTest",
         "Save to database"
       ]
     }

@@ -34,9 +34,9 @@ internal class MetadatasBuilder
                 _ => throw new NotImplementedException()
             },
             Usings = new string[]
-                       {
+            {
 
-                       },
+            },
 
             Namespace = useCaseNamespace,
             //Properties = new List<MetaProperty>()
@@ -107,7 +107,7 @@ internal class MetadatasBuilder
         return metadata;
     }
 
-    public CommandRequestMetadata CreateMetaCommandRequest(MetaUseCase useCase, string useCaseNamespace)
+    public static CommandRequestMetadata CreateMetaCommandRequest(MetaUseCase useCase, string useCaseNamespace)
     {
         CommandRequestMetadata metadata = new CommandRequestMetadata()
         {
@@ -119,7 +119,7 @@ internal class MetadatasBuilder
             ClassName = useCase.Request,
         };
 
-        string.Format(_generationDesign.CommandRequestBasePattern!, request, returntype);
+        //string.Format(_generationDesign.CommandRequestBasePattern!, request, returntype);
 
         metadata.InjectedInfrastructure = new List<TypeName>();
         metadata.Constructor = new List<TypeName>();

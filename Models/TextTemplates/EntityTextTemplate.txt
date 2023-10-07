@@ -3,7 +3,7 @@
 
 namespace {{ namespace }};
 
-public class {{ class_name }} : BaseEntity
+public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
 {
 
     #region Fields
