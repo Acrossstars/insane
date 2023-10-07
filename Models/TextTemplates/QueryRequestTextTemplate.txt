@@ -4,7 +4,7 @@ namespace {{ namespace }};
 /// <summary>
 /// 
 /// </summary>
-public class {{ class_name }} : BaseQuery<{{ query_return_type }}>
+public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
 {
     /// <summary>
     /// 

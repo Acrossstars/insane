@@ -1,4 +1,5 @@
-﻿using Core.Generation.Enums;
+﻿using Core.Domain.Enums;
+using Core.Generation.Enums;
 
 namespace Core.Generation;
 
@@ -20,12 +21,12 @@ public class GenerationDesign
         EventHandlerBaseСlassNamePattern = "INotificationHandler<{0}>";
         RestEndpointBaseСlassName = "BaseApiController";
 
-        CommandRequestBasePattern = "IRequest";
-        CommandRequestHandlerBaseePattern = "IRequestHandler<{0}{1}>";
-        
-        QueryRequestBasePattern = "IRequest<{0}>";
-        QueryRequestHandlerBaseePattern = "IRequestHandler<{0}{1}>";
+        CommandRequestBasePattern = "BaseCommand";
+        CommandRequestHandlerBasePattern = "BaseCommandHandler, IRequestHandler <{0}, {1}>";
 
+        QueryRequestBasePattern = "BaseQuery<{0}>";
+        QueryRequestHandlerBasePattern = "BaseQueryHandler, IRequestHandler<{0}, {1}>";
+        
     }
 
     public GenerationStyleType GenerationStyle { get; set; }
@@ -39,9 +40,9 @@ public class GenerationDesign
     public string? EventHandlerBaseСlassNamePattern { get; set; }
     public string? RestEndpointBaseСlassName { get; set; }
     public string? CommandRequestBasePattern { get; set; }
-    public string? CommandRequestHandlerBaseePattern { get; set; }
+    public string? CommandRequestHandlerBasePattern { get; set; }
     public string? QueryRequestBasePattern { get; set; }
-    public string? QueryRequestHandlerBaseePattern { get; set; }
+    public string? QueryRequestHandlerBasePattern { get; set; }
 
 
 }

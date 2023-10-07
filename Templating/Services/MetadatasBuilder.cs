@@ -1,11 +1,11 @@
 ﻿using Core.Domain.Common;
+using Core.Domain.Enums;
 using Core.Domain.UseCases;
 using Core.Extensions;
 using Core.Generation;
 using Core.Metadatas;
 using Core.Metadatas.Commands;
 using Core.Metadatas.Queries;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Templating.Services;
 
@@ -111,7 +111,7 @@ internal class MetadatasBuilder
         return metadata;
     }
 
-    public static CommandRequestMetadata CreateMetaCommandRequest(MetaUseCase useCase, string useCaseNamespace)
+    public CommandRequestMetadata CreateMetaCommandRequest(MetaUseCase useCase, string useCaseNamespace)
     {
         CommandRequestMetadata metadata = new CommandRequestMetadata()
         {
@@ -119,6 +119,12 @@ internal class MetadatasBuilder
             
             FilePath = "",
             Usings = Array.Empty<string>(),
+
+            BaseEntities = new List<string>()
+            {
+                _generationDesign.CommandRequestBasePattern!
+            },
+
             Namespace = useCaseNamespace,
             ClassName = useCase.Request,
         };
@@ -139,10 +145,14 @@ internal class MetadatasBuilder
 
     #region CommandRequestHandler
 
-    public static CommandRequestHandlerMetadata GetCommandRequestHandler(MetaUseCase useCase, string useCaseNamespace)
+    public CommandRequestHandlerMetadata GetCommandRequestHandler(MetaUseCase useCase, string useCaseNamespace)
     {
         var metadata = new CommandRequestHandlerMetadata()
         {
+            BaseEntities = new List<string>()
+            {
+                string.Format(_generationDesign.CommandRequestHandlerBasePattern!, useCase.Request, "CommandResult")
+            },
             ClassName = useCase.RequestHandler,
             //no needed perhaps
             FilePath = "",
@@ -171,16 +181,20 @@ internal class MetadatasBuilder
 
     #endregion
 
-    public static QueryRequestMetadata CreateQueryRequestMetadata(MetaUseCase useCase, string useCaseNamespace)
+    public QueryRequestMetadata CreateQueryRequestMetadata(MetaUseCase useCase, string useCaseNamespace)
     {
-        QueryRequestMetadata metadata = new QueryRequestMetadata()
+        var metadata = new QueryRequestMetadata()
         {
             //no needed perhaps
             FilePath = "",
             Usings = new string[] { },
+            QueryReturnType = $"{useCase.Name}Dto",
             Namespace = useCaseNamespace,
+            BaseEntities = new List<string>()
+            {
+                string.Format(_generationDesign.QueryRequestBasePattern!, $"{useCase.Name}Dto")
+            },
             ClassName = useCase.Request,
-            QueryReturnType = $"{useCase.Name}Dto"
         };
 
         metadata.Constructor = new List<TypeName>();
@@ -192,15 +206,19 @@ internal class MetadatasBuilder
         return metadata;
     }
 
-    public static QueryRequestHandlerMetadata CreateQueryRequestHandlerMetadata(MetaUseCase useCase, string useCaseNamespace)
+    public QueryRequestHandlerMetadata CreateQueryRequestHandlerMetadata(MetaUseCase useCase, string useCaseNamespace)
     {
         QueryRequestHandlerMetadata metadata = new QueryRequestHandlerMetadata()
         {
-            ClassName = useCase.RequestHandler,
             Usings = Array.Empty<string>(),
             Namespace = useCaseNamespace,
             RequestType = useCase.Request,
             QueryReturnType = $"{useCase.Name}Dto",
+            ClassName = useCase.RequestHandler,
+            BaseEntities = new List<string>()
+            {
+                string.Format(_generationDesign.QueryRequestHandlerBasePattern!, useCase.Request, $"{useCase.Name}Dto")
+            },
             InjectedInfrastructure = new List<TypeName>()
             {
                 new TypeName("IMapper", "mapper")

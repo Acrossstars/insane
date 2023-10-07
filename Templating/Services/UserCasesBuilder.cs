@@ -59,26 +59,26 @@ public class UserCasesBuilder
         {
             case RequestType.Command:
 
-                var commandRequest = MetadatasBuilder.CreateMetaCommandRequest(_useCase, _useCaseNamespace);
+                var commandRequest = _metadataBuilder.CreateMetaCommandRequest(_useCase, _useCaseNamespace);
 
-                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequest, commandRequest.ClassName);
+                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequest, commandRequest.ClassName!);
 
-                var commandRequestHandler = MetadatasBuilder.GetCommandRequestHandler(_useCase, _useCaseNamespace);
+                var commandRequestHandler = _metadataBuilder.GetCommandRequestHandler(_useCase, _useCaseNamespace);
 
-                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequestHandler, commandRequestHandler.ClassName);
+                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequestHandler, commandRequestHandler.ClassName!);
 
                // var commandRestEndpoint = MetadatasBuilder.
 
                 break;
             case RequestType.Query:
                 //TODO: for query handler needed to add using that contains namespace for query request
-                var queryRequest = MetadatasBuilder.CreateQueryRequestMetadata(_useCase, _useCaseNamespace);
+                var queryRequest = _metadataBuilder.CreateQueryRequestMetadata(_useCase, _useCaseNamespace);
 
-                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, queryRequest, queryRequest.ClassName);
+                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, queryRequest, queryRequest.ClassName!);
 
-                var queryRequestHandler = MetadatasBuilder.CreateQueryRequestHandlerMetadata(_useCase, _useCaseNamespace);
+                var queryRequestHandler = _metadataBuilder.CreateQueryRequestHandlerMetadata(_useCase, _useCaseNamespace);
 
-                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, queryRequestHandler, queryRequestHandler.ClassName);
+                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, queryRequestHandler, queryRequestHandler.ClassName!);
                 break;
         }
 

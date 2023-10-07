@@ -1,8 +1,8 @@
 {
-  "domain": "BaseEventTests",
+  "domain": "QueryHandlerChecks",
   "entities": [
     {
-      "className": "BaseEventTest",
+      "className": "QueryHandlerCheck",
       "properties": [
         {
           "name": "CollectionId",
@@ -57,35 +57,35 @@
   ],
   "repositories": [
     {
-      "className": "BaseEventTestRepository",
+      "className": "QueryHandlerCheckRepository",
       "operations": [
         {
-          "name": "AddBaseEventTest",
-          "parameters": [ "BaseEventTest" ]
+          "name": "AddQueryHandlerCheck",
+          "parameters": [ "QueryHandlerCheck" ]
         },
         {
-          "name": "EditBaseEventTest",
-          "parameters": [ "BaseEventTest" ]
+          "name": "EditQueryHandlerCheck",
+          "parameters": [ "QueryHandlerCheck" ]
         },
         {
-          "name": "DeleteBaseEventTest",
+          "name": "DeleteQueryHandlerCheck",
           "parameters": [ "string" ]
         },
         {
-          "name": "GetAllBaseEventTest",
-          "returnType": "List<BaseEventTest>"
+          "name": "GetAllQueryHandlerCheck",
+          "returnType": "List<QueryHandlerCheck>"
         },
         {
-          "name": "FindBaseEventTestById",
+          "name": "FindQueryHandlerCheckById",
           "parameters": [ "string" ],
-          "returnType": "BaseEventTest"
+          "returnType": "QueryHandlerCheck"
         }
       ]
     }
   ],
   "events": [
     {
-      "className": "BaseEventTestAdded",
+      "className": "QueryHandlerCheckAdded",
       "properties": [
         {
           "name": "Id",
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "className": "BaseEventTestUpdated",
+      "className": "QueryHandlerCheckUpdated",
       "properties": [
         {
           "name": "Id",
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "className": "BaseEventTestDeleted",
+      "className": "QueryHandlerCheckDeleted",
       "properties": [
         {
           "name": "Id",
@@ -122,11 +122,11 @@
   ],
   "useCases": [
     {
-      "DomainEntityName": "BaseEventTest",
+      "DomainEntityName": "QueryHandlerCheck",
       "HasRestEndpoint": true,
       "HttpMethodType": 2,
       "RequestType": 0,
-      "name": "UpdateBaseEventTest",
+      "name": "UpdateQueryHandlerCheck",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -187,11 +187,11 @@
       ]
     },
     {
-      "DomainEntityName": "BaseEventTest",
+      "DomainEntityName": "QueryHandlerCheck",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteBaseEventTest",
+      "name": "DeleteQueryHandlerCheck",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -210,11 +210,11 @@
       ]
     },
     {
-      "DomainEntityName": "BaseEventTest",
+      "DomainEntityName": "QueryHandlerCheck",
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "CreateBaseEventTest",
+      "name": "CreateQueryHandlerCheck",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -268,29 +268,70 @@
         ]
       },
       "UseCaseSteps": [
-        "Create new BaseEventTest",
+        "Create new QueryHandlerCheck",
         "Save to database"
       ]
     },
     {
-      "DomainEntityName": "BaseEventTest",
+      "DomainEntityName": "QueryHandlerCheck",
       "HasRestEndpoint": true,
-      "HttpMethodType": 3,
+      "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "DeleteBaseEventTest",
+      "name": "GetQueryHandlerCheck",
       "UseCaseContext": {
         "OperableProperties": [
           {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
+            "name": "CollectionId",
+            "type": "string"
+          },
+          {
+            "name": "CreatorId",
+            "type": "string"
+          },
+          {
+            "name": "TokenName",
+            "type": "string"
+          },
+          {
+            "name": "TokenSymbol",
+            "type": "string"
+          },
+          {
+            "name": "ContractOwner",
+            "type": "string"
+          },
+          {
+            "name": "ContractAddress",
+            "type": "string"
+          },
+          {
+            "name": "TxHash",
+            "type": "string"
+          },
+          {
+            "name": "BlockHash",
+            "type": "string"
+          },
+          {
+            "name": "ContractStandart",
+            "type": "string"
+          },
+          {
+            "name": "GasUsed",
+            "type": "BigInteger"
+          },
+          {
+            "name": "GasPrice",
+            "type": "BigInteger"
+          },
+          {
+            "name": "CreatedDate",
+            "type": "DateTime"
           }
         ]
       },
       "UseCaseSteps": [
-        "Find BaseEventTest by id",
-        "Delete BaseEventTest",
+        "Create new QueryHandlerCheck",
         "Save to database"
       ]
     }
