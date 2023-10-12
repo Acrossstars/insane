@@ -18,11 +18,11 @@ public class PathNameSpacesService
         _generationDesign = generationDesign;
     }
 
-    public string GetApiRootPath()
-        => _configuration["ApiRootPath"]!;
-
     public string GetSolutionRootPath()
         => _configuration["SolutionRootPath"]!;
+
+    public string GetApiRootPath()
+        => _configuration["ApiRootPath"]!;
 
     public string GetDomainLayerPath()
         => _configuration["DomainLayerPath"]!;

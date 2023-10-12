@@ -1,8 +1,8 @@
 {
-  "domain": "DigitalCollections",
+  "domain": "DigitalWallets",
   "entities": [
     {
-      "className": "DigitalCollection",
+      "className": "DigitalWallet",
       "properties": [
         {
           "name": "CollectionId",
@@ -57,35 +57,35 @@
   ],
   "repositories": [
     {
-      "className": "DigitalCollectionRepository",
+      "className": "DigitalWalletRepository",
       "operations": [
         {
-          "name": "AddDigitalCollection",
-          "parameters": [ "DigitalCollection" ]
+          "name": "AddDigitalWallet",
+          "parameters": [ "DigitalWallet" ]
         },
         {
-          "name": "EditDigitalCollection",
-          "parameters": [ "DigitalCollection" ]
+          "name": "EditDigitalWallet",
+          "parameters": [ "DigitalWallet" ]
         },
         {
-          "name": "DeleteDigitalCollection",
+          "name": "DeleteDigitalWallet",
           "parameters": [ "string" ]
         },
         {
-          "name": "GetAllDigitalCollection",
-          "returnType": "List<DigitalCollection>"
+          "name": "GetAllDigitalWallet",
+          "returnType": "List<DigitalWallet>"
         },
         {
-          "name": "FindDigitalCollectionById",
+          "name": "FindDigitalWalletById",
           "parameters": [ "string" ],
-          "returnType": "DigitalCollection"
+          "returnType": "DigitalWallet"
         }
       ]
     }
   ],
   "events": [
     {
-      "className": "DigitalCollectionAdded",
+      "className": "DigitalWalletAdded",
       "properties": [
         {
           "name": "Id",
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "className": "DigitalCollectionUpdated",
+      "className": "DigitalWalletUpdated",
       "properties": [
         {
           "name": "Id",
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "className": "DigitalCollectionDeleted",
+      "className": "DigitalWalletDeleted",
       "properties": [
         {
           "name": "Id",
@@ -122,11 +122,11 @@
   ],
   "useCases": [
     {
-      "DomainEntityName": "DigitalCollection",
+      "DomainEntityName": "DigitalWallet",
       "HasRestEndpoint": true,
       "HttpMethodType": 0,
       "RequestType": 1,
-      "name": "KekDigitalCollectionDataById",
+      "name": "KekDigitalWalletDataById",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -144,11 +144,11 @@
       ]
     },
     //{
-    //  "DomainEntityName": "DigitalCollection",
+    //  "DomainEntityName": "DigitalWallet",
     //  "HasRestEndpoint": true,
     //  "HttpMethodType": 2,
     //  "RequestType": 0,
-    //  "name": "UpdateDigitalCollection",
+    //  "name": "UpdateDigitalWallet",
     //  "UseCaseContext": {
     //    "OperableProperties": [
     //      {
@@ -209,11 +209,11 @@
     //  ]
     //},
     //{
-    //  "DomainEntityName": "DigitalCollection",
+    //  "DomainEntityName": "DigitalWallet",
     //  "HasRestEndpoint": true,
     //  "HttpMethodType": 3,
     //  "RequestType": 0,
-    //  "name": "DeleteDigitalCollection",
+    //  "name": "DeleteDigitalWallet",
     //  "UseCaseContext": {
     //    "OperableProperties": [
     //      {
@@ -232,11 +232,11 @@
     //  ]
     //},
     //{
-    //  "DomainEntityName": "DigitalCollection",
+    //  "DomainEntityName": "DigitalWallet",
     //  "HasRestEndpoint": true,
     //  "HttpMethodType": 1,
     //  "RequestType": 0,
-    //  "name": "CreateDigitalCollection",
+    //  "name": "CreateDigitalWallet",
     //  "UseCaseContext": {
     //    "OperableProperties": [
     //      {
@@ -290,7 +290,7 @@
     //    ]
     //  },
     //  "UseCaseSteps": [
-    //    "Create new DigitalCollection",
+    //    "Create new DigitalWallet",
     //    "Save to database"
     //  ]
     //},

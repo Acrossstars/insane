@@ -1,12 +1,26 @@
-﻿using Core.Generation;
+﻿using Core.Analyzing;
+using Core.Generation;
+using Microsoft.Build.Locator;
 using Microsoft.Extensions.Configuration;
+
+MSBuildLocator.RegisterDefaults();
+
+//var projectsToSearch = new List<string> { "UniqMerch.SmartContracts", "UniqMerch.API" };
+var projectsToSearch = new List<string> { "DataService.API", "Decider.API", "Behavior.API" };
+
 
 var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
 var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("Configurations/conf.json", false, true)
     .AddJsonFile("appsettings.json", false, true);
+
 var configuration = configurationBuilder.Build();
+
+//var analyzer = new Analyzer(
+//    $"{configuration["SolutionRootPath"]}\\{configuration["SolutionFileName"]}");
+
+//await analyzer.ExtractUsings(projectsToSearch);
 
 var definition = configuration.Get<DomainDefinition>();
 var generationDesign = new GenerationDesign();
