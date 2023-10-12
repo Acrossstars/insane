@@ -1,8 +1,8 @@
 {
-  "domain": "QueryHandlerChecks",
+  "domain": "DigitalCollections",
   "entities": [
     {
-      "className": "QueryHandlerCheck",
+      "className": "DigitalCollection",
       "properties": [
         {
           "name": "CollectionId",
@@ -57,35 +57,35 @@
   ],
   "repositories": [
     {
-      "className": "QueryHandlerCheckRepository",
+      "className": "DigitalCollectionRepository",
       "operations": [
         {
-          "name": "AddQueryHandlerCheck",
-          "parameters": [ "QueryHandlerCheck" ]
+          "name": "AddDigitalCollection",
+          "parameters": [ "DigitalCollection" ]
         },
         {
-          "name": "EditQueryHandlerCheck",
-          "parameters": [ "QueryHandlerCheck" ]
+          "name": "EditDigitalCollection",
+          "parameters": [ "DigitalCollection" ]
         },
         {
-          "name": "DeleteQueryHandlerCheck",
+          "name": "DeleteDigitalCollection",
           "parameters": [ "string" ]
         },
         {
-          "name": "GetAllQueryHandlerCheck",
-          "returnType": "List<QueryHandlerCheck>"
+          "name": "GetAllDigitalCollection",
+          "returnType": "List<DigitalCollection>"
         },
         {
-          "name": "FindQueryHandlerCheckById",
+          "name": "FindDigitalCollectionById",
           "parameters": [ "string" ],
-          "returnType": "QueryHandlerCheck"
+          "returnType": "DigitalCollection"
         }
       ]
     }
   ],
   "events": [
     {
-      "className": "QueryHandlerCheckAdded",
+      "className": "DigitalCollectionAdded",
       "properties": [
         {
           "name": "Id",
@@ -98,7 +98,7 @@
       ]
     },
     {
-      "className": "QueryHandlerCheckUpdated",
+      "className": "DigitalCollectionUpdated",
       "properties": [
         {
           "name": "Id",
@@ -111,7 +111,7 @@
       ]
     },
     {
-      "className": "QueryHandlerCheckDeleted",
+      "className": "DigitalCollectionDeleted",
       "properties": [
         {
           "name": "Id",
@@ -122,218 +122,177 @@
   ],
   "useCases": [
     {
-      "DomainEntityName": "QueryHandlerCheck",
+      "DomainEntityName": "DigitalCollection",
       "HasRestEndpoint": true,
-      "HttpMethodType": 2,
-      "RequestType": 0,
-      "name": "UpdateQueryHandlerCheck",
+      "HttpMethodType": 0,
+      "RequestType": 1,
+      "name": "KekDigitalCollectionDataById",
       "UseCaseContext": {
         "OperableProperties": [
           {
             "name": "CollectionId",
             "type": "string"
-          },
-          {
-            "name": "CreatorId",
-            "type": "string"
-          },
-          {
-            "name": "TokenName",
-            "type": "string"
-          },
-          {
-            "name": "TokenSymbol",
-            "type": "string"
-          },
-          {
-            "name": "ContractOwner",
-            "type": "string"
-          },
-          {
-            "name": "ContractAddress",
-            "type": "string"
-          },
-          {
-            "name": "TxHash",
-            "type": "string"
-          },
-          {
-            "name": "BlockHash",
-            "type": "string"
-          },
-          {
-            "name": "ContractStandart",
-            "type": "string"
-          },
-          {
-            "name": "GasUsed",
-            "type": "BigInteger"
-          },
-          {
-            "name": "GasPrice",
-            "type": "BigInteger"
-          },
-          {
-            "name": "CreatedDate",
-            "type": "DateTime"
           }
         ]
       },
       "UseCaseSteps": [
-        "Find entity in db by id",
-        "Update Entity",
-        "Save to DataBase",
-        "Trigger the EntityUpdated DomainEvent"
+        "Validate the input id",
+        "Retrieve the digital collection data from the repository",
+        "Check if data is not null",
+        "Map the data to a DTO (if necessary)",
+        "Return the DTO"
       ]
     },
-    {
-      "DomainEntityName": "QueryHandlerCheck",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 3,
-      "RequestType": 0,
-      "name": "DeleteQueryHandlerCheck",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "Modificator": "public",
-            "Type": "string",
-            "Name": "Id",
-            "Accessors": [ "get", "set" ]
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Find entity in db by id",
-        "Delete Entity",
-        "Save to DataBase",
-        "Trigger the EntityDeleted DomainEvent"
-      ]
-    },
-    {
-      "DomainEntityName": "QueryHandlerCheck",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "CreateQueryHandlerCheck",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "name": "CollectionId",
-            "type": "string"
-          },
-          {
-            "name": "CreatorId",
-            "type": "string"
-          },
-          {
-            "name": "TokenName",
-            "type": "string"
-          },
-          {
-            "name": "TokenSymbol",
-            "type": "string"
-          },
-          {
-            "name": "ContractOwner",
-            "type": "string"
-          },
-          {
-            "name": "ContractAddress",
-            "type": "string"
-          },
-          {
-            "name": "TxHash",
-            "type": "string"
-          },
-          {
-            "name": "BlockHash",
-            "type": "string"
-          },
-          {
-            "name": "ContractStandart",
-            "type": "string"
-          },
-          {
-            "name": "GasUsed",
-            "type": "BigInteger"
-          },
-          {
-            "name": "GasPrice",
-            "type": "BigInteger"
-          },
-          {
-            "name": "CreatedDate",
-            "type": "DateTime"
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Create new QueryHandlerCheck",
-        "Save to database"
-      ]
-    },
-    {
-      "DomainEntityName": "QueryHandlerCheck",
-      "HasRestEndpoint": true,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "GetQueryHandlerCheck",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "name": "CollectionId",
-            "type": "string"
-          },
-          {
-            "name": "CreatorId",
-            "type": "string"
-          },
-          {
-            "name": "TokenName",
-            "type": "string"
-          },
-          {
-            "name": "TokenSymbol",
-            "type": "string"
-          },
-          {
-            "name": "ContractOwner",
-            "type": "string"
-          },
-          {
-            "name": "ContractAddress",
-            "type": "string"
-          },
-          {
-            "name": "TxHash",
-            "type": "string"
-          },
-          {
-            "name": "BlockHash",
-            "type": "string"
-          },
-          {
-            "name": "ContractStandart",
-            "type": "string"
-          },
-          {
-            "name": "GasUsed",
-            "type": "BigInteger"
-          },
-          {
-            "name": "GasPrice",
-            "type": "BigInteger"
-          },
-          {
-            "name": "CreatedDate",
-            "type": "DateTime"
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Create new QueryHandlerCheck",
-        "Save to database"
-      ]
-    }
+    //{
+    //  "DomainEntityName": "DigitalCollection",
+    //  "HasRestEndpoint": true,
+    //  "HttpMethodType": 2,
+    //  "RequestType": 0,
+    //  "name": "UpdateDigitalCollection",
+    //  "UseCaseContext": {
+    //    "OperableProperties": [
+    //      {
+    //        "name": "CollectionId",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "CreatorId",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "TokenName",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "TokenSymbol",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "ContractOwner",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "ContractAddress",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "TxHash",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "BlockHash",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "ContractStandart",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "GasUsed",
+    //        "type": "BigInteger"
+    //      },
+    //      {
+    //        "name": "GasPrice",
+    //        "type": "BigInteger"
+    //      },
+    //      {
+    //        "name": "CreatedDate",
+    //        "type": "DateTime"
+    //      }
+    //    ]
+    //  },
+    //  "UseCaseSteps": [
+    //    "Find entity in db by id",
+    //    "Update Entity",
+    //    "Save to DataBase",
+    //    "Trigger the EntityUpdated DomainEvent"
+    //  ]
+    //},
+    //{
+    //  "DomainEntityName": "DigitalCollection",
+    //  "HasRestEndpoint": true,
+    //  "HttpMethodType": 3,
+    //  "RequestType": 0,
+    //  "name": "DeleteDigitalCollection",
+    //  "UseCaseContext": {
+    //    "OperableProperties": [
+    //      {
+    //        "Modificator": "public",
+    //        "Type": "string",
+    //        "Name": "Id",
+    //        "Accessors": [ "get", "set" ]
+    //      }
+    //    ]
+    //  },
+    //  "UseCaseSteps": [
+    //    "Find entity in db by id",
+    //    "Delete Entity",
+    //    "Save to DataBase",
+    //    "Trigger the EntityDeleted DomainEvent"
+    //  ]
+    //},
+    //{
+    //  "DomainEntityName": "DigitalCollection",
+    //  "HasRestEndpoint": true,
+    //  "HttpMethodType": 1,
+    //  "RequestType": 0,
+    //  "name": "CreateDigitalCollection",
+    //  "UseCaseContext": {
+    //    "OperableProperties": [
+    //      {
+    //        "name": "CollectionId",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "CreatorId",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "TokenName",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "TokenSymbol",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "ContractOwner",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "ContractAddress",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "TxHash",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "BlockHash",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "ContractStandart",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "GasUsed",
+    //        "type": "BigInteger"
+    //      },
+    //      {
+    //        "name": "GasPrice",
+    //        "type": "BigInteger"
+    //      },
+    //      {
+    //        "name": "CreatedDate",
+    //        "type": "DateTime"
+    //      }
+    //    ]
+    //  },
+    //  "UseCaseSteps": [
+    //    "Create new DigitalCollection",
+    //    "Save to database"
+    //  ]
+    //},
   ]
 }

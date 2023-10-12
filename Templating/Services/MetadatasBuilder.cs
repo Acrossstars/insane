@@ -235,6 +235,7 @@ internal class MetadatasBuilder
                         //useCase.Request[0].ToString().ToLower()
                     ),
             },
+            Steps = useCase.UseCaseSteps
         };
 
         return metadata;
