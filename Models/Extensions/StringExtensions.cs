@@ -11,4 +11,7 @@ public static class StringExtensions
         a[0] = char.ToLower(a[0]);
         return new string(a);
     }
+
+    //TODO: first letter to underline to lower
+
 }

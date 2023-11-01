@@ -208,7 +208,7 @@ internal class MetadatasBuilder
 
     public QueryRequestHandlerMetadata CreateQueryRequestHandlerMetadata(MetaUseCase useCase, string useCaseNamespace)
     {
-        QueryRequestHandlerMetadata metadata = new QueryRequestHandlerMetadata()
+        var metadata = new QueryRequestHandlerMetadata()
         {
             Usings = Array.Empty<string>(),
             Namespace = useCaseNamespace,
@@ -237,6 +237,13 @@ internal class MetadatasBuilder
             },
             Steps = useCase.UseCaseSteps
         };
+
+
+        metadata.Constructor = new List<TypeName>();
+        metadata.PrivateFields = new List<TypeName>();
+        metadata.InjectedProperties = new List<InjectedProperty>();
+
+        AwesomeHelper.AttachRepositoryAlignToContext(useCase.UseCaseContext, metadata);
 
         return metadata;
     }

@@ -26,6 +26,10 @@ public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if 
         //step: {{ item }};
         {{- end }}
 
-        return new {{ query_return_type }}();
+        var result = await _repository.GetListAsync();
+
+        return _mapper.Map<query_return_type>(result);
+
+        //return new {{ query_return_type }}();
     }
 }
