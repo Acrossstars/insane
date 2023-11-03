@@ -1,0 +1,23 @@
+﻿{{- for item in usings }}using {{ item }};{{- end }}
+
+namespace {{ namespace }};
+
+public class {{ aggregate_entity }}Repository : PostgreSQLBaseRepository<{{ aggregate_entity }}>, {{ interface_name }}
+{
+    {{ for prop in private_fields }}
+    {{ prop.destination }} = {{ prop.source }};{{ end }}
+
+    public {{ aggregate_entity }}Repository({{ db_context }} dbContext) : base(dbContext)
+    {
+        {{ for prop in injected_privates }}
+        {{ prop.destination }} = {{ prop.source }};{{ end }}
+    }
+
+    {{ for method in methods }}
+    public async Task{{ method.type }} {{ method.name }}({{ for par in method.parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
+    {
+        {{ method.logic }}
+    }
+    {{ end }}
+
+}

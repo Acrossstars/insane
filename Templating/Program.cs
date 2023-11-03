@@ -13,7 +13,8 @@ var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
 var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("Configurations/conf.json", false, true)
-    .AddJsonFile("appsettings.json", false, true);
+    .AddJsonFile("appsettings.json", false, true)
+    .AddJsonFile("Configurations/Repositories/repository.json", false, true);
 
 var configuration = configurationBuilder.Build();
 
@@ -33,7 +34,11 @@ var domainBuilder = new DomainBuilder(
     generationDesign,
     definition);
 
+
+domainBuilder.BuildPostgreSqlRepository();
+
 domainBuilder.BuildEntities();
+
 
 domainBuilder.BuildEvents();
 

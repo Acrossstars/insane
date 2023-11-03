@@ -14,4 +14,6 @@ public enum MetadataType
     RestEndpoint = 10,
     GrpcEndpoint = 11,
     Dto = 12,
+    PostgreSqlRepository = 13,
+    IRepository = 14
 }

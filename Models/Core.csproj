@@ -62,6 +62,12 @@
 		<None Update="TextTemplates\GrpcEndpointTextTemplate.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="TextTemplates\IRepositoryTextTemplate.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="TextTemplates\PostgreSqlRepositoryTextTemplate.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="TextTemplates\QueryRequestHandlerTextTemplate.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

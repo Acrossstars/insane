@@ -26,7 +26,11 @@ public class GenerationDesign
 
         QueryRequestBasePattern = "BaseQuery<{0}>";
         QueryRequestHandlerBasePattern = "BaseQueryHandler, IRequestHandler<{0}, {1}>";
-        
+
+        RepositoriesFolderName = $"Repositories";
+        InfrastructureDataFolderName = $"Data";
+
+
     }
 
     public GenerationStyleType GenerationStyle { get; set; }
@@ -43,6 +47,7 @@ public class GenerationDesign
     public string? CommandRequestHandlerBasePattern { get; set; }
     public string? QueryRequestBasePattern { get; set; }
     public string? QueryRequestHandlerBasePattern { get; set; }
-
+    public string? RepositoriesFolderName { get; set; }
+    public string? InfrastructureDataFolderName { get; set; }
 
 }

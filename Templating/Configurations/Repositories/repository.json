@@ -1,0 +1,63 @@
+{
+  "repositories": [
+    {
+      "aggregateEntity": "DigitalWallet",
+      "dbContext": "ApplicationDbContext",
+      "methods": [
+        {
+          "type": "", // fix this. Just added to make MVP repositories work.
+          "name": "AddDigitalWallet",
+          "parameters": [
+            { // also think on structure of this shit. goal - we should add as many data as we can, 
+              // everything else should be generated using added data.
+              "type": "DigitalWallet",
+              "name": "digitalWallet"
+            }
+          ],
+          "logic": "// some shitty adding logic.."
+        },
+        {
+          "type": "",
+          "name": "EditDigitalWallet",
+          "parameters": [
+            {
+              "type": "DigitalWallet",
+              "name": "digitalWallet"
+            }
+          ],
+          "logic": "// some shitty updating logic."
+        },
+        {
+          "type": "",
+          "name": "DeleteDigitalWallet",
+          "parameters": [
+            {
+              "type": "string",
+              "name": "id"
+            }
+          ],
+          "logic": "// some shitty deleting logic."
+        },
+        {
+          "type": "List<DigitalWallet>",
+          "name": "GetAllDigitalWallet",
+          "parameters": [
+            {}
+          ],
+          "logic": "// some shitty getting list logic."
+        },
+        {
+          "type": "DigitalWallet",
+          "name": "FindDigitalWalletById",
+          "parameters": [
+            {
+              "type": "string",
+              "name": "id"
+            }
+          ],
+          "logic": "// some shitty getting list logic."
+        }
+      ]
+    }
+  ]
+}

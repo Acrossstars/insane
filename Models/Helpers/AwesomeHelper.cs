@@ -26,6 +26,7 @@ public static class AwesomeHelper
         try
         {
             //нихуя себе!
+            // а зачем мы сначала заполняем проперти, потом тащим их в OperableProperties, потом снова заполняем проперти ТЕМ же саммым ? 
             context.OperableProperties!.ForEach(x =>
             {
                 metadata.Constructor.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));

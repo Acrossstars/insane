@@ -36,6 +36,9 @@ public class PathNameSpacesService
     public string GetDtosPath()
         => _configuration["SolutionRootPath"] + _configuration["DtoPath"];
 
+    public string GetInfrastructurePath()
+        => _configuration["InfrastructureLayerPath"]!;
+
     public IEventsPathInterface GetEventsPathConfig(string manyEntities)
     {
         var eventsInternalPath = $"\\{manyEntities}\\{_generationDesign.EventsFolderName}";

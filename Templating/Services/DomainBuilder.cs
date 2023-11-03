@@ -221,9 +221,15 @@ public class DomainBuilder
         return metadata;
     }
 
-    public void BuildRepository()
+    public void BuildPostgreSqlRepository()
     {
+        foreach (var repository in _domainDefinition.Repositories)
+        {
+            var repositoryBuilder = new RepositoryBuilder(_pathService, _generationDesign, repository);
 
+            repositoryBuilder.GenerateRepositoriesMetadata(_metadataDir, repository);
+            
+        }
     }
 
     public void BuildSpecifications()

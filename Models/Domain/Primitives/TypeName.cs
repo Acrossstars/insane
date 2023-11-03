@@ -1,8 +1,5 @@
 ﻿namespace Core.Domain.Common;
 
-//public record TypeName(string Type, string Name);
-//public record Property(string Modificator, string Type, string Name, string[] Accessors);
-
 public class TypeName
 {
     public TypeName(string type, string name)

@@ -2,12 +2,8 @@
 
 namespace {{ namespace }};
 
-/// <summary>
-/// 
-/// </summary>
-
-public interface I{{ aggregate_entity }}AggregateRepository : IBaseAggregateRepository<{{ aggregate_entity }}>
+public interface I{{ aggregate_entity }}Repository : IRepository<{{ aggregate_entity }}>
 {
     {{ for method in methods }}
-    {{ method.type }} {{ method.name }}({{ for par in method.parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }});{{ end }}
+    Task{{ method.type }} {{ method.name }}({{ for par in method.parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }});{{ end }}
 }
