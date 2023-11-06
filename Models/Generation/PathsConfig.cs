@@ -1,7 +1,7 @@
 ﻿using Core.Generation.Interface;
 
 namespace Core.Generation;
-public class PathsConfig : IEventsPathInterface
+public class PathsConfig : IEventsPathInterface, IRepositoriesPathInterface
 {
     public PathsConfig()
     {
@@ -28,4 +28,6 @@ public class PathsConfig : IEventsPathInterface
     public string? ApplicationLayerPath { get; set; }
     public string? EventsOutputFilePath { get; set; }
     public string? EventHandlersOutputFilePath { get; set; }
+    public string? RepositoryOutputFilePath { get; set; }
+    public string? RepositoryInterfaceOutputFilePath { get; set; }
 }

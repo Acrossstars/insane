@@ -27,11 +27,11 @@ public class RepositoryBuilder : BaseBuilder
 
         _manyEntities = _repositoryMetadata.AggregateEntity.Pluralize();
 
-        _pathRepository = $"Infrastructure\\Data\\{_repositoriesFolderName}\\{_manyEntities}\\{_repositoryMetadata.AggregateEntity + "Repository"}";
-        _outputFileRepository = $"{_solutionRoot}{_apiRoot}\\{_pathRepository}";
+        var repositoryPaths = pathNameSpacesService.GetRepositoriesPathConfig(_manyEntities);
 
-        _pathRepositoryInterface = $"Domain\\Data\\{_repositoriesFolderName}\\{_manyEntities}\\I{_repositoryMetadata.AggregateEntity + "Repository"}";
-        _outputFileRepositoryInterface = $"{_solutionRoot}{_apiRoot}\\{_pathRepositoryInterface}";
+        _outputFileRepository = repositoryPaths.RepositoryOutputFilePath;
+
+        _outputFileRepositoryInterface = repositoryPaths.RepositoryInterfaceOutputFilePath;
     }
 
     public void GenerateRepositoriesMetadata(string metadataDir, RepositoryMetadata baseRepositoryMetadata)
@@ -64,9 +64,10 @@ public class RepositoryBuilder : BaseBuilder
             }
         }
 
-        BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFileRepository, repositoryMetadata, repositoryMetadata.AggregateEntity);
+        BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFileRepository, repositoryMetadata, $"{repositoryMetadata.AggregateEntity}Repository");
 
-        
+
+
     }
 
     private void GenerateRepositoryInterface(string metadataDir, RepositoryMetadata baseRepositoryMetadata, List<ObjectBuilderContext> builderContexts)
@@ -76,7 +77,7 @@ public class RepositoryBuilder : BaseBuilder
         repositoryMetadata.Type = MetadataType.IRepository;
         repositoryMetadata.Namespace = BuildNamepace(repositoryMetadata.Type);
 
-        BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFileRepositoryInterface, repositoryMetadata, repositoryMetadata.AggregateEntity);
+        BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFileRepositoryInterface, repositoryMetadata, $"I{repositoryMetadata.AggregateEntity}Repository");
     }
 
     private string BuildNamepace(MetadataType metadataType)
@@ -99,7 +100,7 @@ public class RepositoryBuilder : BaseBuilder
                 break;
         }
 
-        var dataFolderName = _generationDesign.InfrastructureDataFolderName; // Data
+        var dataFolderName = _generationDesign.RepositoriesDataFolderName; // Data
 
         // Infrastructure.Data.Repositories.SomeAggregate || Domain.Data.Repositories.SomeAggregate.
         var nameSpace = $"{layerPath}.{dataFolderName}.{_repositoriesFolderName}.{_manyEntities}";

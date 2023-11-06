@@ -55,34 +55,6 @@
       ]
     }
   ],
-  "repositories": [
-    {
-      "className": "DigitalWalletRepository",
-      "operations": [
-        {
-          "name": "AddDigitalWallet",
-          "parameters": [ "DigitalWallet" ]
-        },
-        {
-          "name": "EditDigitalWallet",
-          "parameters": [ "DigitalWallet" ]
-        },
-        {
-          "name": "DeleteDigitalWallet",
-          "parameters": [ "string" ]
-        },
-        {
-          "name": "GetAllDigitalWallet",
-          "returnType": "List<DigitalWallet>"
-        },
-        {
-          "name": "FindDigitalWalletById",
-          "parameters": [ "string" ],
-          "returnType": "DigitalWallet"
-        }
-      ]
-    }
-  ],
   "events": [
     {
       "className": "DigitalWalletAdded",
@@ -126,7 +98,7 @@
       "HasRestEndpoint": true,
       "HttpMethodType": 0,
       "RequestType": 1,
-      "name": "KekDigitalWalletDataById",
+      "name": "GetKekDigitalWalletDataById",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -143,6 +115,72 @@
         "Return the DTO"
       ]
     },
+    {
+      "DomainEntityName": "DigitalWallet",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 1,
+      "RequestType": 0,
+      "name": "CreateKekDigitalWalletDataById",
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "name": "CollectionId",
+            "type": "string"
+          }
+        ]
+      },
+      "UseCaseSteps": [
+        "Validate the input id",
+        "Retrieve the digital collection data from the repository",
+        "Check if data is not null",
+        "Map the data to a DTO (if necessary)",
+        "Return the DTO"
+      ]
+    },
+    {
+      "DomainEntityName": "DigitalWallet",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 2,
+      "RequestType": 0,
+      "name": "UpdateKekDigitalWalletDataById",
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "name": "CollectionId",
+            "type": "string"
+          }
+        ]
+      },
+      "UseCaseSteps": [
+        "Validate the input id",
+        "Retrieve the digital collection data from the repository",
+        "Check if data is not null",
+        "Map the data to a DTO (if necessary)",
+        "Return the DTO"
+      ]
+    },
+    {
+      "DomainEntityName": "DigitalWallet",
+      "HasRestEndpoint": true,
+      "HttpMethodType": 3,
+      "RequestType": 0,
+      "name": "DeleteKekDigitalWalletDataById",
+      "UseCaseContext": {
+        "OperableProperties": [
+          {
+            "name": "CollectionId",
+            "type": "string"
+          }
+        ]
+      },
+      "UseCaseSteps": [
+        "Validate the input id",
+        "Retrieve the digital collection data from the repository",
+        "Check if data is not null",
+        "Map the data to a DTO (if necessary)",
+        "Return the DTO"
+      ]
+    }
     //{
     //  "DomainEntityName": "DigitalWallet",
     //  "HasRestEndpoint": true,

@@ -71,7 +71,7 @@ public class DomainBuilder
         {
             metadata.BaseEntities = new List<string>()
             {
-                "BaseEntity"
+                "AggregateRoot"
             };
 
             //ультракостыль
@@ -169,7 +169,6 @@ public class DomainBuilder
                 useCase.HasRestEndpoint);
 
             var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, metaUseCase, _generationDesign, _pathService);
-            //var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, useCase);
 
             userCasesBuilder.GenerateUseCase(_domainEntity, _dtosPath, _metadataDir);
         }

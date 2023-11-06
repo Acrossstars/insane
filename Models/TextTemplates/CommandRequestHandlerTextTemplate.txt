@@ -5,6 +5,10 @@ namespace {{ namespace }};
 
 public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
 {
+    {{- for field in private_fields }}
+        private readonly {{ field.type }} {{ field.name }};
+    {{- end }}
+
     public {{ class_name }}({{ for par in injected_infrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }})
     :base({{ for par in base_constructor }}{{ par }}{{ if !for.last}},{{ end -}}{{- end }})

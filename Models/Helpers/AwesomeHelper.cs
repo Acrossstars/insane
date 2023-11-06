@@ -42,20 +42,20 @@ public static class AwesomeHelper
         }
     }
 
-    public static void AttachRepositoryAlignToContext(IDataContext context, IMetaProperties metadata)
+    public static void InjectRepositoryIntoMetadata(IDataContext context, IMetaProperties metadata)
     {
+        var repositoryType = $"I{context.DomainEntityName}Repository";
+        var repositoryFieldName = $"{context.DomainEntityName.FirstLetterToLower()}Repository";
+
         try
         {
             //нихуя себе!
-            context.OperableProperties!.ForEach(x =>
-            {
-                metadata.Constructor.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
+            metadata.InjectedInfrastructure.Add(new TypeName(repositoryType, repositoryFieldName));
 
-                //TODO: first letter to underline to lower
-                metadata.PrivateFields.Add(new TypeName(x.Type, x.Name.FirstLetterToLower()));
+            //TODO: first letter to underline to lower
+            metadata.PrivateFields.Add(new TypeName($"{repositoryType}", $"_{repositoryFieldName}"));
 
-                metadata.InjectedProperties.Add(new InjectedProperty(x.Name, x.Name.FirstLetterToLower()));
-            });
+            metadata.InjectedProperties.Add(new InjectedProperty($"_{repositoryFieldName}", repositoryFieldName));
         }
         catch (Exception xex)
         {

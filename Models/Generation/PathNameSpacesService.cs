@@ -63,4 +63,19 @@ public class PathNameSpacesService
 
         return (eventsGeneratedNamespace, eventHandlersGeneratedNamespace);
     }
+
+    public IRepositoriesPathInterface GetRepositoriesPathConfig(string manyEntities)
+    {
+        var repositoryInternalPath = $"\\{_generationDesign.RepositoriesDataFolderName}\\{_generationDesign.RepositoriesFolderName}\\{manyEntities}";
+        var repositoryInterfaceInternalPath = $"\\{manyEntities}\\{_generationDesign.RepositoriesDataFolderName}\\{_generationDesign.RepositoriesFolderName}";
+
+        var pathConfig = new PathsConfig()
+        {
+            RepositoryOutputFilePath = $"{GetSolutionRootPath()}{GetInfrastructurePath()}{repositoryInternalPath}",
+            RepositoryInterfaceOutputFilePath = $"{GetSolutionRootPath()}{GetDomainLayerPath()}{repositoryInterfaceInternalPath}"
+        };
+
+        return pathConfig;
+    }
+
 }

@@ -116,7 +116,7 @@ internal class MetadatasBuilder
         CommandRequestMetadata metadata = new CommandRequestMetadata()
         {
             //no needed perhaps
-            
+
             FilePath = "",
             Usings = Array.Empty<string>(),
 
@@ -145,7 +145,7 @@ internal class MetadatasBuilder
 
     #region CommandRequestHandler
 
-    public CommandRequestHandlerMetadata GetCommandRequestHandler(MetaUseCase useCase, string useCaseNamespace)
+    public CommandRequestHandlerMetadata CreateCommandRequestHandlerMetadata(MetaUseCase useCase, string useCaseNamespace)
     {
         var metadata = new CommandRequestHandlerMetadata()
         {
@@ -159,6 +159,12 @@ internal class MetadatasBuilder
             Usings = Array.Empty<string>(),
             Namespace = useCaseNamespace,
             RequestType = useCase.Request,
+
+            PrivateFields = new List<TypeName>()
+            {
+                new TypeName($"private readonly I{useCase.DomainEntityName}Repository", $"_{useCase.DomainEntityName.FirstLetterToLower()}Repository")
+            },
+
             BaseConstructor = new string[]
             {
                 "messageBus",
@@ -167,7 +173,11 @@ internal class MetadatasBuilder
             InjectedInfrastructure = new List<TypeName>()
             {
                 new TypeName("IMessageBus", "messageBus"),
-                new TypeName("IInMemoryBus", "inMemoryBus")
+                new TypeName("IInMemoryBus", "inMemoryBus"),
+            },
+            InjectedProperties = new List<InjectedProperty>()
+            {
+                new InjectedProperty($"I{useCase.DomainEntityName}Repository", $"{useCase.DomainEntityName.FirstLetterToLower()}Repository")
             },
             InjectedRequestClass = new List<TypeName>()
             {
@@ -175,6 +185,13 @@ internal class MetadatasBuilder
             },
             Steps = useCase.UseCaseSteps
         };
+
+        metadata.Constructor = new List<TypeName>();
+        metadata.PrivateFields = new List<TypeName>();
+        metadata.InjectedProperties = new List<InjectedProperty>();
+        useCase.UseCaseContext.DomainEntityName = useCase.DomainEntityName;
+
+        AwesomeHelper.InjectRepositoryIntoMetadata(useCase.UseCaseContext, metadata);
 
         return metadata;
     }
@@ -208,6 +225,7 @@ internal class MetadatasBuilder
 
     public QueryRequestHandlerMetadata CreateQueryRequestHandlerMetadata(MetaUseCase useCase, string useCaseNamespace)
     {
+
         var metadata = new QueryRequestHandlerMetadata()
         {
             Usings = Array.Empty<string>(),
@@ -229,11 +247,7 @@ internal class MetadatasBuilder
             },
             InjectedRequestClass = new List<TypeName>()
             {
-                new TypeName(
-                        useCase.Request,
-                        "request"
-                        //useCase.Request[0].ToString().ToLower()
-                    ),
+                new TypeName(useCase.Request, "request"),
             },
             Steps = useCase.UseCaseSteps
         };
@@ -242,8 +256,9 @@ internal class MetadatasBuilder
         metadata.Constructor = new List<TypeName>();
         metadata.PrivateFields = new List<TypeName>();
         metadata.InjectedProperties = new List<InjectedProperty>();
+        useCase.UseCaseContext.DomainEntityName = useCase.DomainEntityName;
 
-        AwesomeHelper.AttachRepositoryAlignToContext(useCase.UseCaseContext, metadata);
+        AwesomeHelper.InjectRepositoryIntoMetadata(useCase.UseCaseContext, metadata);
 
         return metadata;
     }

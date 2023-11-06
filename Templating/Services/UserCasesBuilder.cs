@@ -63,7 +63,7 @@ public class UserCasesBuilder
 
                 BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequest, commandRequest.ClassName!);
 
-                var commandRequestHandler = _metadataBuilder.GetCommandRequestHandler(_useCase, _useCaseNamespace);
+                var commandRequestHandler = _metadataBuilder.CreateCommandRequestHandlerMetadata(_useCase, _useCaseNamespace);
 
                 BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequestHandler, commandRequestHandler.ClassName!);
 

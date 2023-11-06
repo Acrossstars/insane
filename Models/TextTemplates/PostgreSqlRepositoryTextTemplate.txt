@@ -16,8 +16,11 @@ public class {{ aggregate_entity }}Repository : PostgreSQLBaseRepository<{{ aggr
     {{ for method in methods }}
     public async Task{{ method.type }} {{ method.name }}({{ for par in method.parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
-        {{ method.logic }}
+        {{ if method.logic == "" }}
+            throw new NotImplementedException();
+        {{ else }}
+            {{ method.logic }}
+        {{ end }}
     }
     {{ end }}
-
 }

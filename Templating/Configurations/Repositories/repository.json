@@ -1,42 +1,42 @@
 {
   "repositories": [
     {
+      "className": "DigitalWalletRepository",
       "aggregateEntity": "DigitalWallet",
       "dbContext": "ApplicationDbContext",
       "methods": [
         {
-          "type": "", // fix this. Just added to make MVP repositories work.
-          "name": "AddDigitalWallet",
-          "parameters": [
-            { // also think on structure of this shit. goal - we should add as many data as we can, 
-              // everything else should be generated using added data.
-              "type": "DigitalWallet",
-              "name": "digitalWallet"
-            }
-          ],
-          "logic": "// some shitty adding logic.."
-        },
-        {
           "type": "",
-          "name": "EditDigitalWallet",
+          "name": "AddDigitalWallterNotBaseMethod",
           "parameters": [
             {
               "type": "DigitalWallet",
               "name": "digitalWallet"
             }
           ],
-          "logic": "// some shitty updating logic."
+          "logic": ""
         },
         {
           "type": "",
-          "name": "DeleteDigitalWallet",
+          "name": "EditDigitalWalletNotBaseMethod",
+          "parameters": [
+            {
+              "type": "DigitalWallet",
+              "name": "digitalWallet"
+            }
+          ],
+          "logic": ""
+        },
+        {
+          "type": "",
+          "name": "DeleteDigitalWalletNotBaseMethod",
           "parameters": [
             {
               "type": "string",
               "name": "id"
             }
           ],
-          "logic": "// some shitty deleting logic."
+          "logic": ""
         },
         {
           "type": "List<DigitalWallet>",
@@ -44,18 +44,18 @@
           "parameters": [
             {}
           ],
-          "logic": "// some shitty getting list logic."
+          "logic": ""
         },
         {
           "type": "DigitalWallet",
-          "name": "FindDigitalWalletById",
+          "name": "FindDigitalWalletByIdNotBaseMethod",
           "parameters": [
             {
               "type": "string",
               "name": "id"
             }
           ],
-          "logic": "// some shitty getting list logic."
+          "logic": ""
         }
       ]
     }

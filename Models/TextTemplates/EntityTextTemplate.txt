@@ -54,6 +54,10 @@ public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if 
         //AddDomainEvent(new {{ class_name }}UpdatedEvent({{ for par in update_parameters }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }}));
     }
 
+    protected override void CheckInvariants()
+    {
+    }
+
     #endregion
 
 }
