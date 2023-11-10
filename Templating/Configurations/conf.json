@@ -1,63 +1,28 @@
 {
-  "domain": "DigitalWallets",
+  "domain": "Mishkas",
+
   "entities": [
     {
-      "className": "DigitalWallet",
+      "className": "Mishka",
       "properties": [
         {
-          "name": "CollectionId",
+          "name": "Name",
           "type": "string"
         },
         {
-          "name": "CreatorId",
+          "name": "Description",
           "type": "string"
         },
         {
-          "name": "TokenName",
-          "type": "string"
-        },
-        {
-          "name": "TokenSymbol",
-          "type": "string"
-        },
-        {
-          "name": "ContractOwner",
-          "type": "string"
-        },
-        {
-          "name": "ContractAddress",
-          "type": "string"
-        },
-        {
-          "name": "TxHash",
-          "type": "string"
-        },
-        {
-          "name": "BlockHash",
-          "type": "string"
-        },
-        {
-          "name": "ContractStandart",
-          "type": "string"
-        },
-        {
-          "name": "GasUsed",
-          "type": "BigInteger"
-        },
-        {
-          "name": "GasPrice",
-          "type": "BigInteger"
-        },
-        {
-          "name": "CreatedDate",
-          "type": "DateTime"
+          "name": "AnyProperty",
+          "type": "int"
         }
       ]
     }
   ],
   "events": [
     {
-      "className": "DigitalWalletAdded",
+      "className": "MishkaAdded",
       "properties": [
         {
           "name": "Id",
@@ -70,7 +35,7 @@
       ]
     },
     {
-      "className": "DigitalWalletUpdated",
+      "className": "MishkaUpdated",
       "properties": [
         {
           "name": "Id",
@@ -83,7 +48,7 @@
       ]
     },
     {
-      "className": "DigitalWalletDeleted",
+      "className": "MishkaDeleted",
       "properties": [
         {
           "name": "Id",
@@ -92,13 +57,74 @@
       ]
     }
   ],
+  "repositories": [
+    {
+      "className": "MishkaRepository",
+      "aggregateEntity": "Mishka",
+      "dbContext": "ApplicationDbContext",
+      "methods": [
+        {
+          "type": "",
+          "name": "AddMishkaNotBaseMethod",
+          "parameters": [
+            {
+              "type": "Mishka",
+              "name": "mishka"
+            }
+          ],
+          "logic": ""
+        },
+        {
+          "type": "",
+          "name": "EditMishkaNotBaseMethod",
+          "parameters": [
+            {
+              "type": "Mishka",
+              "name": "Mishka"
+            }
+          ],
+          "logic": ""
+        },
+        {
+          "type": "",
+          "name": "DeleteMishkaNotBaseMethod",
+          "parameters": [
+            {
+              "type": "string",
+              "name": "id"
+            }
+          ],
+          "logic": ""
+        },
+        {
+          "type": "List<Mishka>",
+          "name": "GetAllMishka",
+          "parameters": [
+            {}
+          ],
+          "logic": ""
+        },
+        {
+          "type": "Mishka",
+          "name": "FindMishkaByIdNotBaseMethod",
+          "parameters": [
+            {
+              "type": "string",
+              "name": "id"
+            }
+          ],
+          "logic": ""
+        }
+      ]
+    }
+  ],
   "useCases": [
     {
-      "DomainEntityName": "DigitalWallet",
+      "DomainEntityName": "Mishka",
       "HasRestEndpoint": true,
       "HttpMethodType": 0,
       "RequestType": 1,
-      "name": "GetKekDigitalWalletDataById",
+      "name": "GetKekMishkaDataById",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -116,11 +142,11 @@
       ]
     },
     {
-      "DomainEntityName": "DigitalWallet",
+      "DomainEntityName": "Mishka",
       "HasRestEndpoint": true,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "CreateKekDigitalWalletDataById",
+      "name": "CreateKekMishkaDataById",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -138,11 +164,11 @@
       ]
     },
     {
-      "DomainEntityName": "DigitalWallet",
+      "DomainEntityName": "Mishka",
       "HasRestEndpoint": true,
       "HttpMethodType": 2,
       "RequestType": 0,
-      "name": "UpdateKekDigitalWalletDataById",
+      "name": "UpdateKekMishkaDataById",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -160,11 +186,11 @@
       ]
     },
     {
-      "DomainEntityName": "DigitalWallet",
+      "DomainEntityName": "Mishka",
       "HasRestEndpoint": true,
       "HttpMethodType": 3,
       "RequestType": 0,
-      "name": "DeleteKekDigitalWalletDataById",
+      "name": "DeleteKekMishkaDataById",
       "UseCaseContext": {
         "OperableProperties": [
           {
@@ -182,11 +208,11 @@
       ]
     }
     //{
-    //  "DomainEntityName": "DigitalWallet",
+    //  "DomainEntityName": "Mishka",
     //  "HasRestEndpoint": true,
     //  "HttpMethodType": 2,
     //  "RequestType": 0,
-    //  "name": "UpdateDigitalWallet",
+    //  "name": "UpdateMishka",
     //  "UseCaseContext": {
     //    "OperableProperties": [
     //      {
@@ -247,11 +273,11 @@
     //  ]
     //},
     //{
-    //  "DomainEntityName": "DigitalWallet",
+    //  "DomainEntityName": "Mishka",
     //  "HasRestEndpoint": true,
     //  "HttpMethodType": 3,
     //  "RequestType": 0,
-    //  "name": "DeleteDigitalWallet",
+    //  "name": "DeleteMishka",
     //  "UseCaseContext": {
     //    "OperableProperties": [
     //      {
@@ -270,11 +296,11 @@
     //  ]
     //},
     //{
-    //  "DomainEntityName": "DigitalWallet",
+    //  "DomainEntityName": "Mishka",
     //  "HasRestEndpoint": true,
     //  "HttpMethodType": 1,
     //  "RequestType": 0,
-    //  "name": "CreateDigitalWallet",
+    //  "name": "CreateMishka",
     //  "UseCaseContext": {
     //    "OperableProperties": [
     //      {
@@ -328,7 +354,7 @@
     //    ]
     //  },
     //  "UseCaseSteps": [
-    //    "Create new DigitalWallet",
+    //    "Create new Mishka",
     //    "Save to database"
     //  ]
     //},

@@ -47,7 +47,7 @@ public class UserCasesBuilder
 
         _outputFilePath = $"{_solutionRoot}{_apiRoot}\\{_path}";
 
-        _metadataBuilder = new MetadatasBuilder(_generationDesign, _pathNameSpacesService);
+        _metadataBuilder = new MetadatasBuilder(_generationDesign, _pathNameSpacesService, _domainDefinition);
     }
 
     //TODO: Rename Namespace to Match Folder Structure

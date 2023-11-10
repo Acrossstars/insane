@@ -1,4 +1,5 @@
-﻿using Core.Domain.Common;
+﻿using Core.Domain;
+using Core.Domain.Common;
 using Core.Domain.Enums;
 using Core.Domain.UseCases;
 using Core.Extensions;
@@ -6,6 +7,7 @@ using Core.Generation;
 using Core.Metadatas;
 using Core.Metadatas.Commands;
 using Core.Metadatas.Queries;
+using Core.Metadatas.Repositories;
 
 namespace Templating.Services;
 
@@ -13,14 +15,17 @@ internal class MetadatasBuilder
 {
     private readonly GenerationDesign _generationDesign;
     private readonly PathNameSpacesService _pathNameSpacesService;
+    private readonly DomainDefinition _domainDefinition;
 
     public MetadatasBuilder(
         GenerationDesign generationDesign,
-        PathNameSpacesService pathNameSpacesService
+        PathNameSpacesService pathNameSpacesService,
+        DomainDefinition domainDefinition
         )
     {
         _generationDesign = generationDesign;
         _pathNameSpacesService = pathNameSpacesService;
+        _domainDefinition = domainDefinition;
     }
 
     public static DtoMetadata GetDto(MetaUseCase useCase, string useCaseNamespace)
@@ -156,15 +161,8 @@ internal class MetadatasBuilder
             ClassName = useCase.RequestHandler,
             //no needed perhaps
             FilePath = "",
-            Usings = Array.Empty<string>(),
             Namespace = useCaseNamespace,
             RequestType = useCase.Request,
-
-            PrivateFields = new List<TypeName>()
-            {
-                new TypeName($"private readonly I{useCase.DomainEntityName}Repository", $"_{useCase.DomainEntityName.FirstLetterToLower()}Repository")
-            },
-
             BaseConstructor = new string[]
             {
                 "messageBus",
@@ -174,10 +172,6 @@ internal class MetadatasBuilder
             {
                 new TypeName("IMessageBus", "messageBus"),
                 new TypeName("IInMemoryBus", "inMemoryBus"),
-            },
-            InjectedProperties = new List<InjectedProperty>()
-            {
-                new InjectedProperty($"I{useCase.DomainEntityName}Repository", $"{useCase.DomainEntityName.FirstLetterToLower()}Repository")
             },
             InjectedRequestClass = new List<TypeName>()
             {
@@ -191,7 +185,15 @@ internal class MetadatasBuilder
         metadata.InjectedProperties = new List<InjectedProperty>();
         useCase.UseCaseContext.DomainEntityName = useCase.DomainEntityName;
 
+        //*****************************************************************************
+
         AwesomeHelper.InjectRepositoryIntoMetadata(useCase.UseCaseContext, metadata);
+
+        var repositoryInterfaceNamespace = _domainDefinition.RepositoryInterfaces.First().Namespace;
+
+        metadata.Usings = new string[] { repositoryInterfaceNamespace };
+
+        //*****************************************************************************
 
         return metadata;
     }
@@ -228,7 +230,6 @@ internal class MetadatasBuilder
 
         var metadata = new QueryRequestHandlerMetadata()
         {
-            Usings = Array.Empty<string>(),
             Namespace = useCaseNamespace,
             RequestType = useCase.Request,
             QueryReturnType = $"{useCase.Name}Dto",
@@ -258,7 +259,15 @@ internal class MetadatasBuilder
         metadata.InjectedProperties = new List<InjectedProperty>();
         useCase.UseCaseContext.DomainEntityName = useCase.DomainEntityName;
 
+        //*****************************************************************************
+
         AwesomeHelper.InjectRepositoryIntoMetadata(useCase.UseCaseContext, metadata);
+
+        var repositoryInterfaceNamespace = _domainDefinition.RepositoryInterfaces.First().Namespace;
+
+        metadata.Usings = new string[] { repositoryInterfaceNamespace };
+
+        //*****************************************************************************
 
         return metadata;
     }

@@ -45,7 +45,8 @@ public static class AwesomeHelper
     public static void InjectRepositoryIntoMetadata(IDataContext context, IMetaProperties metadata)
     {
         var repositoryType = $"I{context.DomainEntityName}Repository";
-        var repositoryFieldName = $"{context.DomainEntityName.FirstLetterToLower()}Repository";
+        //var repositoryFieldName = $"{context.DomainEntityName.FirstLetterToLower()}Repository";
+        var repositoryFieldName = $"repository";
 
         try
         {

@@ -14,7 +14,7 @@ public class DomainDefinition
     public string? Domain { get; set; }
     public List<EntityMetadata>? Entities { get; set; }
     public List<RepositoryMetadata>? Repositories { get; set; }
-    public List<IRepositoryMetadata>? RepositoryInterfaces { get; set; }
+    public List<RepositoryMetadata>? RepositoryInterfaces { get; set; }
     public List<DomainEventMetadata>? Events { get; set; }
     public List<MetaUseCase>? UseCases { get; set; }
  

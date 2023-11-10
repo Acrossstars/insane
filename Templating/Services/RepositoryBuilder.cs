@@ -14,15 +14,18 @@ public class RepositoryBuilder : BaseBuilder
     private readonly string? _manyEntities;
     private readonly string? _pathRepositoryInterface;
     private readonly string? _outputFileRepositoryInterface;
-
+    private readonly DomainDefinition _domainDefinition;
     private readonly RepositoryMetadata _repositoryMetadata;
 
     public RepositoryBuilder(
         PathNameSpacesService pathNameSpacesService,
         GenerationDesign generationDesign,
-        RepositoryMetadata repositoryMetadata) : base(pathNameSpacesService, generationDesign)
+        RepositoryMetadata repositoryMetadata,
+        DomainDefinition domainDefinition
+        ) : base(pathNameSpacesService, generationDesign)
     {
         _repositoriesFolderName = generationDesign.RepositoriesFolderName!;
+        _domainDefinition = domainDefinition;
         _repositoryMetadata = repositoryMetadata;
 
         _manyEntities = _repositoryMetadata.AggregateEntity.Pluralize();
@@ -38,8 +41,8 @@ public class RepositoryBuilder : BaseBuilder
     {
         var builderContexts = new List<ObjectBuilderContext>();
 
-        GenerateRepository(metadataDir, baseRepositoryMetadata, builderContexts);
         GenerateRepositoryInterface(metadataDir, baseRepositoryMetadata, builderContexts);
+        GenerateRepository(metadataDir, baseRepositoryMetadata, builderContexts);
 
         foreach (var builderMetadata in builderContexts)
         {
@@ -51,6 +54,14 @@ public class RepositoryBuilder : BaseBuilder
     private void GenerateRepository(string metadataDir, RepositoryMetadata baseRepositoryMetadata, List<ObjectBuilderContext> builderContexts)
     {
         var repositoryMetadata = new RepositoryMetadata(baseRepositoryMetadata);
+
+        var baseRepositoryNamespace = "Subject.BuildingBlocks.Infrastructure.PostgreSQL";
+        var dbContextNamespace = "Infrastructure.Data.DbContext";
+
+        var entityNamespace = _domainDefinition.Entities.First().Namespace;
+        var repositoryInterfaceNamespace = _domainDefinition.RepositoryInterfaces.First().Namespace;
+
+        repositoryMetadata.Usings = new string[] { baseRepositoryNamespace, dbContextNamespace, repositoryInterfaceNamespace, entityNamespace };
 
         repositoryMetadata.Type = MetadataType.PostgreSqlRepository;
         repositoryMetadata.InterfaceName = $"I{repositoryMetadata.AggregateEntity}Repository"; // все эти костыли УБРАТЬ.
@@ -74,8 +85,16 @@ public class RepositoryBuilder : BaseBuilder
     {
         var repositoryMetadata = new RepositoryMetadata(baseRepositoryMetadata);
 
+        var baseRepositoryNamespace = "Subject.BuildingBlocks.Domain.Data";
+
+        var entityNamespace = _domainDefinition.Entities.First().Namespace;
+
+        repositoryMetadata.Usings = new string[] { baseRepositoryNamespace, entityNamespace };
+
         repositoryMetadata.Type = MetadataType.IRepository;
         repositoryMetadata.Namespace = BuildNamepace(repositoryMetadata.Type);
+
+        _domainDefinition.RepositoryInterfaces.Add(repositoryMetadata);
 
         BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFileRepositoryInterface, repositoryMetadata, $"I{repositoryMetadata.AggregateEntity}Repository");
     }

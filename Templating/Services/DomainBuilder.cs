@@ -3,6 +3,7 @@ using Core.Domain.Common;
 using Core.Domain.UseCases;
 using Core.Generation;
 using Core.Metadatas;
+using Core.Metadatas.Repositories;
 using System;
 using Templating.Features;
 using Templating.Infra;
@@ -222,9 +223,11 @@ public class DomainBuilder
 
     public void BuildPostgreSqlRepository()
     {
+        _domainDefinition.RepositoryInterfaces = new List<RepositoryMetadata>();
+
         foreach (var repository in _domainDefinition.Repositories)
         {
-            var repositoryBuilder = new RepositoryBuilder(_pathService, _generationDesign, repository);
+            var repositoryBuilder = new RepositoryBuilder(_pathService, _generationDesign, repository, _domainDefinition);
 
             repositoryBuilder.GenerateRepositoriesMetadata(_metadataDir, repository);
             
