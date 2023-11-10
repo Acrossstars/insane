@@ -38,6 +38,9 @@
 		<None Update="TextTemplates\CommandRequestTextTemplate.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="TextTemplates\CreateRequestHandlerBodyTextTemplate.txt">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="TextTemplates\DomainEventHandlerTextTemplate.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
@@ -58,6 +61,9 @@
 		</None>
 		<None Update="TextTemplates\EntityUpdatedEventTextTemplate.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="TextTemplates\entity_creation_logic.scriban">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="TextTemplates\GrpcEndpointTextTemplate.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
