@@ -1,1 +1,10 @@
-﻿DELETE HEHE
+﻿// Find entity in repository by Id
+var entity = await _repository.GetByIdAsync(request.Id);
+
+if (entity == null)
+{
+    throw new EntityNotFoundException($"Entity with Id {request.Id} not found.");
+}
+
+// Delete entity from repository
+await _repository.DeleteAsync(entity);

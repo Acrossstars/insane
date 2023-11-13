@@ -1,1 +1,8 @@
-﻿CREATE HEHE
+﻿// Create new entity
+var entity = new {{ ClassName }}
+{
+    // Property init
+};
+
+// Add entity to repository
+await _repository.AddAsync(entity);

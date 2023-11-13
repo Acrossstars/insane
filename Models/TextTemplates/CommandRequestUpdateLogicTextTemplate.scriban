@@ -1,1 +1,12 @@
-﻿UPDATE EHEH
+﻿// Find entity in repository by Id
+var entity = await _repository.GetByIdAsync(request.Id);
+
+if (entity == null)
+{
+    throw new EntityNotFoundException($"Entity with Id {request.Id} not found.");
+}
+
+// Update by request
+
+// Safe updated entity into repository
+await _repository.UpdateAsync(entity);

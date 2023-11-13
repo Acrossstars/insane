@@ -2,9 +2,7 @@
 using Core.Formatiing;
 using Scriban;
 using Scriban.Runtime;
-using System.Collections;
 using System.Reflection;
-using System.Runtime.Serialization;
 
 namespace Templating.Infra;
 
