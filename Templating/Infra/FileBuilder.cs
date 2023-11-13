@@ -1,6 +1,9 @@
 ﻿using Core;
 using Core.Formatiing;
 using Scriban;
+using Scriban.Runtime;
+using System.Collections;
+using System.Reflection;
 using System.Runtime.Serialization;
 
 namespace Templating.Infra;
@@ -19,9 +22,12 @@ public class FileBuilder
 
         var model = builderMetadata.Model;
 
+        var scriptObject = InitializeScriptObjectWithProperties(model);
+        var context = InitializeTemplateContext(scriptObject, builderMetadata.TextTemplateFilePath);
+
         try
         {
-            var res = tpl.Render(model);
+            var res = tpl.Render(context);
             var fileName = $"{builderMetadata.FileName}.cs";
             var fileDirectory = builderMetadata.OutputFilePath;
 
@@ -36,5 +42,35 @@ public class FileBuilder
         {
             Console.WriteLine(ex);
         }
+    }
+
+    private TemplateContext InitializeTemplateContext(ScriptObject scriptObject, string path)
+    {
+        var context = new TemplateContext();
+        context.PushGlobal(scriptObject);
+
+        if (string.IsNullOrEmpty(path))
+        {
+            throw new ArgumentNullException(nameof(path), "Path cannot be null or empty.");
+        }
+
+        string templateDir = Path.GetDirectoryName(path)
+            ?? throw new ArgumentException("Invalid template directory path.", nameof(path));
+
+        context.TemplateLoader = new FileTemplateLoader(templateDir);
+
+        return context;
+    }
+
+    private ScriptObject InitializeScriptObjectWithProperties(object obj)
+    {
+        var scriptObject = new ScriptObject();
+
+        foreach (PropertyInfo property in obj.GetType().GetProperties())
+        {
+            scriptObject.Add(property.Name, property.GetValue(obj));
+        }
+
+        return scriptObject;
     }
 }

@@ -1,9 +1,9 @@
-﻿{{- for item in usings }}using {{ item }};{{- end }}
+﻿{{- for item in Usings }}using {{ item }};{{- end }}
 
-namespace {{ namespace }};
+namespace {{ Namespace }};
 
-public interface I{{ aggregate_entity }}Repository : IRepository<{{ aggregate_entity }}>
+public interface I{{ AggregateEntity }}Repository : IRepository<{{ AggregateEntity }}>
 {
-    {{ for method in methods }}
+    {{ for method in Methods }}
     Task{{ method.type }} {{ method.name }}({{ for par in method.parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }});{{ end }}
 }

@@ -1,17 +1,17 @@
-﻿namespace {{ namespace }};
+﻿namespace {{ Namespace }};
 
-public class {{ class_name }} 
+public class {{ ClassName }} 
 {
-    public {{ class_name }}({{ for par in constructor }}
+    public {{ ClassName }}({{ for par in Constructor }}
             {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
             )
         {
-            {{ for prop in injected_properties }}
+            {{ for prop in InjectedProperties }}
             {{ prop.destination }} = {{ prop.source }};
             {{ end }}
         }
 
-        {{ for prop in properties }}
+        {{ for prop in Properties }}
         {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
         {{- end }}
 }

@@ -1,18 +1,18 @@
-﻿{{- for item in usings }}using {{ item }};
+﻿{{- for item in Usings }}using {{ item }};
 {{- end }}
 
-namespace {{ namespace }};
+namespace {{ Namespace }};
 
-public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
+public class {{ ClassName  }} : {{- for item in BaseEntities  }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
 {
-    public {{ class_name }}({{ for par in constructor }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
-        :base({{ for par in base_constructor }}{{ par }}{{ if !for.last}}, {{ end -}}{{- end }})
+    public {{ ClassName }}({{ for par in Constructor }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
+        :base({{ for par in BaseConstructor  }}{{ par }}{{ if !for.last}}, {{ end -}}{{- end }})
     {
-        {{ for prop in injected_properties }}
+        {{ for prop in InjectedProperties  }}
         {{ prop.destination }} = {{ prop.source }};{{ end }}
     }
 
-    {{ for prop in properties }}
+    {{ for prop in Properties  }}
     {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
     {{- end }}
 }

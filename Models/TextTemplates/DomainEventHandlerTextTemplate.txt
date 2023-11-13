@@ -1,27 +1,27 @@
-﻿{{- for item in usings }}using {{ item }};
+﻿{{- for item in Usings }}using {{ item }};
 {{- end }}
 
-namespace {{ namespace }};
+namespace {{ Namespace }};
 
-public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
+public class {{ ClassName }} : {{- for item in BaseEntities }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
 {
-    {{ for par in private_fields }}
+    {{ for par in PrivateFields }}
     {{ par.type }} {{ par.name }}{{ if ! for.last }}{{ end }}{{- end }};
 
-    public {{ class_name }}(
-        {{ for par in constructor }}
+    public {{ ClassName }}(
+        {{ for par in Constructor }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }}
-        {{ for par in injected_infrastructure }}
+        {{ for par in InjectedInfrastructure }}
         {{ par.type }} {{ par.name }}{{ if ! for.last }},{{ end }}{{- end }})
     {
-        {{ for prop in injected_properties }}
+        {{ for prop in InjectedProperties }}
         {{ prop.destination }} = {{ prop.source }};
         {{ end }}
     }
 
-    public async Task Handle({{ event_class_name }} @event, CancellationToken cancellationToken)
+    public async Task Handle({{ EventClassName }} @event, CancellationToken cancellationToken)
     {
-        _logger.Information("{{ event_class_name }} Id: {Id}", @event.EntityId);
+        _logger.Information("{{ EventClassName }} Id: {Id}", @event.EntityId);
         await Task.CompletedTask;
     }
 }

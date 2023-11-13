@@ -1,19 +1,19 @@
-﻿{{- for item in usings }}using {{ item }};{{- end }}
+﻿{{- for item in Usings }}using {{ item }};{{- end }}
 
-namespace {{ namespace }};
+namespace {{ Namespace }};
 
-public class {{ aggregate_entity }}Repository : PostgreSQLBaseRepository<{{ aggregate_entity }}>, {{ interface_name }}
+public class {{ AggregateEntity }}Repository : PostgreSQLBaseRepository<{{ AggregateEntity }}>, {{ InterfaceName }}
 {
-    {{ for prop in private_fields }}
+    {{ for prop in PrivateFields }}
     {{ prop.destination }} = {{ prop.source }};{{ end }}
 
-    public {{ aggregate_entity }}Repository({{ db_context }} dbContext) : base(dbContext)
+    public {{ AggregateEntity }}Repository({{ DbContext }} dbContext) : base(dbContext)
     {
-        {{ for prop in injected_privates }}
+        {{ for prop in InjectedPrivates }}
         {{ prop.destination }} = {{ prop.source }};{{ end }}
     }
 
-    {{ for method in methods }}
+    {{ for method in Methods }}
     public async Task{{ method.type }} {{ method.name }}({{ for par in method.parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
         {{ if method.logic == "" }}

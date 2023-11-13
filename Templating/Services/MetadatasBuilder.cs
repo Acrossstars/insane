@@ -163,6 +163,7 @@ internal class MetadatasBuilder
             FilePath = "",
             Namespace = useCaseNamespace,
             RequestType = useCase.Request,
+            OperationType = CrudType.Create,
             BaseConstructor = new string[]
             {
                 "messageBus",

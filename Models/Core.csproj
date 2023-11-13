@@ -32,11 +32,20 @@
 		<None Update="Configs\QueryRequestHandlerConfig.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="TextTemplates\CommandRequestCreateLogicTextTemplate.scriban">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="TextTemplates\CommandRequestDeleteLogicTextTemplate.scriban">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="TextTemplates\CommandRequestHandlerTextTemplate.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="TextTemplates\CommandRequestTextTemplate.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+		<None Update="TextTemplates\CommandRequestUpdateLogicTextTemplate.scriban">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
 		<None Update="TextTemplates\CreateRequestHandlerBodyTextTemplate.txt">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>

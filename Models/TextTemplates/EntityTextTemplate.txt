@@ -1,57 +1,41 @@
-﻿{{- for item in usings }}using {{ item }};
+﻿{{- for item in Usings }}using {{ item }};
 {{- end }}
 
-namespace {{ namespace }};
+namespace {{ Namespace }};
 
-public class {{ class_name }} : {{- for item in base_entities }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
+public class {{ ClassName }} : {{- for item in BaseEntities  }}{{ item }}{{ if ! for.last }}, {{ end }}{{- end }}
 {
+    private {{ ClassName }}() {}
 
-    #region Fields
-
-
-    #endregion
-
-    #region Ctors
-
-    private {{ class_name }}() {}
-
-    private {{ class_name }}({{ for par in constructor }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
+    private {{ ClassName }}({{ for par in Constructor  }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
         SetId(Guid.NewGuid().ToString());
 
-        {{ for prop in injected_properties }}
+        {{ for prop in InjectedProperties  }}
         {{ prop.destination }} = {{ prop.source }};{{ end }}
 
-        //CheckPolicies({{ class_name }}ValidatorService);
+        //CheckPolicies({{ ClassName }}ValidatorService);
 
-        //AddDomainEvent(new {{ entity_name_created_event }}({{ for par in entity_name_created_event_constructor }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }}));
+        //AddDomainEvent(new {{ EntityNameCreatedEvent  }}({{ for par in EntityNameCreatedEventConstructor  }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }}));
     }
 
-    #endregion
-
-    #region Properties
-
-    {{ for prop in properties }} 
+    {{ for prop in Properties  }} 
     {{ prop.modificator }} {{ prop.type }} {{ prop.name }} { {{ for state in prop.accessors }} {{ state }}; {{- end }} }
     {{- end }}
 
-    #endregion
-
-    #region Methods
-
-    public static {{ class_name }} Create({{ for par in create_parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
+    public static {{ ClassName }} Create({{ for par in CreateParameters  }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
-        return new {{ class_name }}({{ for par in create_parameters }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }});
+        return new {{ ClassName }}({{ for par in CreateParameters }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }});
     }
 
-    public void Update{{ class_name }}({{ for par in update_parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
+    public void Update{{ ClassName }}({{ for par in UpdateParameters  }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
-        {{ for prop in update_properties }}
+        {{ for prop in UpdateParameters  }}
         {{ prop.destination }} = {{ prop.source }};{{ end }}
 
         //CheckPolicies();
 
-        //AddDomainEvent(new {{ class_name }}UpdatedEvent({{ for par in update_parameters }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }}));
+        //AddDomainEvent(new {{ ClassName }}UpdatedEvent({{ for par in UpdateParameters }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }}));
     }
 
     protected override void CheckInvariants()

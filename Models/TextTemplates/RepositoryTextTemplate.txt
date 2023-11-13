@@ -1,21 +1,21 @@
-﻿{{- for item in usings }}using {{ item }};{{- end }}
+﻿{{- for item in Usings }}using {{ item }};{{- end }}
 
-namespace {{ namespace }};
+namespace {{ Namespace }};
 
-public class {{ aggregate_entity }}AggregateRepository : MongoDbBaseAggregateRepository<{{ aggregate_entity }}>, {{ interface_name }}
+public class {{ AggregateEntity }}AggregateRepository : MongoDbBaseAggregateRepository<{{ AggregateEntity }}>, {{ InterfaceName }}
 {
     #region Fields
 
-    {{ for prop in private_fields }}
+    {{ for prop in PrivateFields }}
     {{ prop.destination }} = {{ prop.source }};{{ end }}
 
     #endregion
 
     #region Ctors
 
-    public {{ aggregate_entity }}AggregateRepository({{ db_context }} dbContext) : base(dbContext)
+    public {{ AggregateEntity }}AggregateRepository({{ DbContext }} dbContext) : base(dbContext)
     {
-        {{ for prop in injected_privates }}
+        {{ for prop in InjectedPrivates }}
         {{ prop.destination }} = {{ prop.source }};{{ end }}
     }
 
@@ -23,7 +23,7 @@ public class {{ aggregate_entity }}AggregateRepository : MongoDbBaseAggregateRep
 
     #region Public Methods
 
-    {{ for method in methods }}
+    {{ for method in Methods }}
     public {{ method.type }} {{ method.name }}({{ for par in method.parameters }}{{ par.type }} {{ par.name }}{{ if ! for.last }}, {{ end }}{{- end }})
     {
         {{ method.logic }}
