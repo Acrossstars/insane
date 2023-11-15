@@ -163,7 +163,7 @@ internal class MetadatasBuilder
             FilePath = "",
             Namespace = useCaseNamespace,
             RequestType = useCase.Request,
-            OperationType = CrudType.Create,
+            OperationType = GetCrudOperationFromHttpMethod(useCase.HttpMethodType),
             BaseConstructor = new string[]
             {
                 "messageBus",
@@ -235,6 +235,7 @@ internal class MetadatasBuilder
             RequestType = useCase.Request,
             QueryReturnType = $"{useCase.Name}Dto",
             ClassName = useCase.RequestHandler,
+            OperationType = GetCrudOperationFromHttpMethod(useCase.HttpMethodType),
             BaseEntities = new List<string>()
             {
                 string.Format(_generationDesign.QueryRequestHandlerBasePattern!, useCase.Request, $"{useCase.Name}Dto")
@@ -271,5 +272,28 @@ internal class MetadatasBuilder
         //*****************************************************************************
 
         return metadata;
+    }
+
+    private CrudType GetCrudOperationFromHttpMethod(HttpMethodType httpMethodType)
+    {
+        switch (httpMethodType)
+        {
+            case HttpMethodType.Post:
+               return CrudType.Create;
+
+            case HttpMethodType.Put:
+                return CrudType.Update;
+
+            case HttpMethodType.Delete:
+                return CrudType.Delete;
+
+            case HttpMethodType.Get:
+                return CrudType.Read;
+
+            default:
+                break;
+        }
+
+        return CrudType.None;
     }
 }

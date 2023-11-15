@@ -83,6 +83,9 @@
 		<None Update="TextTemplates\PostgreSqlRepositoryTextTemplate.txt">
 		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="TextTemplates\QueryRequestGetLogicTextTemplate.scriban">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 		<None Update="TextTemplates\QueryRequestHandlerTextTemplate.txt">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>

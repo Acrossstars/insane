@@ -30,10 +30,11 @@ public class {{ ClassName }} : {{- for item in BaseEntities }}{{ item }}{{ if ! 
         //step: {{ item }};
         {{- end }}
 
-        var result = await _repository.GetListAsync();
-
-        return _mapper.Map<{{ QueryReturnType }}>(result);
-
-        //return new {{ QueryReturnType }}();
+       // Conditional inclusion of operation-specific logic
+        {{ if OperationType == 'Read' }}
+            {{ include 'QueryRequestGetLogicTextTemplate' }}
+        {{ else if OperationType == 'None'}}
+        {{ else }}
+        {{ end }}
     }
 }

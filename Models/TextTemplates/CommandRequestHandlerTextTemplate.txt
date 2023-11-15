@@ -34,6 +34,7 @@ public class {{ ClassName }} : {{- for item in BaseEntities }}{{ item }}{{ if ! 
             {{ include 'CommandRequestUpdateLogicTextTemplate' }}
         {{ else if OperationType == 'Delete'}}
             {{ include 'CommandRequestDeleteLogicTextTemplate' }}
+        {{ else if OperationType == 'None'}}
         {{ else }}
         {{ end }}
         

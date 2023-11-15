@@ -6,4 +6,6 @@ public class YetAnotherBaseMetadata : BaseMetadata, IMetaProperties
     public string? RequestType { get; set; }
     public string[]? BaseConstructor { get; set; }
     public List<TypeName>? InjectedInfrastructure { get; set; }
+    public CrudType OperationType { get; set; }
+
 }

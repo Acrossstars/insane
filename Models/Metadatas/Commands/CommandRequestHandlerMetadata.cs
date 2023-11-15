@@ -8,6 +8,5 @@ public class CommandRequestHandlerMetadata : YetAnotherBaseMetadata, ISteppable
     }
 
     public List<string>? Steps { get; set; } = default!;
-    public CrudType OperationType { get; set; }
     public object HandlerBody { get; set; }
 }
