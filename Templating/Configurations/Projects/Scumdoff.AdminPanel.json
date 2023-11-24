@@ -1,0 +1,11 @@
+{
+  "ProjectConfig": {
+    "SolutionRootPath": "D:\\Work\\Appfox\\Projects\\scumdoffback",
+    "Namespaces": {
+      "UseCasesBase": "Scumdoff.AdminPanel.Application.UseCases"
+    },
+    "OutputRelativePaths": {
+      "UseCases": "src\\Services\\Scumdoff.AdminPanel\\Application\\UseCases"
+    }
+  }
+}

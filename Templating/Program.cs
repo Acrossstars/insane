@@ -2,22 +2,28 @@
 using Core.Generation;
 using Microsoft.Build.Locator;
 using Microsoft.Extensions.Configuration;
+using Templating.Configurations.Models;
 
-MSBuildLocator.RegisterDefaults();
+//MSBuildLocator.RegisterDefaults();
 
 //var projectsToSearch = new List<string> { "UniqMerch.SmartContracts", "UniqMerch.API" };
-var projectsToSearch = new List<string> { "DataService.API", "Decider.API", "Behavior.API" };
+//var projectsToSearch = new List<string> { "DataService.API", "Decider.API", "Behavior.API" };
 
+var projectConfigName = "Scumdoff.AdminPanel";
 
 var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
 var configurationBuilder = new ConfigurationBuilder()
     .AddJsonFile("Configurations/conf.json", false, true)
     .AddJsonFile("appsettings.json", false, true)
+    .AddJsonFile($"Configurations/Projects/{projectConfigName}.json", false, true)
     ;
     //.AddJsonFile("Configurations/Repositories/repository.json", false, true)
 
 var configuration = configurationBuilder.Build();
+
+var projectConfig =  new ProjectConfig();
+configuration.Bind(nameof(ProjectConfig), projectConfig);
 
 //var analyzer = new Analyzer(
 //    $"{configuration["SolutionRootPath"]}\\{configuration["SolutionFileName"]}");
@@ -33,9 +39,8 @@ var domainBuilder = new DomainBuilder(
     metadataDir,
     pathService,
     generationDesign,
-    definition);
-
-
+    definition,
+    projectConfig);
 
 domainBuilder.BuildEntities();
 

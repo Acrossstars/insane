@@ -2,6 +2,7 @@
 using Core.Domain.UseCases;
 using Core.Generation;
 using Core.Metadatas;
+using Templating.Configurations.Models;
 using Templating.Features;
 using Templating.Infra;
 
@@ -9,43 +10,33 @@ namespace Templating.Services;
 
 public class UserCasesBuilder
 {
-    private static string _useCasesFolderName;
-    private static string _manyEntities;
-    private static string? _solutionRoot;
-    private static string? _apiRoot;
     private static string _useCaseNamespace;
     private readonly DomainDefinition _domainDefinition;
     private MetaUseCase _useCase;
     private readonly GenerationDesign _generationDesign;
     private readonly PathNameSpacesService _pathNameSpacesService;
-    private string _path;
     private string _outputFilePath;
     private readonly MetadatasBuilder _metadataBuilder;
 
     public UserCasesBuilder(
-        IConfiguration configuration,
         DomainDefinition domainDefinition,
         MetaUseCase useCase,
         GenerationDesign generationDesign,
-        PathNameSpacesService pathNameSpacesService
+        PathNameSpacesService pathNameSpacesService,
+        ProjectConfig projectConfig 
         )
     {
-        _solutionRoot = pathNameSpacesService.GetSolutionRootPath();
-        _apiRoot = pathNameSpacesService.GetApiRootPath();
-
-        _useCasesFolderName = generationDesign.UseCasesFolderName!;
         _domainDefinition = domainDefinition;
         _useCase = useCase;
 
         _generationDesign = generationDesign;
         _pathNameSpacesService = pathNameSpacesService;
 
-        _manyEntities = _useCase.DomainEntityName.Pluralize();
-        
-        _useCaseNamespace = $"UseCases.{_manyEntities}.{_useCase.Name}";
-        _path = $"\\{_useCasesFolderName}\\{_manyEntities}\\{_useCase.Name}";
+        var manyEntities = _useCase.DomainEntityName.Pluralize();
 
-        _outputFilePath = $"{_solutionRoot}{_apiRoot}\\{_path}";
+        _useCaseNamespace = $"{projectConfig.Namespaces.UseCasesBase}.{manyEntities}.{_useCase.Name}";
+        _outputFilePath = 
+            $"{projectConfig.SolutionRootPath}\\{projectConfig.OutputRelativePaths.UseCases}\\{manyEntities}\\{_useCase.Name}";
 
         _metadataBuilder = new MetadatasBuilder(_generationDesign, _pathNameSpacesService, _domainDefinition);
     }

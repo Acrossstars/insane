@@ -4,7 +4,9 @@ using Core.Domain.UseCases;
 using Core.Generation;
 using Core.Metadatas;
 using Core.Metadatas.Repositories;
+using Microsoft.Build.Evaluation;
 using System;
+using Templating.Configurations.Models;
 using Templating.Features;
 using Templating.Infra;
 
@@ -31,12 +33,15 @@ public class DomainBuilder
     private string _eventsGeneratedNmespace;
     private string _eventHandlersGeneratedNmespace;
 
+    private readonly ProjectConfig _projectConfig;
+
     public DomainBuilder(
         IConfiguration configuration,
         string metadataDir,
         PathNameSpacesService pathService,
         GenerationDesign generationDesign,
-        DomainDefinition domainDefinition
+        DomainDefinition domainDefinition,
+        ProjectConfig projectConfig
         )
     {
         _configuration = configuration;
@@ -58,6 +63,8 @@ public class DomainBuilder
         _eventHadlersOutputFilePath = eventPath.EventHandlersOutputFilePath!;
 
         (_eventsGeneratedNmespace, _eventHandlersGeneratedNmespace) = _pathService.GetEventsGeneratedNamespace(_manyEntities);
+
+        _projectConfig = projectConfig;
     }
 
     public void BuildEntities()
@@ -169,7 +176,13 @@ public class DomainBuilder
                 useCase.UseCaseSteps,
                 useCase.HasRestEndpoint);
 
-            var userCasesBuilder = new UserCasesBuilder(_configuration, _domainDefinition, metaUseCase, _generationDesign, _pathService);
+            var userCasesBuilder = new UserCasesBuilder(
+                _configuration, 
+                _domainDefinition, 
+                metaUseCase, 
+                _generationDesign, 
+                _pathService,
+                _projectConfig);
 
             userCasesBuilder.GenerateUseCase(_domainEntity, _dtosPath, _metadataDir);
         }
