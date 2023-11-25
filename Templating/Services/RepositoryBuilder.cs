@@ -6,7 +6,7 @@ using Templating.Infra;
 
 namespace Templating.Services;
 
-public class RepositoryBuilder : BaseBuilder
+public class RepositoryBuilder// : BaseBuilder
 {
     private readonly string _outputFileRepository;
     private readonly string? _pathRepository;
@@ -17,12 +17,16 @@ public class RepositoryBuilder : BaseBuilder
     private readonly DomainDefinition _domainDefinition;
     private readonly RepositoryMetadata _repositoryMetadata;
 
+    private readonly PathService _pathService;
+    private readonly NamespaceService _namespaceService;
+
     public RepositoryBuilder(
-        PathNameSpacesService pathNameSpacesService,
+        PathService pathService,
+        NamespaceService namespaceService,
         GenerationDesign generationDesign,
         RepositoryMetadata repositoryMetadata,
         DomainDefinition domainDefinition
-        ) : base(pathNameSpacesService, generationDesign)
+        ) //: base(pathNameSpacesService, generationDesign)
     {
         _repositoriesFolderName = generationDesign.RepositoriesFolderName!;
         _domainDefinition = domainDefinition;
@@ -30,11 +34,16 @@ public class RepositoryBuilder : BaseBuilder
 
         _manyEntities = _repositoryMetadata.AggregateEntity.Pluralize();
 
-        var repositoryPaths = pathNameSpacesService.GetRepositoriesPathConfig(_manyEntities);
+        //var repositoryPaths = pathNameSpacesService.GetRepositoriesPathConfig(_manyEntities);
 
-        _outputFileRepository = repositoryPaths.RepositoryOutputFilePath;
+        //_outputFileRepository = repositoryPaths.RepositoryOutputFilePath;
+        //_outputFileRepositoryInterface = repositoryPaths.RepositoryInterfaceOutputFilePath;
 
-        _outputFileRepositoryInterface = repositoryPaths.RepositoryInterfaceOutputFilePath;
+        _pathService = pathService;
+        _namespaceService = namespaceService;
+
+        _outputFileRepository = pathService.CreateRepositoryPath(_manyEntities);
+        _outputFileRepositoryInterface = pathService.CreateRepositoryInterfasePath(_manyEntities);
     }
 
     public void GenerateRepositoriesMetadata(string metadataDir, RepositoryMetadata baseRepositoryMetadata)
@@ -65,7 +74,8 @@ public class RepositoryBuilder : BaseBuilder
 
         repositoryMetadata.Type = MetadataType.PostgreSqlRepository;
         repositoryMetadata.InterfaceName = $"I{repositoryMetadata.AggregateEntity}Repository"; // все эти костыли УБРАТЬ.
-        repositoryMetadata.Namespace = BuildNamepace(repositoryMetadata.Type);
+        //repositoryMetadata.Namespace = BuildNamepace(repositoryMetadata.Type);
+        repositoryMetadata.Namespace = _namespaceService.CreateRepsitoriesNamespace(_manyEntities);
 
         foreach (var method in repositoryMetadata.Methods)
         {
@@ -92,39 +102,40 @@ public class RepositoryBuilder : BaseBuilder
         repositoryMetadata.Usings = new string[] { baseRepositoryNamespace, entityNamespace };
 
         repositoryMetadata.Type = MetadataType.IRepository;
-        repositoryMetadata.Namespace = BuildNamepace(repositoryMetadata.Type);
+        //repositoryMetadata.Namespace = BuildNamepace(repositoryMetadata.Type);
+        repositoryMetadata.Namespace = _namespaceService.CreateRepositoryInterfacesNamespace(_manyEntities);
 
         _domainDefinition.RepositoryInterfaces.Add(repositoryMetadata);
 
         BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFileRepositoryInterface, repositoryMetadata, $"I{repositoryMetadata.AggregateEntity}Repository");
     }
 
-    private string BuildNamepace(MetadataType metadataType)
-    {
-        string layerPath = string.Empty;
+    //private string BuildNamepace(MetadataType metadataType)
+    //{
+    //    string layerPath = string.Empty;
 
-        switch (metadataType)
-        {
-            case MetadataType.PostgreSqlRepository:
-                layerPath = _pathNameSpacesService
-                    .GetInfrastructurePath()
-                    .Split('\\')
-                    .Last(); // Infrastructure
-                break;
-            case MetadataType.IRepository:
-                layerPath = _pathNameSpacesService
-                    .GetDomainLayerPath()
-                    .Split('\\')
-                    .Last(); // BoundedContext / Domain
-                break;
-        }
+    //    switch (metadataType)
+    //    {
+    //        case MetadataType.PostgreSqlRepository:
+    //            layerPath = _pathNameSpacesService
+    //                .GetInfrastructurePath()
+    //                .Split('\\')
+    //                .Last(); // Infrastructure
+    //            break;
+    //        case MetadataType.IRepository:
+    //            layerPath = _pathNameSpacesService
+    //                .GetDomainLayerPath()
+    //                .Split('\\')
+    //                .Last(); // BoundedContext / Domain
+    //            break;
+    //    }
 
-        var dataFolderName = _generationDesign.RepositoriesDataFolderName; // Data
+    //    var dataFolderName = _generationDesign.RepositoriesDataFolderName; // Data
 
-        // Infrastructure.Data.Repositories.SomeAggregate || Domain.Data.Repositories.SomeAggregate.
-        var nameSpace = $"{layerPath}.{dataFolderName}.{_repositoriesFolderName}.{_manyEntities}";
+    //    // Infrastructure.Data.Repositories.SomeAggregate || Domain.Data.Repositories.SomeAggregate.
+    //    var nameSpace = $"{layerPath}.{dataFolderName}.{_repositoriesFolderName}.{_manyEntities}";
 
-        return nameSpace;
-    }
+    //    return nameSpace;
+    //}
 
 }

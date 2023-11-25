@@ -1,8 +1,8 @@
 ﻿using Core;
+using Core.ConfigurationsModels;
 using Core.Domain.UseCases;
 using Core.Generation;
 using Core.Metadatas;
-using Templating.Configurations.Models;
 using Templating.Features;
 using Templating.Infra;
 
@@ -11,38 +11,41 @@ namespace Templating.Services;
 public class UserCasesBuilder
 {
     private static string _useCaseNamespace;
+    private static string _manyEntities;
     private readonly DomainDefinition _domainDefinition;
     private MetaUseCase _useCase;
     private readonly GenerationDesign _generationDesign;
-    private readonly PathNameSpacesService _pathNameSpacesService;
     private string _outputFilePath;
     private readonly MetadatasBuilder _metadataBuilder;
+
+    private readonly PathService _pathService;
+    private readonly NamespaceService _namespaceService;
 
     public UserCasesBuilder(
         DomainDefinition domainDefinition,
         MetaUseCase useCase,
         GenerationDesign generationDesign,
-        PathNameSpacesService pathNameSpacesService,
-        ProjectConfig projectConfig 
+        PathService pathService,
+        NamespaceService namespaceService
         )
     {
         _domainDefinition = domainDefinition;
         _useCase = useCase;
-
         _generationDesign = generationDesign;
-        _pathNameSpacesService = pathNameSpacesService;
 
-        var manyEntities = _useCase.DomainEntityName.Pluralize();
+        _pathService = pathService;
+        _namespaceService = namespaceService;
 
-        _useCaseNamespace = $"{projectConfig.Namespaces.UseCasesBase}.{manyEntities}.{_useCase.Name}";
-        _outputFilePath = 
-            $"{projectConfig.SolutionRootPath}\\{projectConfig.OutputRelativePaths.UseCases}\\{manyEntities}\\{_useCase.Name}";
+        _manyEntities = _useCase.DomainEntityName.Pluralize();
 
-        _metadataBuilder = new MetadatasBuilder(_generationDesign, _pathNameSpacesService, _domainDefinition);
+        _useCaseNamespace = _namespaceService.CreateUseCaseNamespace(_manyEntities, _useCase.Name);
+        _outputFilePath = _pathService.CreateUseCasePath(_manyEntities, _useCase.Name);
+            
+        _metadataBuilder = new MetadatasBuilder(_generationDesign, _domainDefinition);
     }
 
     //TODO: Rename Namespace to Match Folder Structure
-    public void GenerateUseCase(string domainEntity, string dtosPath, string metadataDir)
+    public void GenerateUseCase(string metadataDir)
     {
         var builderContexts = new List<ObjectBuilderContext>();
 
@@ -77,15 +80,15 @@ public class UserCasesBuilder
 
         _useCase.DtoMetadata = dto;
 
-        var dtoPath = dtosPath + $"\\{domainEntity.Pluralize()}";
+        var dtoPath = _pathService.CreateDtosPath(_manyEntities);
         BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName!);
 
         if (_useCase.HasRestEndpoint)
         {
-            RestEndpointMetadata restEndpoint = _metadataBuilder.CreateRestEndpointMetadata(domainEntity, _useCase, _useCaseNamespace);
+            RestEndpointMetadata restEndpoint = 
+                _metadataBuilder.CreateRestEndpointMetadata(_useCase.DomainEntityName, _useCase, _useCaseNamespace);
 
             BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, restEndpoint, restEndpoint.ClassName!);
-
         }
 
 

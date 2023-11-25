@@ -1,8 +1,5 @@
-﻿using Core.Analyzing;
+﻿using Core.ConfigurationsModels;
 using Core.Generation;
-using Microsoft.Build.Locator;
-using Microsoft.Extensions.Configuration;
-using Templating.Configurations.Models;
 
 //MSBuildLocator.RegisterDefaults();
 
@@ -32,15 +29,16 @@ configuration.Bind(nameof(ProjectConfig), projectConfig);
 
 var definition = configuration.Get<DomainDefinition>();
 var generationDesign = new GenerationDesign();
-var pathService = new PathNameSpacesService(configuration, generationDesign);
+//var pathService = new PathNameSpacesService(configuration, generationDesign);
+var pathService = new PathService(projectConfig);
+var namespaceService = new NamespaceService(projectConfig);
 
 var domainBuilder = new DomainBuilder(
-    configuration,
     metadataDir,
-    pathService,
     generationDesign,
     definition,
-    projectConfig);
+    pathService,
+    namespaceService);
 
 domainBuilder.BuildEntities();
 

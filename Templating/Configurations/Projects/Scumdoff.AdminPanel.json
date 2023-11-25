@@ -2,10 +2,21 @@
   "ProjectConfig": {
     "SolutionRootPath": "D:\\Work\\Appfox\\Projects\\scumdoffback",
     "Namespaces": {
-      "UseCasesBase": "Scumdoff.AdminPanel.Application.UseCases"
+      "EntitiesBase": "Scumdoff.AdminPanel.Domain",
+      "UseCasesBase": "Scumdoff.AdminPanel.Application.UseCases",
+      "Events": "Scumdoff.AdminPanel.Domain.${MANY_ENTITIES}.Events",
+      "EventHandlers": "Scumdoff.AdminPanel.Application.EventHandlers.${MANY_ENTITIES}",
+      "Repositories": "Scumdoff.AdminPanel.Infrastructure.Data.Repositories.${MANY_ENTITIES}",
+      "RepositoryInterfaces": "Scumdoff.AdminPanel.Domain.${MANY_ENTITIES}.Data"
     },
     "OutputRelativePaths": {
-      "UseCases": "src\\Services\\Scumdoff.AdminPanel\\Application\\UseCases"
+      "Entities": "src\\Services\\Scumdoff.AdminPanel\\Domain",
+      "UseCases": "src\\Services\\Scumdoff.AdminPanel\\Application\\UseCases",
+      "Dtos": "src\\Services\\Scumdoff.AdminPanel\\Dtos",
+      "Events": "src\\Services\\Scumdoff.AdminPanel\\Domain\\${MANY_ENTITIES}\\Events",
+      "EventHandlers": "src\\Services\\Scumdoff.AdminPanel\\Application\\EventHandlers\\${MANY_ENTITIES}",
+      "Repositories": "src\\Services\\Scumdoff.AdminPanel\\Infrastructure\\Data\\Repositories\\${MANY_ENTITIES}",
+      "RepositoryInterfaces": "src\\Services\\Scumdoff.AdminPanel\\Domain\\${MANY_ENTITIES}\\Data"
     }
   }
 }

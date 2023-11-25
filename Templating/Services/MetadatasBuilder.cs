@@ -14,17 +14,14 @@ namespace Templating.Services;
 internal class MetadatasBuilder
 {
     private readonly GenerationDesign _generationDesign;
-    private readonly PathNameSpacesService _pathNameSpacesService;
     private readonly DomainDefinition _domainDefinition;
 
     public MetadatasBuilder(
         GenerationDesign generationDesign,
-        PathNameSpacesService pathNameSpacesService,
         DomainDefinition domainDefinition
         )
     {
         _generationDesign = generationDesign;
-        _pathNameSpacesService = pathNameSpacesService;
         _domainDefinition = domainDefinition;
     }
 
