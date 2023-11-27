@@ -1,0 +1,7 @@
+﻿{
+  "BaseCommand": "BaseCommand",
+  "BaseCommandHandler": "BaseCommandHandler, IRequestHandler<CreateBackendWalletRequest, CommandResult>",
+  "BaseQuery": "BaseQuery<GetBackendWalletDataDto>",
+  "BaseQueryHandler": "BaseQueryHandler, IRequestHandler<GetBackendWalletDataRequest, GetBackendWalletDataDto>",
+  "BaseRepository": ""
+}

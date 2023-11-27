@@ -41,7 +41,4 @@ public class {{ ClassName }} : {{- for item in BaseEntities  }}{{ item }}{{ if !
     protected override void CheckInvariants()
     {
     }
-
-    #endregion
-
 }

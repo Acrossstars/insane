@@ -1,5 +1,4 @@
 ﻿using Core;
-using Core.ConfigurationsModels;
 using Core.Domain.UseCases;
 using Core.Generation;
 using Core.Metadatas;
@@ -20,13 +19,15 @@ public class UserCasesBuilder
 
     private readonly PathService _pathService;
     private readonly NamespaceService _namespaceService;
+    private readonly BuildTools _buildTools;
 
     public UserCasesBuilder(
         DomainDefinition domainDefinition,
         MetaUseCase useCase,
         GenerationDesign generationDesign,
         PathService pathService,
-        NamespaceService namespaceService
+        NamespaceService namespaceService,
+        BuildTools buildTools
         )
     {
         _domainDefinition = domainDefinition;
@@ -35,7 +36,7 @@ public class UserCasesBuilder
 
         _pathService = pathService;
         _namespaceService = namespaceService;
-
+        _buildTools = buildTools;
         _manyEntities = _useCase.DomainEntityName.Pluralize();
 
         _useCaseNamespace = _namespaceService.CreateUseCaseNamespace(_manyEntities, _useCase.Name);
@@ -55,11 +56,11 @@ public class UserCasesBuilder
 
                 var commandRequest = _metadataBuilder.CreateMetaCommandRequest(_useCase, _useCaseNamespace);
 
-                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequest, commandRequest.ClassName!);
+                _buildTools.AppendToBuild(builderContexts, _outputFilePath, commandRequest, commandRequest.ClassName!);
 
                 var commandRequestHandler = _metadataBuilder.CreateCommandRequestHandlerMetadata(_useCase, _useCaseNamespace);
 
-                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, commandRequestHandler, commandRequestHandler.ClassName!);
+                _buildTools.AppendToBuild(builderContexts, _outputFilePath, commandRequestHandler, commandRequestHandler.ClassName!);
 
                // var commandRestEndpoint = MetadatasBuilder.
 
@@ -68,11 +69,11 @@ public class UserCasesBuilder
                 //TODO: for query handler needed to add using that contains namespace for query request
                 var queryRequest = _metadataBuilder.CreateQueryRequestMetadata(_useCase, _useCaseNamespace);
 
-                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, queryRequest, queryRequest.ClassName!);
+                _buildTools.AppendToBuild(builderContexts, _outputFilePath, queryRequest, queryRequest.ClassName!);
 
                 var queryRequestHandler = _metadataBuilder.CreateQueryRequestHandlerMetadata(_useCase, _useCaseNamespace);
 
-                BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, queryRequestHandler, queryRequestHandler.ClassName!);
+                _buildTools.AppendToBuild(builderContexts, _outputFilePath, queryRequestHandler, queryRequestHandler.ClassName!);
                 break;
         }
 
@@ -81,14 +82,14 @@ public class UserCasesBuilder
         _useCase.DtoMetadata = dto;
 
         var dtoPath = _pathService.CreateDtosPath(_manyEntities);
-        BuildTools.AppendToBuild(metadataDir, builderContexts, dtoPath, dto, dto.ClassName!);
+        _buildTools.AppendToBuild(builderContexts, dtoPath, dto, dto.ClassName!);
 
         if (_useCase.HasRestEndpoint)
         {
             RestEndpointMetadata restEndpoint = 
                 _metadataBuilder.CreateRestEndpointMetadata(_useCase.DomainEntityName, _useCase, _useCaseNamespace);
 
-            BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFilePath, restEndpoint, restEndpoint.ClassName!);
+            _buildTools.AppendToBuild(builderContexts, _outputFilePath, restEndpoint, restEndpoint.ClassName!);
         }
 
 

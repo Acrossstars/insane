@@ -33,7 +33,16 @@
 	  <None Update="Configurations\crud.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Update="Configurations\Projects\DesertBrawlAPI\DesertBrawlAPI.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Configurations\Projects\GlebAPI\GlebAPI.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Update="Configurations\Projects\Scumdoff.AdminPanel.json">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Update="Configurations\Projects\UniqMerch.SmartContracts\UniqMerch.SmartContracts.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="Configurations\Repositories\repository.json">

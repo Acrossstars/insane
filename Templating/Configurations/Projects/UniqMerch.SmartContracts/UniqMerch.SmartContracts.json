@@ -1,0 +1,30 @@
+﻿{
+  "ProjectConfig": {
+    //"SolutionRootPath": "C:\\uniqmerch\\uniqmerch-server",
+    "SolutionRootPath": "E:\\CheckItem\\uniqmerch-server",
+    "Namespaces": {
+      "EntitiesBase": "UniqMerch.SmartContracts.Domain",
+      "UseCasesBase": "UniqMerch.SmartContracts.Application.UseCases",
+      "Events": "UniqMerch.SmartContracts.Domain.${MANY_ENTITIES}.Events",
+      "EventHandlers": "UniqMerch.SmartContracts.Application.EventHandlers.${MANY_ENTITIES}",
+      "Repositories": "UniqMerch.SmartContracts.Infrastructure.Data.Repositories.${MANY_ENTITIES}",
+      "RepositoryInterfaces": "UniqMerch.SmartContracts.Domain.${MANY_ENTITIES}.Data"
+    },
+    "OutputRelativePaths": {
+      "SolutionFileName": "UniqMerch.sln",
+      "ApiRootPath": "\\src\\Services\\UniqMerch.SmartContracts",
+      "DomainLayerPath": "\\src\\Services\\UniqMerch.SmartContracts\\Domain",
+      "ApplicationLayerPath": "\\src\\Services\\UniqMerch.SmartContracts\\Application",
+      "DomainLayerNamespaceRoot": "UniqMerch.SmartContracts.Domain",
+      "DtoPath": "\\src\\Services\\UniqMerch.SmartContracts\\Contracts\\Dtos",
+
+      "Entities": "\\src\\Services\\UniqMerch.SmartContracts\\Domain\\${MANY_ENTITIES}\\Entities",
+      "UseCases": "\\src\\Services\\UniqMerch.SmartContracts\\Application\\UseCases",
+      "Dtos": "\\src\\Services\\UniqMerch.SmartContracts\\Dtos",
+      "Events": "\\src\\Services\\UniqMerch.SmartContracts\\Domain\\${MANY_ENTITIES}\\Events",
+      "EventHandlers": "\\src\\Services\\UniqMerch.SmartContracts\\Application\\EventHandlers\\${MANY_ENTITIES}",
+      "Repositories": "\\src\\Services\\UniqMerch.SmartContracts\\Infrastructure\\Data\\Repositories\\${MANY_ENTITIES}",
+      "RepositoryInterfaces": "\\src\\Services\\UniqMerch.SmartContracts\\Domain\\${MANY_ENTITIES}\\Data"
+    }
+  }
+}

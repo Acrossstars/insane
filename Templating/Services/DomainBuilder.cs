@@ -260,13 +260,15 @@ public class DomainBuilder
 
     private readonly PathService _pathService;
     private readonly NamespaceService _namespaceService;
+    private readonly BuildTools _buildTools;
 
     public DomainBuilder(
         string metadataDir,
         GenerationDesign generationDesign,
         DomainDefinition domainDefinition,
         PathService pathService,
-        NamespaceService namespaceService
+        NamespaceService namespaceService,
+        BuildTools buildTools
         )
     {
         _metadataDir = metadataDir;
@@ -276,6 +278,7 @@ public class DomainBuilder
 
         _pathService = pathService;
         _namespaceService = namespaceService;
+        _buildTools = buildTools;
         _generationDesign = generationDesign;
 
     }
@@ -308,7 +311,7 @@ public class DomainBuilder
             //тож костыль но менее критичный
             metadata.CreateParameters = metadata.Constructor;
 
-            BuildTools.AppendToBuild(_metadataDir, builderContexts, outputFilePath, metadata, metadata.ClassName!);
+            _buildTools.AppendToBuild(builderContexts, outputFilePath, metadata, metadata.ClassName!);
         }
 
         foreach (var builderMetadata in builderContexts)
@@ -360,14 +363,14 @@ public class DomainBuilder
 
             AwesomeHelper.FillOperablePropertiesFromMetadata(metadata.Context, metadata);
 
-            var eventsOutputPath = _pathService.CreateEvantsPath(_manyEntities);
-            BuildTools.AppendToBuild(_metadataDir, builderContexts, eventsOutputPath, metadata, metadata.ClassName);
+            var eventsOutputPath = _pathService.CreateEventsPath(_manyEntities);
+            _buildTools.AppendToBuild(builderContexts, eventsOutputPath, metadata, metadata.ClassName);
 
             var eventHandlersNamespace = _namespaceService.CreateEventHandlersNamespace(_manyEntities);
             var eventHandlerMetadata = CreateDomainEventHandlerMetadata(metadata.ClassName, metadata, eventHandlersNamespace);
 
             var eventHandlersOutputPath = _pathService.CreateEventHandlersPath(_manyEntities);
-            BuildTools.AppendToBuild(_metadataDir, builderContexts, eventHandlersOutputPath, eventHandlerMetadata, eventHandlerMetadata.ClassName!);
+            _buildTools.AppendToBuild(builderContexts, eventHandlersOutputPath, eventHandlerMetadata, eventHandlerMetadata.ClassName!);
         }
 
         foreach (var builderMetadata in builderContexts)
@@ -395,7 +398,8 @@ public class DomainBuilder
                 metaUseCase,
                 _generationDesign,
                 _pathService,
-                _namespaceService);
+                _namespaceService,
+                _buildTools);
 
             userCasesBuilder.GenerateUseCase(_metadataDir);
         }
@@ -453,7 +457,7 @@ public class DomainBuilder
 
         foreach (var repository in _domainDefinition.Repositories)
         {
-            var repositoryBuilder = new RepositoryBuilder(_pathService, _namespaceService, _generationDesign, repository, _domainDefinition);
+            var repositoryBuilder = new RepositoryBuilder(_pathService, _namespaceService, _generationDesign, repository, _domainDefinition, _buildTools);
 
             repositoryBuilder.GenerateRepositoriesMetadata(_metadataDir, repository);
 

@@ -187,10 +187,13 @@ internal class MetadatasBuilder
 
         AwesomeHelper.InjectRepositoryIntoMetadata(useCase.UseCaseContext, metadata);
 
-        var repositoryInterfaceNamespace = _domainDefinition.RepositoryInterfaces.First().Namespace;
+        if (_domainDefinition.RepositoryInterfaces != null && _domainDefinition.RepositoryInterfaces.Count != 0)
+        {
+            var repositoryInterfaceNamespace = _domainDefinition.RepositoryInterfaces!.FirstOrDefault()!.Namespace;
 
-        metadata.Usings = new string[] { repositoryInterfaceNamespace };
-
+            metadata.Usings = new string[] { repositoryInterfaceNamespace };
+        }
+        
         //*****************************************************************************
 
         return metadata;
@@ -262,9 +265,14 @@ internal class MetadatasBuilder
 
         AwesomeHelper.InjectRepositoryIntoMetadata(useCase.UseCaseContext, metadata);
 
-        var repositoryInterfaceNamespace = _domainDefinition.RepositoryInterfaces.First().Namespace;
+        if (_domainDefinition.RepositoryInterfaces != null && _domainDefinition.RepositoryInterfaces.Count != 0)
+        {
 
-        metadata.Usings = new string[] { repositoryInterfaceNamespace };
+            var repositoryInterfaceNamespace = _domainDefinition.RepositoryInterfaces!.FirstOrDefault()!.Namespace;
+
+            metadata.Usings = new string[] { repositoryInterfaceNamespace! };
+
+        }
 
         //*****************************************************************************
 
@@ -276,7 +284,7 @@ internal class MetadatasBuilder
         switch (httpMethodType)
         {
             case HttpMethodType.Post:
-               return CrudType.Create;
+                return CrudType.Create;
 
             case HttpMethodType.Put:
                 return CrudType.Update;

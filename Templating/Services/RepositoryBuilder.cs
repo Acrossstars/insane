@@ -15,6 +15,7 @@ public class RepositoryBuilder// : BaseBuilder
     private readonly string? _pathRepositoryInterface;
     private readonly string? _outputFileRepositoryInterface;
     private readonly DomainDefinition _domainDefinition;
+    private readonly BuildTools _buildTools;
     private readonly RepositoryMetadata _repositoryMetadata;
 
     private readonly PathService _pathService;
@@ -25,11 +26,13 @@ public class RepositoryBuilder// : BaseBuilder
         NamespaceService namespaceService,
         GenerationDesign generationDesign,
         RepositoryMetadata repositoryMetadata,
-        DomainDefinition domainDefinition
+        DomainDefinition domainDefinition,
+        BuildTools buildTools
         ) //: base(pathNameSpacesService, generationDesign)
     {
         _repositoriesFolderName = generationDesign.RepositoriesFolderName!;
         _domainDefinition = domainDefinition;
+        _buildTools = buildTools;
         _repositoryMetadata = repositoryMetadata;
 
         _manyEntities = _repositoryMetadata.AggregateEntity.Pluralize();
@@ -85,7 +88,7 @@ public class RepositoryBuilder// : BaseBuilder
             }
         }
 
-        BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFileRepository, repositoryMetadata, $"{repositoryMetadata.AggregateEntity}Repository");
+        _buildTools.AppendToBuild(builderContexts, _outputFileRepository, repositoryMetadata, $"{repositoryMetadata.AggregateEntity}Repository");
 
 
 
@@ -107,7 +110,7 @@ public class RepositoryBuilder// : BaseBuilder
 
         _domainDefinition.RepositoryInterfaces.Add(repositoryMetadata);
 
-        BuildTools.AppendToBuild(metadataDir, builderContexts, _outputFileRepositoryInterface, repositoryMetadata, $"I{repositoryMetadata.AggregateEntity}Repository");
+        _buildTools.AppendToBuild(builderContexts, _outputFileRepositoryInterface, repositoryMetadata, $"I{repositoryMetadata.AggregateEntity}Repository");
     }
 
     //private string BuildNamepace(MetadataType metadataType)

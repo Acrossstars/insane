@@ -1,0 +1,10 @@
+﻿//{
+//"SolutionRootPath": "D:\\appfox\\desert-brawl-sharp",
+//////"SolutionRootPath": "D:\\Work\\Appfox\\Projects\\desert-brawl-sharp",
+//"ApiRootPath": "\\src\\ApiGateways\\DesertBrawl.API",
+//"DtoPath": "\\src\\BuildingBlocks\\Contracts\\Dtos",
+//"DomainLayerPath": "\\src\\Services\\Backend\\Domain",
+////// Костыль, потому что в папке Domain у нас сборка BoundedContexts
+//"DomainLayerNamespaceRoot": "BoundedContexts",
+//"ApplicationLayerPath": "\\src\\Services\\Backend\\Application",
+  //}

@@ -5,12 +5,14 @@ namespace Templating.Features;
 
 public class BuildTools
 {
-    public BuildTools()
-    {
+    private readonly string _metadataDir;
 
+    public BuildTools(string metadataDir)
+    {
+        _metadataDir = metadataDir;
     }
 
-    static string GetTextTemplatePath(object item, string metadataDir)
+    string GetTextTemplatePath(object item, string metadataDir)
     {
         var metadata = (BaseMetadata)item;
 
@@ -20,15 +22,25 @@ public class BuildTools
         };
     }
 
-    public static void AppendToBuild(string metadataDir, List<ObjectBuilderContext> builderContexts, string outputFilePath, object model, string fileName)
+    //public static void AppendToBuild(string metadataDir, List<ObjectBuilderContext> builderContexts, string outputFilePath, object model, string fileName)
+    //{
+    //    builderContexts.Add(new ObjectBuilderContext()
+    //    {
+    //        FileName = fileName,
+    //        Model = model,
+    //        TextTemplateFilePath = GetTextTemplatePath(model, metadataDir),
+    //        OutputFilePath = outputFilePath
+    //    });
+    //}
+
+    public void AppendToBuild(List<ObjectBuilderContext> builderContexts, string outputFilePath, object model, string fileName)
     {
         builderContexts.Add(new ObjectBuilderContext()
         {
             FileName = fileName,
             Model = model,
-            TextTemplateFilePath = GetTextTemplatePath(model, metadataDir),
+            TextTemplateFilePath = GetTextTemplatePath(model, _metadataDir),
             OutputFilePath = outputFilePath
         });
     }
-
 }

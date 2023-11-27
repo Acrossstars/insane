@@ -12,7 +12,8 @@ public class PathService
     }
 
     public string CreateEntityPath(string manyEntities)
-       => $"{_projectConfig.SolutionRootPath}\\{_projectConfig.OutputRelativePaths.Entities}\\{manyEntities}";
+       => $"{_projectConfig.SolutionRootPath}\\{_projectConfig.OutputRelativePaths.Entities}\\{manyEntities}"
+        .Replace("${MANY_ENTITIES}", manyEntities);
 
     public string CreateUseCasePath(string manyEntities, string useCaseName)
         => $"{_projectConfig.SolutionRootPath}\\{_projectConfig.OutputRelativePaths.UseCases}\\{manyEntities}\\{useCaseName}";
@@ -20,7 +21,7 @@ public class PathService
     public string CreateDtosPath(string manyEntities)
         => $"{_projectConfig.SolutionRootPath}\\{_projectConfig.OutputRelativePaths.Dtos}\\{manyEntities}";
 
-    public string CreateEvantsPath(string manyEntities)
+    public string CreateEventsPath(string manyEntities)
         => $"{_projectConfig.SolutionRootPath}\\{_projectConfig.OutputRelativePaths.Events}"
             .Replace("${MANY_ENTITIES}", manyEntities);
 

@@ -1,0 +1,8 @@
+﻿{
+  "BaseCommand": "IRequest<CreateBackendWalletResult>",
+  "BaseCommandHandler": "IRequestHandler<CreateBackendWalletRequest, CreateBackendWalletResult>",
+  "BaseQuery": "",
+  "BaseQueryHandler": "",
+  "BaseRepository": "",
+  "BaseEntity": "BaseMongoEntity"
+}

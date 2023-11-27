@@ -1,28 +1,48 @@
 {
-  "domain": "Mishkas",
+  "domain": "BackendWallets",
 
   "entities": [
     {
-      "className": "Mishka",
+      "className": "BackendWallet",
       "properties": [
         {
-          "name": "Name",
+          "name": "UserId",
           "type": "string"
         },
         {
-          "name": "Description",
+          "name": "Label",
           "type": "string"
         },
         {
-          "name": "AnyProperty",
-          "type": "int"
+          "name": "Address",
+          "type": "string"
+        },
+        {
+          "name": "SmartWallet",
+          "type": "string"
+        },
+        {
+          "name": "Balance",
+          "type": "string"
+        },
+        {
+          "name": "Currency",
+          "type": "string"
+        },
+        {
+          "name": "Created",
+          "type": "DateTime"
+        },
+        {
+          "name": "Updated",
+          "type": "DateTime"
         }
       ]
     }
   ],
   "events": [
     {
-      "className": "MishkaAdded",
+      "className": "BackendWalletAdded",
       "properties": [
         {
           "name": "Id",
@@ -35,7 +55,7 @@
       ]
     },
     {
-      "className": "MishkaUpdated",
+      "className": "BackendWalletUpdated",
       "properties": [
         {
           "name": "Id",
@@ -48,7 +68,7 @@
       ]
     },
     {
-      "className": "MishkaDeleted",
+      "className": "BackendWalletDeleted",
       "properties": [
         {
           "name": "Id",
@@ -59,35 +79,35 @@
   ],
   "repositories": [
     {
-      "className": "MishkaRepository",
-      "aggregateEntity": "Mishka",
+      "className": "BackendWalletRepository",
+      "aggregateEntity": "BackendWallet",
       "dbContext": "ApplicationDbContext",
       "methods": [
         {
           "type": "",
-          "name": "AddMishkaNotBaseMethod",
+          "name": "AddBackendWalletNotBaseMethod",
           "parameters": [
             {
-              "type": "Mishka",
-              "name": "mishka"
+              "type": "BackendWallet",
+              "name": "BackendWallet"
             }
           ],
           "logic": ""
         },
         {
           "type": "",
-          "name": "EditMishkaNotBaseMethod",
+          "name": "EditBackendWalletNotBaseMethod",
           "parameters": [
             {
-              "type": "Mishka",
-              "name": "Mishka"
+              "type": "BackendWallet",
+              "name": "BackendWallet"
             }
           ],
           "logic": ""
         },
         {
           "type": "",
-          "name": "DeleteMishkaNotBaseMethod",
+          "name": "DeleteBackendWalletNotBaseMethod",
           "parameters": [
             {
               "type": "string",
@@ -97,16 +117,16 @@
           "logic": ""
         },
         {
-          "type": "List<Mishka>",
-          "name": "GetAllMishka",
+          "type": "List<BackendWallet>",
+          "name": "GetAllBackendWallet",
           "parameters": [
             {}
           ],
           "logic": ""
         },
         {
-          "type": "Mishka",
-          "name": "FindMishkaByIdNotBaseMethod",
+          "type": "BackendWallet",
+          "name": "FindBackendWalletByIdNotBaseMethod",
           "parameters": [
             {
               "type": "string",
@@ -120,243 +140,115 @@
   ],
   "useCases": [
     {
-      "DomainEntityName": "Mishka",
+      "DomainEntityName": "BackendWallet",
       "HasRestEndpoint": false,
       "HttpMethodType": 0,
       "RequestType": 1,
-      "name": "GetKekMishkaDataById",
+      "name": "GetWalletBalance",
       "UseCaseContext": {
         "OperableProperties": [
-          {
-            "name": "CollectionId",
-            "type": "string"
-          }
         ]
       },
       "UseCaseSteps": [
-        "Validate the input id",
-        "Retrieve the digital collection data from the repository",
+        "Validate the input",
+        "Retrieve the backend-wallet data from the blockchain",
         "Check if data is not null",
         "Map the data to a DTO (if necessary)",
         "Return the DTO"
       ]
     },
     {
-      "DomainEntityName": "Mishka",
+      "DomainEntityName": "BackendWallet",
       "HasRestEndpoint": false,
       "HttpMethodType": 1,
       "RequestType": 0,
-      "name": "CreateKekMishkaDataById",
+      "name": "CreateBackendWallet",
       "UseCaseContext": {
         "OperableProperties": [
           {
-            "name": "CollectionId",
+            "name": "UserId",
             "type": "string"
+          },
+          {
+            "name": "Label",
+            "type": "string"
+          },
+          {
+            "name": "Address",
+            "type": "string"
+          },
+          {
+            "name": "SmartWallet",
+            "type": "string"
+          },
+          {
+            "name": "Balance",
+            "type": "string"
+          },
+          {
+            "name": "Currency",
+            "type": "string"
+          },
+          {
+            "name": "Created",
+            "type": "DateTime"
+          },
+          {
+            "name": "Updated",
+            "type": "DateTime"
           }
         ]
       },
       "UseCaseSteps": [
-        "Validate the input id",
-        "Retrieve the digital collection data from the repository",
-        "Check if data is not null",
+        "Validate the input",
+        "Create Backend-Wallet",
         "Map the data to a DTO (if necessary)",
         "Return the DTO"
       ]
     },
-    {
-      "DomainEntityName": "Mishka",
-      "HasRestEndpoint": false,
-      "HttpMethodType": 2,
-      "RequestType": 0,
-      "name": "UpdateKekMishkaDataById",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "name": "CollectionId",
-            "type": "string"
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Validate the input id",
-        "Retrieve the digital collection data from the repository",
-        "Check if data is not null",
-        "Map the data to a DTO (if necessary)",
-        "Return the DTO"
-      ]
-    },
-    {
-      "DomainEntityName": "Mishka",
-      "HasRestEndpoint": false,
-      "HttpMethodType": 3,
-      "RequestType": 0,
-      "name": "DeleteKekMishkaDataById",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "name": "CollectionId",
-            "type": "string"
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Validate the input id",
-        "Retrieve the digital collection data from the repository",
-        "Check if data is not null",
-        "Map the data to a DTO (if necessary)",
-        "Return the DTO"
-      ]
-    }
     //{
-    //  "DomainEntityName": "Mishka",
-    //  "HasRestEndpoint": true,
+    //  "DomainEntityName": "BackendWallet",
+    //  "HasRestEndpoint": false,
     //  "HttpMethodType": 2,
     //  "RequestType": 0,
-    //  "name": "UpdateMishka",
+    //  "name": "UpdateKekBackendWalletDataById",
     //  "UseCaseContext": {
     //    "OperableProperties": [
     //      {
     //        "name": "CollectionId",
     //        "type": "string"
-    //      },
-    //      {
-    //        "name": "CreatorId",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "TokenName",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "TokenSymbol",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "ContractOwner",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "ContractAddress",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "TxHash",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "BlockHash",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "ContractStandart",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "GasUsed",
-    //        "type": "BigInteger"
-    //      },
-    //      {
-    //        "name": "GasPrice",
-    //        "type": "BigInteger"
-    //      },
-    //      {
-    //        "name": "CreatedDate",
-    //        "type": "DateTime"
     //      }
     //    ]
     //  },
     //  "UseCaseSteps": [
-    //    "Find entity in db by id",
-    //    "Update Entity",
-    //    "Save to DataBase",
-    //    "Trigger the EntityUpdated DomainEvent"
+    //    "Validate the input id",
+    //    "Retrieve the digital collection data from the repository",
+    //    "Check if data is not null",
+    //    "Map the data to a DTO (if necessary)",
+    //    "Return the DTO"
     //  ]
     //},
     //{
-    //  "DomainEntityName": "Mishka",
-    //  "HasRestEndpoint": true,
+    //  "DomainEntityName": "BackendWallet",
+    //  "HasRestEndpoint": false,
     //  "HttpMethodType": 3,
     //  "RequestType": 0,
-    //  "name": "DeleteMishka",
-    //  "UseCaseContext": {
-    //    "OperableProperties": [
-    //      {
-    //        "Modificator": "public",
-    //        "Type": "string",
-    //        "Name": "Id",
-    //        "Accessors": [ "get", "set" ]
-    //      }
-    //    ]
-    //  },
-    //  "UseCaseSteps": [
-    //    "Find entity in db by id",
-    //    "Delete Entity",
-    //    "Save to DataBase",
-    //    "Trigger the EntityDeleted DomainEvent"
-    //  ]
-    //},
-    //{
-    //  "DomainEntityName": "Mishka",
-    //  "HasRestEndpoint": true,
-    //  "HttpMethodType": 1,
-    //  "RequestType": 0,
-    //  "name": "CreateMishka",
+    //  "name": "DeleteKekBackendWalletDataById",
     //  "UseCaseContext": {
     //    "OperableProperties": [
     //      {
     //        "name": "CollectionId",
     //        "type": "string"
-    //      },
-    //      {
-    //        "name": "CreatorId",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "TokenName",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "TokenSymbol",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "ContractOwner",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "ContractAddress",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "TxHash",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "BlockHash",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "ContractStandart",
-    //        "type": "string"
-    //      },
-    //      {
-    //        "name": "GasUsed",
-    //        "type": "BigInteger"
-    //      },
-    //      {
-    //        "name": "GasPrice",
-    //        "type": "BigInteger"
-    //      },
-    //      {
-    //        "name": "CreatedDate",
-    //        "type": "DateTime"
     //      }
     //    ]
     //  },
     //  "UseCaseSteps": [
-    //    "Create new Mishka",
-    //    "Save to database"
+    //    "Validate the input id",
+    //    "Retrieve the digital collection data from the repository",
+    //    "Check if data is not null",
+    //    "Map the data to a DTO (if necessary)",
+    //    "Return the DTO"
     //  ]
-    //},
+    //}
   ]
 }
