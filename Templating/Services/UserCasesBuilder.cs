@@ -3,14 +3,11 @@ using Core.Domain.UseCases;
 using Core.Generation;
 using Core.Metadatas;
 using Templating.Features;
-using Templating.Infra;
 
 namespace Templating.Services;
 
 public class UserCasesBuilder
 {
-    private static string _useCaseNamespace;
-    private static string _manyEntities;
     private readonly DomainDefinition _domainDefinition;
     private MetaUseCase _useCase;
     private readonly GenerationDesign _generationDesign;
@@ -37,16 +34,16 @@ public class UserCasesBuilder
         _pathService = pathService;
         _namespaceService = namespaceService;
         _buildTools = buildTools;
-        _manyEntities = _useCase.DomainEntityName.Pluralize();
+        _useCase.ManyEntities = _useCase.DomainEntityName.Pluralize();
 
-        _useCaseNamespace = _namespaceService.CreateUseCaseNamespace(_manyEntities, _useCase.Name);
-        _outputFilePath = _pathService.CreateUseCasePath(_manyEntities, _useCase.Name);
+        _useCase.UseCaseNamespace = _namespaceService.CreateUseCaseNamespace(_useCase.ManyEntities, _useCase.Name);
+        _outputFilePath = _pathService.CreateUseCasePath(_useCase.ManyEntities, _useCase.Name);
             
         _metadataBuilder = new MetadatasBuilder(_generationDesign, _domainDefinition);
     }
 
     //TODO: Rename Namespace to Match Folder Structure
-    public void GenerateUseCase(string metadataDir)
+    public List<ObjectBuilderContext> GenerateUseCase()
     {
         var builderContexts = new List<ObjectBuilderContext>();
 
@@ -54,11 +51,11 @@ public class UserCasesBuilder
         {
             case RequestType.Command:
 
-                var commandRequest = _metadataBuilder.CreateMetaCommandRequest(_useCase, _useCaseNamespace);
+                var commandRequest = _metadataBuilder.CreateMetaCommandRequest(_useCase);
 
                 _buildTools.AppendToBuild(builderContexts, _outputFilePath, commandRequest, commandRequest.ClassName!);
 
-                var commandRequestHandler = _metadataBuilder.CreateCommandRequestHandlerMetadata(_useCase, _useCaseNamespace);
+                var commandRequestHandler = _metadataBuilder.CreateCommandRequestHandlerMetadata(_useCase);
 
                 _buildTools.AppendToBuild(builderContexts, _outputFilePath, commandRequestHandler, commandRequestHandler.ClassName!);
 
@@ -67,37 +64,31 @@ public class UserCasesBuilder
                 break;
             case RequestType.Query:
                 //TODO: for query handler needed to add using that contains namespace for query request
-                var queryRequest = _metadataBuilder.CreateQueryRequestMetadata(_useCase, _useCaseNamespace);
+                var queryRequest = _metadataBuilder.CreateQueryRequestMetadata(_useCase);
 
                 _buildTools.AppendToBuild(builderContexts, _outputFilePath, queryRequest, queryRequest.ClassName!);
 
-                var queryRequestHandler = _metadataBuilder.CreateQueryRequestHandlerMetadata(_useCase, _useCaseNamespace);
+                var queryRequestHandler = _metadataBuilder.CreateQueryRequestHandlerMetadata(_useCase);
 
                 _buildTools.AppendToBuild(builderContexts, _outputFilePath, queryRequestHandler, queryRequestHandler.ClassName!);
                 break;
         }
 
-        var dto = MetadatasBuilder.GetDto(_useCase, _useCaseNamespace);
+        var dto = MetadatasBuilder.GetDto(_useCase, _useCase.UseCaseNamespace);
 
         _useCase.DtoMetadata = dto;
 
-        var dtoPath = _pathService.CreateDtosPath(_manyEntities);
+        var dtoPath = _pathService.CreateDtosPath(_useCase.ManyEntities);
         _buildTools.AppendToBuild(builderContexts, dtoPath, dto, dto.ClassName!);
 
         if (_useCase.HasRestEndpoint)
         {
             RestEndpointMetadata restEndpoint = 
-                _metadataBuilder.CreateRestEndpointMetadata(_useCase.DomainEntityName, _useCase, _useCaseNamespace);
+                _metadataBuilder.CreateRestEndpointMetadata(_useCase, _useCase.UseCaseNamespace);
 
             _buildTools.AppendToBuild(builderContexts, _outputFilePath, restEndpoint, restEndpoint.ClassName!);
         }
 
-
-
-        foreach (var builderMetadata in builderContexts)
-        {
-            var builder = new FileBuilder();
-            builder.Build(builderMetadata);
-        }
+        return builderContexts;
     }
 }

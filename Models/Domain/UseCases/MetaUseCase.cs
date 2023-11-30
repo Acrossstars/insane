@@ -5,7 +5,7 @@ namespace Core.Domain.UseCases;
 public class MetaUseCase
 {
     public MetaUseCase() { }
-
+    
     public MetaUseCase(
         string domainEntityName,
         string name,
@@ -18,6 +18,7 @@ public class MetaUseCase
         bool returnList = false)
     {
         DomainEntityName = domainEntityName;
+        //ManyEntities = DomainEntityName.Pluralize();
         Name = name;
         RequestType = requestType;
         HttpMethodType = httpMethodType;
@@ -46,7 +47,17 @@ public class MetaUseCase
         UseCaseSteps = steps;
     }
 
+    public static MetaUseCase Create()
+    {
+        var newMetaUseCase = new MetaUseCase();
+
+
+
+        return newMetaUseCase;
+    }
+
     public string DomainEntityName { get; set; } = default!;
+    public string ManyEntities { get; set; } = default!;
     public string Name { get; set; } = default!;
     public HttpMethodType HttpMethodType { get; set; }
     public RequestType RequestType { get; set; }
@@ -64,4 +75,5 @@ public class MetaUseCase
     public MetaUseCaseContext UseCaseContext { get; set; }
     //public List<MetaUseCaseStep> UseCaseSteps { get; set; }
     public List<string> UseCaseSteps { get; set; }
+    public string UseCaseNamespace { get; set; }
 }

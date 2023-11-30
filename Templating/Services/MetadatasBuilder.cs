@@ -1,13 +1,10 @@
-﻿using Core.Domain;
-using Core.Domain.Common;
-using Core.Domain.Enums;
+﻿using Core.Domain.Common;
 using Core.Domain.UseCases;
 using Core.Extensions;
 using Core.Generation;
 using Core.Metadatas;
 using Core.Metadatas.Commands;
 using Core.Metadatas.Queries;
-using Core.Metadatas.Repositories;
 
 namespace Templating.Services;
 
@@ -68,7 +65,7 @@ internal class MetadatasBuilder
         return metadata;
     }
 
-    public RestEndpointMetadata CreateRestEndpointMetadata(string domainEntity, MetaUseCase useCase, string useCaseNamespace)
+    public RestEndpointMetadata CreateRestEndpointMetadata(MetaUseCase useCase, string useCaseNamespace)
     {
         var metadata = new RestEndpointMetadata()
         {
@@ -87,7 +84,7 @@ internal class MetadatasBuilder
             HttpMethod = useCase.HttpMethodType.ToString(),
             InMemoryBusMethod = useCase.RequestType.ToString(),
             InputType = $"{useCase.Name}Dto",
-            Tags = $"\"{domainEntity.Pluralize()}\"",
+            Tags = $"\"{useCase.UseCaseContext.DomainEntityName.Pluralize()}\"",
             Route = $"\"{useCase.Name}\"",
             BaseConstructor = new string[]
             {
@@ -113,7 +110,7 @@ internal class MetadatasBuilder
         return metadata;
     }
 
-    public CommandRequestMetadata CreateMetaCommandRequest(MetaUseCase useCase, string useCaseNamespace)
+    public CommandRequestMetadata CreateMetaCommandRequest(MetaUseCase useCase)
     {
         CommandRequestMetadata metadata = new CommandRequestMetadata()
         {
@@ -127,7 +124,7 @@ internal class MetadatasBuilder
                 _generationDesign.CommandRequestBasePattern!
             },
 
-            Namespace = useCaseNamespace,
+            Namespace = useCase.UseCaseNamespace,
             ClassName = useCase.Request,
         };
 
@@ -147,7 +144,7 @@ internal class MetadatasBuilder
 
     #region CommandRequestHandler
 
-    public CommandRequestHandlerMetadata CreateCommandRequestHandlerMetadata(MetaUseCase useCase, string useCaseNamespace)
+    public CommandRequestHandlerMetadata CreateCommandRequestHandlerMetadata(MetaUseCase useCase)
     {
         var metadata = new CommandRequestHandlerMetadata()
         {
@@ -158,7 +155,7 @@ internal class MetadatasBuilder
             ClassName = useCase.RequestHandler,
             //no needed perhaps
             FilePath = "",
-            Namespace = useCaseNamespace,
+            Namespace = useCase.UseCaseNamespace,
             RequestType = useCase.Request,
             OperationType = GetCrudOperationFromHttpMethod(useCase.HttpMethodType),
             BaseConstructor = new string[]
@@ -201,7 +198,7 @@ internal class MetadatasBuilder
 
     #endregion
 
-    public QueryRequestMetadata CreateQueryRequestMetadata(MetaUseCase useCase, string useCaseNamespace)
+    public QueryRequestMetadata CreateQueryRequestMetadata(MetaUseCase useCase)
     {
         var metadata = new QueryRequestMetadata()
         {
@@ -209,7 +206,7 @@ internal class MetadatasBuilder
             FilePath = "",
             Usings = new string[] { },
             QueryReturnType = $"{useCase.Name}Dto",
-            Namespace = useCaseNamespace,
+            Namespace = useCase.UseCaseNamespace,
             BaseEntities = new List<string>()
             {
                 string.Format(_generationDesign.QueryRequestBasePattern!, $"{useCase.Name}Dto")
@@ -226,12 +223,12 @@ internal class MetadatasBuilder
         return metadata;
     }
 
-    public QueryRequestHandlerMetadata CreateQueryRequestHandlerMetadata(MetaUseCase useCase, string useCaseNamespace)
+    public QueryRequestHandlerMetadata CreateQueryRequestHandlerMetadata(MetaUseCase useCase)
     {
 
         var metadata = new QueryRequestHandlerMetadata()
         {
-            Namespace = useCaseNamespace,
+            Namespace = useCase.UseCaseNamespace,
             RequestType = useCase.Request,
             QueryReturnType = $"{useCase.Name}Dto",
             ClassName = useCase.RequestHandler,

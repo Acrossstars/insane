@@ -401,7 +401,13 @@ public class DomainBuilder
                 _namespaceService,
                 _buildTools);
 
-            userCasesBuilder.GenerateUseCase(_metadataDir);
+            var builderContexts = userCasesBuilder.GenerateUseCase();
+
+            foreach (var builderMetadata in builderContexts)
+            {
+                var builder = new FileBuilder();
+                builder.Build(builderMetadata);
+            }
         }
     }
 
@@ -457,7 +463,7 @@ public class DomainBuilder
 
         foreach (var repository in _domainDefinition.Repositories)
         {
-            var repositoryBuilder = new RepositoryBuilder(_pathService, _namespaceService, _generationDesign, repository, _domainDefinition, _buildTools);
+            var repositoryBuilder = new RepositoryBuilder(_pathService, _namespaceService, repository, _domainDefinition, _buildTools);
 
             repositoryBuilder.GenerateRepositoriesMetadata(_metadataDir, repository);
 
