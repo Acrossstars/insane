@@ -18,5 +18,17 @@
       "Repositories": "src\\Services\\Scumdoff.AdminPanel\\Infrastructure\\Data\\Repositories\\${MANY_ENTITIES}",
       "RepositoryInterfaces": "src\\Services\\Scumdoff.AdminPanel\\Domain\\${MANY_ENTITIES}\\Data"
     }
+  },
+  "OutputFolderConfig": {
+    "GeneratedCodeSolutionRootPath": "C:\\Users\\human\\source\\repos\\ZephyrTeam\\arduino-api\\GeneratedCode",
+    "ArduinoOutputRelativePaths": {
+      "Entities": "GeneratedCode",
+      "UseCases": "GeneratedCode",
+      "Dtos": "GeneratedCode",
+      "Events": "GeneratedCode",
+      "EventHandlers": "GeneratedCode",
+      "Repositories": "GeneratedCode",
+      "RepositoryInterfaces": "GeneratedCode"
+    }
   }
 }

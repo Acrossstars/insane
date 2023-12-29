@@ -26,7 +26,9 @@ public class FileBuilder
         try
         {
             var res = tpl.Render(context);
+            // User.cs
             var fileName = $"{builderMetadata.FileName}.cs";
+            // "C:\\Users\\human\\source\\repos\\AppFox\\scumdoffback\\src\\Services\\Scumdoff.AdminPanel\\Domain\\Users"
             var fileDirectory = builderMetadata.OutputFilePath;
 
             var formattedCode = CodeFormatter.FormatCodeWithRoslyn(res);
@@ -35,6 +37,11 @@ public class FileBuilder
             fileLoader.AddFileToProject(fileDirectory, fileName, formattedCode);
 
             Console.WriteLine(res);
+
+            var outputFileLoader = new FileLoader($"Configurations/Projects/Scumdoff.AdminPanel.json");
+            outputFileLoader.AddOutputFilesToFolder(fileName, fileDirectory);
+
+            //var forArduinoFileDirectory = 
         }
         catch (Exception ex)
         {
