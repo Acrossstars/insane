@@ -1,0 +1,41 @@
+﻿{
+  "ProjectConfig": {
+    "SolutionRootPath": "C:\\rep\\draft\\subject",
+    //"SolutionFileName": "subject.sln",
+    //"ApiRootPath": "\\Services\\Gleb.API",
+    //"SolutionRootPath": "E:\\templating\\subject",
+    //"DomainLayerPath": "\\Services\\BoundedContexts",
+    //"ApplicationLayerPath": "\\Services\\Gleb.API\\Application",
+    //"InfrastructureLayerPath": "\\Services\\Gleb.API\\Infrastructure",
+    ////"ApplicationLayerPath": "\\Services\\ApplicationOld",
+    //"DomainLayerNamespaceRoot": "BoundedContexts"
+    "Namespaces": {
+      "EntitiesBase": "Gleb.API.Domain",
+      "UseCasesBase": "Gleb.API.Application.UseCases",
+      "Events": "Gleb.API.Domain.${MANY_ENTITIES}.Events",
+      "EventHandlers": "Gleb.API.Application.EventHandlers.${MANY_ENTITIES}",
+      "Repositories": "Gleb.API.Infrastructure.Data.Repositories.${MANY_ENTITIES}",
+      "RepositoryInterfaces": "Gleb.API.Domain.${MANY_ENTITIES}.Data"
+    },
+    //"OutputRelativePaths": {
+    //  "Entities": "src\\Services\\Gleb.API\\Domain",
+    //  "UseCases": "src\\Services\\Gleb.API\\Application\\UseCases",
+    //  //"DtoPath": "\\BuildingBlocks\\Contracts\\Dtos",
+    //  "Dtos": "src\\Services\\Gleb.API\\Dtos",
+    //  "Events": "src\\Services\\Gleb.API\\Domain\\${MANY_ENTITIES}\\Events",
+    //  "EventHandlers": "src\\Services\\Gleb.API\\Application\\EventHandlers\\${MANY_ENTITIES}",
+    //  "Repositories": "src\\Services\\Gleb.API\\Infrastructure\\Data\\Repositories\\${MANY_ENTITIES}",
+    //  "RepositoryInterfaces": "src\\Services\\Gleb.API\\Domain\\${MANY_ENTITIES}\\Data"
+    //},
+    "OutputRelativePaths": {
+      "Entities": "Services\\Gleb.API\\Domain",
+      "UseCases": "Services\\Gleb.API\\UseCases",
+      //"DtoPath": "\\BuildingBlocks\\Contracts\\Dtos",
+      "Dtos": "Services\\Gleb.API\\Dtos",
+      "Events": "Services\\Gleb.API\\Domain\\${MANY_ENTITIES}\\Events",
+      "EventHandlers": "Services\\Gleb.API\\Application\\EventHandlers\\${MANY_ENTITIES}",
+      "Repositories": "Services\\Gleb.API\\Infrastructure\\Data\\Repositories\\${MANY_ENTITIES}",
+      "RepositoryInterfaces": "Services\\Gleb.API\\Domain\\${MANY_ENTITIES}\\Data"
+    }
+  }
+}

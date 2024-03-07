@@ -1,0 +1,41 @@
+﻿{
+  "ProjectConfig": {
+    "SolutionRootPath": "C:\\zephyr-team\\data_flow_service",
+    //"SolutionFileName": "subject.sln",
+    //"ApiRootPath": "\\Services\\Gleb.API",
+    //"SolutionRootPath": "E:\\templating\\subject",
+    //"DomainLayerPath": "\\Services\\BoundedContexts",
+    //"ApplicationLayerPath": "\\Services\\Gleb.API\\Application",
+    //"InfrastructureLayerPath": "\\Services\\Gleb.API\\Infrastructure",
+    ////"ApplicationLayerPath": "\\Services\\ApplicationOld",
+    //"DomainLayerNamespaceRoot": "BoundedContexts"
+    "Namespaces": {
+      "EntitiesBase": "Decider.API.Domain",
+      "UseCasesBase": "Decider.API.UseCases",
+      "Events": "Decider.API.Domain.${MANY_ENTITIES}.Events",
+      "EventHandlers": "Decider.API.EventHandlers.${MANY_ENTITIES}",
+      "Repositories": "Decider.API.Infrastructure.Data.Repositories.${MANY_ENTITIES}",
+      "RepositoryInterfaces": "Decider.API.Domain.${MANY_ENTITIES}.Data"
+    },
+    //"OutputRelativePaths": {
+    //  "Entities": "src\\Services\\Gleb.API\\Domain",
+    //  "UseCases": "src\\Services\\Gleb.API\\Application\\UseCases",
+    //  //"DtoPath": "\\BuildingBlocks\\Contracts\\Dtos",
+    //  "Dtos": "src\\Services\\Gleb.API\\Dtos",
+    //  "Events": "src\\Services\\Gleb.API\\Domain\\${MANY_ENTITIES}\\Events",
+    //  "EventHandlers": "src\\Services\\Gleb.API\\Application\\EventHandlers\\${MANY_ENTITIES}",
+    //  "Repositories": "src\\Services\\Gleb.API\\Infrastructure\\Data\\Repositories\\${MANY_ENTITIES}",
+    //  "RepositoryInterfaces": "src\\Services\\Gleb.API\\Domain\\${MANY_ENTITIES}\\Data"
+    //},
+    "OutputRelativePaths": {
+      "Entities": "src\\Services\\Decider\\Decider.API\\Domain",
+      "UseCases": "src\\Services\\Decider\\Decider.API\\UseCases",
+      //"DtoPath": "\\BuildingBlocks\\Contracts\\Dtos",
+      "Dtos": "src\\Services\\Decider\\Decider.API\\Dtos",
+      "Events": "src\\Services\\Decider\\Decider.API\\Domain\\${MANY_ENTITIES}\\Events",
+      "EventHandlers": "src\\Services\\Decider\\Decider.API\\Application\\EventHandlers\\${MANY_ENTITIES}",
+      "Repositories": "src\\Services\\Decider\\Decider.API\\Infrastructure\\Data\\Repositories\\${MANY_ENTITIES}",
+      "RepositoryInterfaces": "src\\Services\\Decider\\Decider.API\\Domain\\${MANY_ENTITIES}\\Data"
+    }
+  }
+}

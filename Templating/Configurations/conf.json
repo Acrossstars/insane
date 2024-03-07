@@ -1,9 +1,9 @@
 {
-  "domain": "BackendWallets",
+  "domain": "DecisionStatUnit",
 
   "entities": [
     {
-      "className": "BackendWallet",
+      "className": "DecisionStatUnit",
       "properties": [
         {
           "name": "UserId",
@@ -42,7 +42,7 @@
   ],
   "events": [
     {
-      "className": "BackendWalletAdded",
+      "className": "DecisionStatUnitAdded",
       "properties": [
         {
           "name": "Id",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "className": "BackendWalletUpdated",
+      "className": "DecisionStatUnitUpdated",
       "properties": [
         {
           "name": "Id",
@@ -68,7 +68,7 @@
       ]
     },
     {
-      "className": "BackendWalletDeleted",
+      "className": "DecisionStatUnitDeleted",
       "properties": [
         {
           "name": "Id",
@@ -79,35 +79,35 @@
   ],
   "repositories": [
     {
-      "className": "BackendWalletRepository",
-      "aggregateEntity": "BackendWallet",
+      "className": "DecisionStatUnitRepository",
+      "aggregateEntity": "DecisionStatUnit",
       "dbContext": "ApplicationDbContext",
       "methods": [
         {
           "type": "",
-          "name": "AddBackendWalletNotBaseMethod",
+          "name": "AddDecisionStatUnitNotBaseMethod",
           "parameters": [
             {
-              "type": "BackendWallet",
-              "name": "BackendWallet"
+              "type": "DecisionStatUnit",
+              "name": "DecisionStatUnit"
             }
           ],
           "logic": ""
         },
         {
           "type": "",
-          "name": "EditBackendWalletNotBaseMethod",
+          "name": "EditDecisionStatUnitNotBaseMethod",
           "parameters": [
             {
-              "type": "BackendWallet",
-              "name": "BackendWallet"
+              "type": "DecisionStatUnit",
+              "name": "DecisionStatUnit"
             }
           ],
           "logic": ""
         },
         {
           "type": "",
-          "name": "DeleteBackendWalletNotBaseMethod",
+          "name": "DeleteDecisionStatUnitNotBaseMethod",
           "parameters": [
             {
               "type": "string",
@@ -117,16 +117,16 @@
           "logic": ""
         },
         {
-          "type": "List<BackendWallet>",
-          "name": "GetAllBackendWallet",
+          "type": "List<DecisionStatUnit>",
+          "name": "GetAllDecisionStatUnit",
           "parameters": [
             {}
           ],
           "logic": ""
         },
         {
-          "type": "BackendWallet",
-          "name": "FindBackendWalletByIdNotBaseMethod",
+          "type": "DecisionStatUnit",
+          "name": "FindDecisionStatUnitByIdNotBaseMethod",
           "parameters": [
             {
               "type": "string",
@@ -140,115 +140,71 @@
   ],
   "useCases": [
     {
-      "DomainEntityName": "BackendWallet",
-      "HasRestEndpoint": false,
+      "DomainEntityName": "DecisionStatUnit",
+      "HasRestEndpoint": true,
       "HttpMethodType": 0,
       "RequestType": 1,
-      "name": "GetWalletBalance",
+      "name": "GetDecisionWeeklyReport",
       "UseCaseContext": {
         "OperableProperties": [
         ]
       },
       "UseCaseSteps": [
         "Validate the input",
-        "Retrieve the backend-wallet data from the blockchain",
+        "Retrieve the Decisio nWeekly Report",
         "Check if data is not null",
         "Map the data to a DTO (if necessary)",
         "Return the DTO"
       ]
     },
-    {
-      "DomainEntityName": "BackendWallet",
-      "HasRestEndpoint": false,
-      "HttpMethodType": 1,
-      "RequestType": 0,
-      "name": "CreateBackendWallet",
-      "UseCaseContext": {
-        "OperableProperties": [
-          {
-            "name": "UserId",
-            "type": "string"
-          },
-          {
-            "name": "Label",
-            "type": "string"
-          },
-          {
-            "name": "Address",
-            "type": "string"
-          },
-          {
-            "name": "SmartWallet",
-            "type": "string"
-          },
-          {
-            "name": "Balance",
-            "type": "string"
-          },
-          {
-            "name": "Currency",
-            "type": "string"
-          },
-          {
-            "name": "Created",
-            "type": "DateTime"
-          },
-          {
-            "name": "Updated",
-            "type": "DateTime"
-          }
-        ]
-      },
-      "UseCaseSteps": [
-        "Validate the input",
-        "Create Backend-Wallet",
-        "Map the data to a DTO (if necessary)",
-        "Return the DTO"
-      ]
-    },
     //{
-    //  "DomainEntityName": "BackendWallet",
+    //  "DomainEntityName": "DecisionStatUnit",
     //  "HasRestEndpoint": false,
-    //  "HttpMethodType": 2,
+    //  "HttpMethodType": 1,
     //  "RequestType": 0,
-    //  "name": "UpdateKekBackendWalletDataById",
+    //  "name": "CreateDecisionStatUnit",
     //  "UseCaseContext": {
     //    "OperableProperties": [
     //      {
-    //        "name": "CollectionId",
+    //        "name": "UserId",
     //        "type": "string"
+    //      },
+    //      {
+    //        "name": "Label",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "Address",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "SmartWallet",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "Balance",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "Currency",
+    //        "type": "string"
+    //      },
+    //      {
+    //        "name": "Created",
+    //        "type": "DateTime"
+    //      },
+    //      {
+    //        "name": "Updated",
+    //        "type": "DateTime"
     //      }
     //    ]
     //  },
     //  "UseCaseSteps": [
-    //    "Validate the input id",
-    //    "Retrieve the digital collection data from the repository",
-    //    "Check if data is not null",
+    //    "Validate the input",
+    //    "Create Backend-Wallet",
     //    "Map the data to a DTO (if necessary)",
     //    "Return the DTO"
     //  ]
     //},
-    //{
-    //  "DomainEntityName": "BackendWallet",
-    //  "HasRestEndpoint": false,
-    //  "HttpMethodType": 3,
-    //  "RequestType": 0,
-    //  "name": "DeleteKekBackendWalletDataById",
-    //  "UseCaseContext": {
-    //    "OperableProperties": [
-    //      {
-    //        "name": "CollectionId",
-    //        "type": "string"
-    //      }
-    //    ]
-    //  },
-    //  "UseCaseSteps": [
-    //    "Validate the input id",
-    //    "Retrieve the digital collection data from the repository",
-    //    "Check if data is not null",
-    //    "Map the data to a DTO (if necessary)",
-    //    "Return the DTO"
-    //  ]
-    //}
   ]
 }

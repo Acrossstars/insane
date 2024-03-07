@@ -27,6 +27,8 @@ internal class FileLoader
     {
         Directory.CreateDirectory(fileDirectory);
 
+        Console.WriteLine($"{fileDirectory}\\{fileName}");
+
         using (var file = File.Open($"{fileDirectory}\\{fileName}", FileMode.OpenOrCreate))
         {
             var bytes = Encoding.UTF8.GetBytes(fileContent);

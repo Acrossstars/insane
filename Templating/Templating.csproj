@@ -36,13 +36,13 @@
 	  <None Update="Configurations\Projects\DesertBrawlAPI\DesertBrawlAPI.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="Configurations\Projects\GlebAPI\GlebAPI.json">
+	  <None Update="Configurations\Projects\GlebAPI.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="Configurations\Projects\Scumdoff.AdminPanel.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	  <None Update="Configurations\Projects\UniqMerch.SmartContracts\UniqMerch.SmartContracts.json">
+	  <None Update="Configurations\Projects\Decider.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Update="Configurations\Repositories\repository.json">
@@ -52,6 +52,10 @@
 
 	<ItemGroup>
 	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Configurations\Projects\GlebAPI\" />
 	</ItemGroup>
 
 </Project>

@@ -38,8 +38,8 @@ public class FileBuilder
 
             Console.WriteLine(res);
 
-            var outputFileLoader = new FileLoader($"Configurations/Projects/Scumdoff.AdminPanel.json");
-            outputFileLoader.AddOutputFilesToFolder(fileName, fileDirectory);
+            //var outputFileLoader = new FileLoader($"Configurations/Projects/Scumdoff.AdminPanel.json");
+            //outputFileLoader.AddOutputFilesToFolder(fileName, fileDirectory);
 
             //var forArduinoFileDirectory = 
         }

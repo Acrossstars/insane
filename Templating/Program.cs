@@ -4,11 +4,11 @@ using Templating.Features;
 
 //MSBuildLocator.RegisterDefaults();
 
-//var projectsToSearch = new List<string> { "UniqMerch.SmartContracts", "UniqMerch.API" };
 //var projectsToSearch = new List<string> { "DataService.API", "Decider.API", "Behavior.API" };
 
 //var projectConfigName = "Scumdoff.AdminPanel";
-var projectConfigName = "UniqMerch.SmartContracts/UniqMerch.SmartContracts";
+//var projectConfigName = "GlebAPI";
+var projectConfigName = "Decider";
 
 var metadataDir = $"{Directory.GetCurrentDirectory()}";
 
